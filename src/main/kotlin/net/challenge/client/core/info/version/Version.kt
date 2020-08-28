@@ -17,6 +17,9 @@
 
 package net.challenge.client.core.info.version
 
+/**
+ * Default implementation of [Version]
+ */
 class Version(private val major: Int, private val minor: Int, private val patch: Int) : IVersion {
 
     /**

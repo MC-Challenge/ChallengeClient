@@ -20,8 +20,10 @@ package net.challenge.client.features.modules
 import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.annotations.ModuleInfo
 
-
-abstract class AbstractModule : IModule {
+/**
+ * Default implementation of [IModule]
+ */
+abstract class Module : IModule {
 
     override var enabled: Boolean = false
         set(value) {
