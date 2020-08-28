@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "net.challenge.client.injection.mixins",
+  "refmap": "mixins.challenge.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinMinecraft"
+  ]
+}
