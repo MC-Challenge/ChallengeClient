@@ -15,45 +15,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.core
+package net.challenge.client.features.modules
 
-import me.zero.alpine.bus.EventBus
+import me.zero.alpine.listener.Listenable
 
-import net.challenge.client.core.info.ClientInfo
-import net.challenge.client.core.info.IClientInfo
-import org.apache.logging.log4j.Logger
 
-interface IClientCore {
+interface IModule : Listenable {
 
     /**
-     * Info of the client
+     * Name of the module
      */
-    val info: IClientInfo
+    var name: String
 
     /**
-     * Simple logger for logging
+     * Description of the module
      */
-    val logger: Logger
+    var description: String
 
     /**
-     * Event bus for calling events
-     */
-    val eventBus: EventBus
-
-    /**
-     * We executed before the client starts.
      *
-     * @return If the return value is false, the start process is aborted.
      */
-    fun onPreStart(): Boolean
+    var enabled: Boolean
+
 
     /**
-     * This will be executed as soon as the client is successfully started.
+     * Will be executed when the module is activated
      */
-    fun onPostStart()
+    fun onEnable();
 
     /**
-     * Once the client is turned off, this method is finally executed.
+     * Will be executed when the module is deactivated
      */
-    fun onShutdown()
+    fun onDisable();
+
+    /**
+     * Toggle the module
+     */
+    fun toggle()
 }

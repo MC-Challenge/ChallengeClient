@@ -1,3 +1,20 @@
+/*
+ * Challenge Client
+ * https://github.com/MC-Challenge/ChallengeClient/
+
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package net.challenge.client.core.info
 
 import net.challenge.client.core.info.version.IVersion
@@ -6,22 +23,13 @@ import net.challenge.client.core.info.version.Version
 /**
  * This class contains all information about the client
  */
-class ClientInfo {
+class ClientInfo : IClientInfo {
 
-    /**
-     * Name of the Client
-     */
-    val name: String = "ChallengeClient"
+    override val name: String = "ChallengeClient"
 
-    /**
-     * Installed version of the Client
-     */
-    val version: IVersion = Version(1, 0, 0)
+    override val version: IVersion = Version(1, 0, 0)
 
-    /**
-     * Creator of the client
-     */
-    val creators: Array<String> = arrayOf("Madakai", "6AM")
+    override val creators: Array<String> = arrayOf("Madakai", "6AM")
 
 
     override fun toString(): String {

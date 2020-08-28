@@ -1,18 +1,36 @@
+/*
+ * Challenge Client
+ * https://github.com/MC-Challenge/ChallengeClient/
+
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package net.challenge.client.core
 
 import me.zero.alpine.bus.EventBus
 import me.zero.alpine.bus.ExtendEventManager
 import net.challenge.client.core.info.ClientInfo
+import net.challenge.client.core.info.IClientInfo
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 
 object ClientCore : IClientCore {
 
-    val info: ClientInfo = ClientInfo()
+    override val info: IClientInfo = ClientInfo()
 
-    val logger: Logger = LogManager.getLogger(ClientCore.javaClass)
+    override val logger: Logger = LogManager.getLogger(ClientCore.javaClass)
 
-    val eventBus: EventBus = ExtendEventManager()
+    override val eventBus: EventBus = ExtendEventManager()
 
 
     override fun onPreStart(): Boolean {
