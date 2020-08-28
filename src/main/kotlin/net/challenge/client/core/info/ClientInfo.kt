@@ -21,7 +21,7 @@ import net.challenge.client.core.info.version.IVersion
 import net.challenge.client.core.info.version.Version
 
 /**
- * This class contains all information about the client
+ * Default implementation of [IClientInfo]
  */
 class ClientInfo : IClientInfo {
 

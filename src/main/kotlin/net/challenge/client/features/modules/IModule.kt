@@ -19,7 +19,9 @@ package net.challenge.client.features.modules
 
 import me.zero.alpine.listener.Listenable
 
-
+/**
+ * A function of the client
+ */
 interface IModule : Listenable {
 
     /**
@@ -33,7 +35,7 @@ interface IModule : Listenable {
     var description: String
 
     /**
-     *
+     * Is the module enabled
      */
     var enabled: Boolean
 
