@@ -22,11 +22,11 @@ buildscript {
     }
 
     dependencies {
+        classpath group: 'org.jetbrains.kotlin', name: 'kotlin-gradle-plugin', version: kotlin_version
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
         classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.0.10"
         classpath "org.spongepowered:mixingradle:0.6-SNAPSHOT"
         classpath "com.github.jengelman.gradle.plugins:shadow:1.2.3"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -46,6 +46,10 @@ repositories {
     maven {
         name = 'spongepowered-repo'
         url = 'http://repo.spongepowered.org/maven/'
+    }
+
+    maven {
+        url "https://jitpack.io"
     }
 }
 
@@ -80,8 +84,10 @@ dependencies {
     compile("org.spongepowered:mixin:0.6.4-SNAPSHOT") {
         exclude module: "launchwrapper"
     }
-    implementation 'org.jetbrains:annotations:15.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: kotlin_version
+
+    compile 'com.github.MC-Challenge:Alpine:1.10'
 }
 
 processResources {
@@ -100,14 +106,20 @@ processResources {
 }
 
 mixin {
-    add sourceSets.main, "mixins.clientbase.refmap.json"
+    add sourceSets.main, "mixins.challenge.refmap.json"
 }
 
 shadowJar {
     dependencies {
         include(dependency('org.spongepowered:mixin'))
         include(dependency('org.jetbrains:annotations'))
+
+        include(dependency('org.jetbrains.kotlin:kotlin-stdlib'))
+        include(dependency('com.github.MC-Challenge:Alpine'))
     }
+
+    exclude 'dummyThing'
+    exclude 'LICENSE.txt'
 
     classifier = 'full'
 }
@@ -116,7 +128,7 @@ build.dependsOn(shadowJar)
 
 jar {
     manifest.attributes(
-            "MixinConfigs": 'mixins.clientbase.json',
+            "MixinConfigs": 'mixins.challenge.json',
             "tweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
             "TweakOrder": 0,
             "FMLCorePluginContainsFMLMod": 'net.challenge.client.injection.MixinLoader'
