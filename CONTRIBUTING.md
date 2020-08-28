@@ -24,3 +24,16 @@ To document the ownership of a file, we include the following text in all code f
  * https://github.com/MC-Challenge/ChallengeClient/
  */
 ```
+
+# Mixin
+### How to Use
+
+To Use Mixin, you have to follow, this step:
+
+* Write over your class, the [annotation](https://de.wikipedia.org/wiki/Annotation_(Java)) ```@Mixin(YourClass.class)```, and replace 'YourClass', with the class you want to inject into.
+
+### Inject into methods
+
+To inject into methods, you have to create, a new method, in your mixin-class, and add the parameter, from the 'original' method. Also you have the parameter 'Callback'.
+Then you write over this created method the following [annotation](https://de.wikipedia.org/wiki/Annotation_(Java))
+ * ```@Inject(method = "yourMethodFromTheInjectClass", at = @At(value = "YOURFIELD", target = "YourTarget", shift = At.Shift.YOURSHIFT))```
