@@ -106,7 +106,7 @@ processResources {
 }
 
 mixin {
-    add sourceSets.main, "mixins.clientbase.refmap.json"
+    add sourceSets.main, "mixins.challenge.refmap.json"
 }
 
 shadowJar {
@@ -128,7 +128,7 @@ build.dependsOn(shadowJar)
 
 jar {
     manifest.attributes(
-            "MixinConfigs": 'mixins.clientbase.json',
+            "MixinConfigs": 'mixins.challenge.json',
             "tweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
             "TweakOrder": 0,
             "FMLCorePluginContainsFMLMod": 'net.challenge.client.injection.MixinLoader'
