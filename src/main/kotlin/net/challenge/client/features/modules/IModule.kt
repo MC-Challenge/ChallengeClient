@@ -15,25 +15,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.core.info.version
+package net.challenge.client.features.modules
+
+import me.zero.alpine.listener.Listenable
 
 /**
- * Default implementation of [Version]
+ * A function of the client
  */
-class Version(private val major: Int, private val minor: Int, private val patch: Int) : IVersion {
+interface IModule : Listenable {
 
     /**
-     * @return The version formatted as `$major.$minor.$patch` (Integer)
+     * Name of the module
      */
-    
-    override fun toInteger(): Int {
-        return "$major.$minor.$patch".toInt()
-    }
+    var name: String
 
     /**
-     * @return The version formatted as `major.minor.patch`
+     * Description of the module
      */
-    override fun toString(): String {
-        return "$major.$minor.$patch"
-    }
+    var description: String
+
+    /**
+     * Is the module enabled
+     */
+    var enabled: Boolean
+
+
+    /**
+     * Will be executed when the module is activated
+     */
+    fun onEnable();
+
+    /**
+     * Will be executed when the module is deactivated
+     */
+    fun onDisable();
+
+    /**
+     * Toggle the module
+     */
+    fun toggle()
 }
