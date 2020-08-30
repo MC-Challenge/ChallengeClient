@@ -32,7 +32,6 @@ object ClientCore : IClientCore {
 
     override fun onPreStart(): Boolean {
         logger.debug("PRE-Start")
-
         return true
     }
 
