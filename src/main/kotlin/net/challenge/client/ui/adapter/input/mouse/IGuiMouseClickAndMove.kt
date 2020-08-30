@@ -15,22 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.ui.widget.renderer
+package net.challenge.client.ui.adapter.input.mouse
 
 import net.challenge.client.ui.widget.IWidget
+import net.minecraft.client.gui.GuiScreen
 
 /**
- * This is implemented to give a widget element a look.
- * These renderers must then be registered in [WidgetRenderers]
+ * This can be implemented in a [IWidget] if you want to have an adapter to the method [GuiScreen.mouseClickMove]
  */
-interface IWidgetRenderer<W : IWidget> {
+interface IGuiMouseClickAndMove {
 
     /**
-     * Render the widget look
+     * Called when a mouse button is pressed and the mouse is moved around.
      *
-     * @param widget Widget that should be rendered
-     * @param mouseX Mouse X-Position in pixel
-     * @param mouseY Mouse Y-Position in pixel
+     * @param mouseX Mouse X position in pixel.
+     * @param mouseY Mouse Y position in pixel.
+     * @param clickedMouseButton The button that was clicked on the mouse.
+     * @param timeSinceLastClick The time between now and the last click is in milliseconds.
      */
-    fun render(widget: W, mouseX: Int, mouseY: Int)
+    fun mouseClickAndMove(mouseX: Int, mouseY: Int, clickedMouseButton: Int, timeSinceLastClick: Long)
 }

@@ -15,18 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.utils
+package net.challenge.client.ui.adapter
 
-import net.minecraft.client.Minecraft
+import net.challenge.client.ui.widget.IWidget
+import net.minecraft.client.gui.GuiScreen
 
 /**
- * Implementation of the instance of [Minecraft]
+ * This can be implemented in a [IWidget] if you want to have an adapter to the method [GuiScreen.drawScreen]
  */
-interface IMC {
+interface IRender {
 
     /**
-     * Instance of [Minecraft]
+     * Render the renderer.
+     *
+     * @param mouseX Mouse X position in pixel.
+     * @param mouseY Mouse Y position in pixel.
      */
-    val mc: Minecraft
-        get() = Minecraft.getMinecraft()
+    fun render(mouseX: Int, mouseY: Int)
 }

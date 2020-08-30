@@ -15,18 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.utils
+package net.challenge.client.ui.widget.elements
 
-import net.minecraft.client.Minecraft
+import net.challenge.client.ui.widget.ClickableWidget
 
 /**
- * Implementation of the instance of [Minecraft]
+ * Default implementation of a [ClickableWidget]
  */
-interface IMC {
-
-    /**
-     * Instance of [Minecraft]
-     */
-    val mc: Minecraft
-        get() = Minecraft.getMinecraft()
-}
+class Button(val name: String = "Button-Name") : ClickableWidget<Button>()

@@ -15,12 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.ui.widget.elements.button
+package net.challenge.client.ui.adapter
 
-import net.challenge.client.ui.widget.ClickableWidget
+import net.challenge.client.ui.widget.IWidget
+import net.minecraft.client.gui.GuiScreen
 
 /**
- * TODO Doc
+ * This can be implemented in a [IWidget] if you want to have an adapter to the method [GuiScreen.onGuiClosed]
  */
-class Button(val name: String = "No-Name") : ClickableWidget<Button>() {
+interface IGuiClose {
+
+    /**
+     * Is called when the [GuiScreen] close
+     */
+    fun onGuiClose()
 }

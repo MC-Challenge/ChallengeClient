@@ -23,7 +23,7 @@ import net.minecraft.client.gui.ScaledResolution
 import kotlin.math.roundToInt
 
 /**
- * TODO Doc
+ * The position is calculated according to the current scaled Minecraft screen size
  */
 class ScaledPosition : IPosition, IScaledResolutionHelper {
 
@@ -68,10 +68,24 @@ class ScaledPosition : IPosition, IScaledResolutionHelper {
 
     companion object {
 
+        /**
+         * Create a [ScaledPosition] from a relative position
+         *
+         * @param x Relative X-Position
+         * @param y Relative Y-Position
+         * @return Created position
+         */
         fun fromRelativePosition(x: Double, y: Double): ScaledPosition {
             return ScaledPosition(x, y)
         }
 
+        /**
+         * Create a [ScaledPosition] from a absolute position
+         *
+         * @param x Absolute X-Position
+         * @param y Absolute Y-Position
+         * @return Created position
+         */
         fun fromAbsolutePosition(x: Int, y: Int): ScaledPosition {
             return ScaledPosition(x, y)
         }

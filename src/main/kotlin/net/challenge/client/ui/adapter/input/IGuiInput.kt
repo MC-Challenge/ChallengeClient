@@ -15,18 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.utils
+package net.challenge.client.ui.adapter.input
 
-import net.minecraft.client.Minecraft
+import net.challenge.client.ui.adapter.input.mouse.IGuiMouseInput
+import net.challenge.client.ui.widget.IWidget
+import net.minecraft.client.gui.GuiScreen
 
 /**
- * Implementation of the instance of [Minecraft]
+ * This can be implemented in a [IWidget] if you want to have adapters
+ * to all input methods in the [GuiScreen]
  */
-interface IMC {
-
-    /**
-     * Instance of [Minecraft]
-     */
-    val mc: Minecraft
-        get() = Minecraft.getMinecraft()
-}
+interface IGuiInput : IGuiKeyType, IGuiMouseInput

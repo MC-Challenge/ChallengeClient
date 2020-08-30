@@ -15,18 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.utils
+package net.challenge.client.ui.adapter.input
 
-import net.minecraft.client.Minecraft
+import net.challenge.client.ui.widget.IWidget
+import net.minecraft.client.gui.GuiScreen
 
 /**
- * Implementation of the instance of [Minecraft]
+ * This can be implemented in a [IWidget] if you want to have an adapter to the method [GuiScreen.keyTyped]
  */
-interface IMC {
+interface IGuiKeyType {
 
     /**
-     * Instance of [Minecraft]
+     * It is executed as soon as a key is pressed
+     *
+     * @param typedChar
+     * @param keyCode
      */
-    val mc: Minecraft
-        get() = Minecraft.getMinecraft()
+    fun keyType(typedChar: Char, keyCode: Int)
 }
