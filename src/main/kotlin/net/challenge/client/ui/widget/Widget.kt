@@ -24,7 +24,7 @@ import net.challenge.client.ui.widget.renderer.WidgetRenderers
 /**
  * Default implementation of [IWidget]
  */
-open class Widget<W : IWidget> : IWidget {
+open class Widget<W : Widget<W>> : IWidget {
 
     override var position: IPosition = ScaledPosition(0, 0)
 
@@ -36,6 +36,8 @@ open class Widget<W : IWidget> : IWidget {
 
     
     override fun render(mouseX: Int, mouseY: Int) {
-        WidgetRenderers.getRenderer(this.javaClass)
+
+        @Suppress("UNCHECKED_CAST")
+        WidgetRenderers.getRenderer(this.javaClass)?.render(this as W, mouseX, mouseY)
     }
 }

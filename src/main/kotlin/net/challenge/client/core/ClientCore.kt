@@ -3,8 +3,8 @@ package net.challenge.client.core
 import me.zero.alpine.bus.EventBus
 import me.zero.alpine.bus.ExtendEventManager
 import net.challenge.client.core.info.ClientInfo
-import net.challenge.client.features.cosmetics.registry.CosmeticRegistry
 import net.challenge.client.core.info.IClientInfo
+import net.challenge.client.features.cosmetics.registry.CosmeticRegistry
 import net.challenge.client.features.cosmetics.registry.ICosmeticRegistry
 import net.challenge.client.features.modules.registry.IModuleRegistry
 import net.challenge.client.features.modules.registry.ModuleRegistry
