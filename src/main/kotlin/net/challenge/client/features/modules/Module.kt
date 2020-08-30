@@ -19,6 +19,7 @@ package net.challenge.client.features.modules
 
 import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.annotations.ModuleInfo
+import net.challenge.client.value.ValueHandler
 
 /**
  * Default implementation of [IModule]
