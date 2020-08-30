@@ -71,11 +71,4 @@ open class WidgetScreen : GuiScreen() {
     fun addWidgets(vararg widget: IWidget) {
         widgetContainer.addWidgets(*widget)
     }
-
-    /**
-     * Open this screen
-     */
-    fun open() {
-        mc.displayGuiScreen(this)
-    }
 }

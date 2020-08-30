@@ -34,7 +34,5 @@ class MixinMinecraft {
     }
 
     @Inject(method = "startGame", at = [At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;displayGuiScreen(Lnet/minecraft/client/gui/GuiScreen;)V", shift = At.Shift.AFTER)])
-    private fun afterMainScreen(callbackInfo: CallbackInfo) {
-        TestWidgetScreen().open()
-    }
+    private fun afterMainScreen(callbackInfo: CallbackInfo) { }
 }
