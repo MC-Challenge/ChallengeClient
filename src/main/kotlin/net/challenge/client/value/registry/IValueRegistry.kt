@@ -1,58 +1,37 @@
 /*
  * Challenge Client
  * https://github.com/MC-Challenge/ChallengeClient/
-
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
-
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
-
+ *  GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.features.modules
+package net.challenge.client.value.registry
 
-import me.zero.alpine.listener.Listenable
+import net.challenge.client.features.modules.Module
+import net.challenge.client.value.Value
 import net.challenge.client.value.ValueHandler
 
-/**
- * A function of the client
- */
-interface IModule : Listenable, ValueHandler {
-
-    /**
-     * Name of the module
-     */
-    var name: String
-
-    /**
-     * Description of the module
-     */
-    var description: String
-
-    /**
-     * Is the module enabled
-     */
-    var enabled: Boolean
+interface IValueRegistry {
 
 
     /**
-     * Will be executed when the module is activated
+     * # Register Handler
+     * This method, registers an handler
      */
-    fun onEnable();
+    fun registerValueHandler(valueHandler: ValueHandler)
 
     /**
-     * Will be executed when the module is deactivated
+     * # Getting Values, from an Handler
+     * This method, fetches the values, from an handler
+     * @return all values of the handler, that was typed in
      */
-    fun onDisable();
+    fun getAllValuesFrom(valueHandler: ValueHandler): List<Value<*>>?
 
-    /**
-     * Toggle the module
-     */
-    fun toggle()
 }
