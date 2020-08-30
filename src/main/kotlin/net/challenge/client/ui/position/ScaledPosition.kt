@@ -25,10 +25,17 @@ import kotlin.math.roundToInt
 /**
  * TODO Doc
  */
-class ScaledPosition(private var x: Double, private var y: Double) : IPosition, IScaledResolutionHelper {
+class ScaledPosition : IPosition, IScaledResolutionHelper {
+
+    private var x: Double = 0.0
+    private var y: Double = 0.0
 
     constructor(x: Int, y: Int) {
         setAbsolute(x, y)
+    }
+
+    constructor(x: Double, y: Double) {
+        setRelative(x, y)
     }
 
     override fun getAbsoluteX(): Int {

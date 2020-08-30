@@ -1,12 +1,13 @@
 package net.challenge.client.ui.screen
 
 import net.challenge.client.ui.screen.container.WidgetContainer
+import net.challenge.client.ui.widget.IWidget
 import net.minecraft.client.gui.GuiScreen
 
 /**
  * TODO Doc
  */
-class WidgetScreen : GuiScreen() {
+open class WidgetScreen : GuiScreen() {
 
     private val widgetContainer = WidgetContainer()
 
@@ -16,7 +17,7 @@ class WidgetScreen : GuiScreen() {
     }
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
-        widgetContainer.render(mouseX, mouseY, partialTicks)
+        widgetContainer.render(mouseX, mouseY)
 
         super.drawScreen(mouseX, mouseY, partialTicks)
     }
@@ -43,5 +44,9 @@ class WidgetScreen : GuiScreen() {
         widgetContainer.keyType(typedChar, keyCode)
 
         super.keyTyped(typedChar, keyCode)
+    }
+
+    fun addWidgets(vararg widget: IWidget) {
+        widgetContainer.addWidgets(*widget)
     }
 }

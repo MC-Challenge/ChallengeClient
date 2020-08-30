@@ -21,13 +21,11 @@ class WidgetContainer : IGuiEvents {
     private var visibleWidgets: List<IWidget> = listOf()
 
 
-    override fun render(mouseX: Int, mouseY: Int, partialTicks: Float) {
+    override fun render(mouseX: Int, mouseY: Int) {
         visibleWidgets = widgets.filter(IWidget::visible).toList().reversed()
 
-        visibleWidgets.filter {
-            (it is IRender)
-        }.forEach(Consumer { widget: IWidget ->
-            (widget as IRender).render(mouseX, mouseY, partialTicks)
+        visibleWidgets.forEach(Consumer { widget: IWidget ->
+            (widget as IRender).render(mouseX, mouseY)
         })
     }
 
@@ -80,5 +78,9 @@ class WidgetContainer : IGuiEvents {
         }.forEach(Consumer { widget: IWidget ->
             (widget as IGuiMouseRelease).mouseRelease(mouseX, mouseY, mouseButton)
         })
+    }
+
+    fun addWidgets(vararg widget: IWidget) {
+        widgets = widgets + widget
     }
 }

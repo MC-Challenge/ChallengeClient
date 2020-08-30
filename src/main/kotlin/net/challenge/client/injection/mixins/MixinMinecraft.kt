@@ -1,6 +1,7 @@
 package net.challenge.client.injection.mixins
 
 import net.challenge.client.core.ClientCore
+import net.challenge.client.ui.screen.TestWidgetScreen
 import net.minecraft.client.Minecraft
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -16,5 +17,7 @@ class MixinMinecraft {
     @Inject(method = "startGame", at = [At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;checkGLError(Ljava/lang/String;)V", ordinal = 2, shift = At.Shift.AFTER)])
     private fun startGame(callbackInfo: CallbackInfo) {
         ClientCore.onPostStart()
+
+        Minecraft.getMinecraft().displayGuiScreen(TestWidgetScreen())
     }
 }

@@ -17,12 +17,13 @@
 
 package net.challenge.client.ui.widget
 
+import net.challenge.client.ui.events.IRender
 import net.challenge.client.ui.position.IPosition
 
 /**
  * TODO Doc
  */
-interface IWidget {
+interface IWidget : IRender {
 
     /**
      * Position of the widget
@@ -43,4 +44,19 @@ interface IWidget {
      * If the widget is not visible no implemented input methods are executed and the widget is not rendered anymore
      */
     var visible: Boolean
+
+    /**
+    * If the mouse is over the widget.
+    *
+    * @param mouseX Mouse X position in pixel.
+    * @param mouseY Mouse Y position in pixel.
+    *
+    * @return Is mouse over
+    */
+    fun isHover(mouseX: Int, mouseY: Int): Boolean {
+        val x =  position.getAbsoluteX()
+        val y = position.getAbsoluteY()
+
+        return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height
+    }
 }

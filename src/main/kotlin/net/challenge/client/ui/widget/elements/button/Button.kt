@@ -15,27 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.ui.widget
+package net.challenge.client.ui.widget.elements.button
 
-import net.challenge.client.ui.position.IPosition
-import net.challenge.client.ui.position.ScaledPosition
-import net.challenge.client.ui.widget.renderer.WidgetRenderers
+import net.challenge.client.ui.widget.ClickableWidget
 
 /**
- * Default implementation of [IWidget]
+ * TODO Doc
  */
-open class Widget<W : IWidget> : IWidget {
-
-    override var position: IPosition = ScaledPosition(0, 0)
-
-    override var width: Int = 0
-
-    override var height: Int = 0
-
-    override var visible: Boolean = true
-
-    
-    override fun render(mouseX: Int, mouseY: Int) {
-        WidgetRenderers.getRenderer(this.javaClass)
-    }
+class Button(val name: String = "No-Name") : ClickableWidget<Button>() {
 }
