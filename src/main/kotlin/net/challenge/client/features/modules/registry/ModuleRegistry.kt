@@ -17,6 +17,7 @@
 
 package net.challenge.client.features.modules.registry
 
+import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.IModule
 
 
@@ -41,6 +42,7 @@ class ModuleRegistry : IModuleRegistry {
 
     override fun registerModule(module: IModule) {
         modules += module
+        ClientCore.valueRegistry.registerValueHandler(module)
     }
 
     override fun getModule(name: String): IModule {

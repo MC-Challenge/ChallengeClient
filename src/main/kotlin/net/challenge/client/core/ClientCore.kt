@@ -3,7 +3,13 @@ package net.challenge.client.core
 import me.zero.alpine.bus.EventBus
 import me.zero.alpine.bus.ExtendEventManager
 import net.challenge.client.core.info.ClientInfo
+import net.challenge.client.features.cosmetics.registry.CosmeticRegistry
 import net.challenge.client.core.info.IClientInfo
+import net.challenge.client.features.cosmetics.registry.ICosmeticRegistry
+import net.challenge.client.features.modules.registry.IModuleRegistry
+import net.challenge.client.features.modules.registry.ModuleRegistry
+import net.challenge.client.value.registry.IValueRegistry
+import net.challenge.client.value.registry.ValueRegistry
 import net.norisk.core.features.command.CommandRegistry
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -18,17 +24,23 @@ object ClientCore : IClientCore {
 
     val commandRegistry: CommandRegistry = CommandRegistry()
 
+    val cosmeticRegistry: ICosmeticRegistry = CosmeticRegistry()
+
+    val valueRegistry: IValueRegistry = ValueRegistry()
+
+    val moduleRegistry: IModuleRegistry = ModuleRegistry()
 
     override fun onPreStart(): Boolean {
         logger.debug("PRE-Start")
-
         return true
     }
 
     override fun onPostStart() {
         logger.debug("Post-Start")
-
         logger.info(info.toString())
+
+        cosmeticRegistry.load()
+        moduleRegistry.load()
     }
 
     override fun onShutdown() {
