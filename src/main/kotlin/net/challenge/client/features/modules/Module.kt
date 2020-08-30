@@ -19,12 +19,15 @@ package net.challenge.client.features.modules
 
 import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.annotations.ModuleInfo
-import net.challenge.client.value.ValueHandler
 
 /**
  * Default implementation of [IModule]
  */
-abstract class Module : IModule {
+open class Module : IModule {
+
+    override val name: String = javaClass.getAnnotation(ModuleInfo::class.java).name
+
+    override val description: String = javaClass.getAnnotation(ModuleInfo::class.java).description
 
     override var enabled: Boolean = false
         set(value) {
@@ -35,14 +38,6 @@ abstract class Module : IModule {
             else
                 onDisable()
         }
-
-
-    init {
-        val info: ModuleInfo = javaClass.getAnnotation(ModuleInfo::class.java)
-
-        name = info.name
-        description = info.description
-    }
 
 
     override fun onEnable() {
