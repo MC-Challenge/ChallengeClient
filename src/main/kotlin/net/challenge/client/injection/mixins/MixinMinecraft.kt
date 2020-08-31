@@ -1,6 +1,7 @@
 package net.challenge.client.injection.mixins
 
 import net.challenge.client.core.ClientCore
+import net.challenge.client.ui.animation.AnimationUtil
 import net.challenge.client.ui.screen.TestWidgetScreen
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiScreen
@@ -37,4 +38,12 @@ class MixinMinecraft {
     private fun afterMainScreen(callbackInfo: CallbackInfo) {
         Minecraft.getMinecraft().displayGuiScreen(TestWidgetScreen())
     }
+
+    @Inject(method = "runGameLoop", at = [At(value = "HEAD")])
+    private fun runGameLoop(callbackInfo: CallbackInfo) {
+        val deltaTime = (Minecraft.getSystemTime() - AnimationUtil.deltaTime).toInt()
+        AnimationUtil.lastFrame = Minecraft.getSystemTime().toFloat()
+        AnimationUtil.deltaTime = deltaTime.toFloat()
+    }
+
 }

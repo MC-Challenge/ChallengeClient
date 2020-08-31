@@ -22,7 +22,6 @@ import net.challenge.client.ui.widget.elements.Button
 import net.challenge.client.ui.widget.elements.Checkbox
 import net.challenge.client.ui.widget.elements.Slider
 import net.minecraft.client.gui.Gui
-import net.minecraft.client.gui.GuiMainMenu
 import net.minecraft.client.gui.GuiSelectWorld
 import java.awt.Color
 
@@ -49,7 +48,7 @@ class TestWidgetScreen : WidgetScreen() {
                         .setSize(width, height)
                         .asPercent()
                         .onSelect {
-                            println("Set value to ${ it.value }")
+                            println("Set value to ${it.value}")
                         },
                 Checkbox("CheckBox")
                         .setPosition(ScaledPosition(5, 15 + height * 2))
