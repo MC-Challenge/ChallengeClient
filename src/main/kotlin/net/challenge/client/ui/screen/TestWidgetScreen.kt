@@ -19,6 +19,7 @@ package net.challenge.client.ui.screen
 
 import net.challenge.client.ui.position.ScaledPosition
 import net.challenge.client.ui.widget.elements.Button
+import net.challenge.client.ui.widget.elements.Slider
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.GuiMainMenu
 import net.minecraft.client.gui.GuiSelectWorld
@@ -30,19 +31,24 @@ import java.awt.Color
 class TestWidgetScreen : WidgetScreen() {
 
     init {
+        val width = 80
+        val height = 15
+
         addWidgets(
-                Button("MainMenu")
-                        .setPosition(ScaledPosition.fromRelativePosition(0.5, 0.5))
-                        .setSize(100, 40)
-                        .onClick {
-                            mc.displayGuiScreen(GuiMainMenu())
-                        },
 
                 Button("SelectWorld")
-                        .setPosition(ScaledPosition.fromRelativePosition(0.2, 0.2))
-                        .setSize(100, 40)
+                        .setPosition(ScaledPosition(5, 5))
+                        .setSize(width, height)
                         .onClick {
                             mc.displayGuiScreen(GuiSelectWorld(this))
+                        },
+                Slider("Value")
+                        .setPosition(ScaledPosition(19, 10 + height))
+                        .setValue(5.0)
+                        .setSize(width, height)
+                        .asPercent()
+                        .onSelect {
+                            println("Set value to ${ it.value }")
                         }
         )
     }

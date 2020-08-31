@@ -17,35 +17,35 @@
 
 package net.challenge.client.ui.widget.elements.renderer.default
 
-import net.challenge.client.ui.widget.elements.Button
+import net.challenge.client.ui.widget.elements.Slider
 import net.challenge.client.ui.widget.renderer.IWidgetRenderer
 import net.challenge.client.ui.widget.utils.RenderUtils
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.Gui
 import java.awt.Color
 
 /**
- * Default button renderer
+ *
  */
-class DButtonRenderer : IWidgetRenderer<Button> {
+class DSliderRenderer : IWidgetRenderer<Slider> {
 
-    override fun render(widget: Button, mouseX: Int, mouseY: Int) {
-        val x = widget.position.getAbsoluteX()
-        val y = widget.position.getAbsoluteY()
+    override fun render(widget: Slider, mouseX: Int, mouseY: Int) {
+        val x = widget.position.getAbsoluteX().toFloat()
+        val y = widget.position.getAbsoluteY().toFloat()
 
-        val hover = widget.isHover(mouseX, mouseY)
+        val width = widget.width.toFloat()
+        val height = widget.height.toFloat()
 
-        var bgColor = Color(50, 50, 50)
-        var textColor = Color(200, 200, 200).rgb
-
-        if (hover) {
-            bgColor = Color(60, 60, 60)
-            textColor = Color.WHITE.rgb
-        }
+        RenderUtils.drawRect(x, y, width, height, Color(50, 50, 50))
+        RenderUtils.drawRect(x, y + height - 3.0F, (widget.getAsPercent().toFloat() * width).coerceAtMost(width), 2.0F, Color.WHITE)
 
         val font = Minecraft.getMinecraft().fontRendererObj
+        font.drawString(widget.name, x.toInt() + 2, y.toInt() + 2, Color.WHITE.rgb)
 
-        RenderUtils.drawRect(x.toFloat(), y.toFloat(), widget.width.toFloat(), widget.height.toFloat(), bgColor)
-        font.drawString(widget.name, x + widget.width / 2 - font.getStringWidth(widget.name) / 2, y + widget.height / 2 - font.FONT_HEIGHT / 3, textColor)
+        var value = widget.value.toString()
+
+        if (widget.isPercent)
+            value += "%"
+
+        font.drawString(value, x.toInt() + width.toInt() - 3 - font.getStringWidth(value), y.toInt() + 2, Color.WHITE.rgb)
     }
 }

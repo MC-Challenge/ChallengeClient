@@ -63,6 +63,10 @@ open class WidgetScreen : GuiScreen() {
         super.keyTyped(typedChar, keyCode)
     }
 
+    override fun mouseClickMove(mouseX: Int, mouseY: Int, clickedMouseButton: Int, timeSinceLastClick: Long) {
+        widgetContainer.mouseClickAndMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)
+    }
+
     /**
      * Register widgets to the [WidgetContainer]
      *
