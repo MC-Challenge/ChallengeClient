@@ -21,6 +21,7 @@ import net.challenge.client.ui.position.ScaledPosition
 import net.challenge.client.ui.widget.elements.Button
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.GuiMainMenu
+import net.minecraft.client.gui.GuiSelectWorld
 import java.awt.Color
 
 /**
@@ -30,11 +31,18 @@ class TestWidgetScreen : WidgetScreen() {
 
     init {
         addWidgets(
-                Button("Main-Menu")
+                Button("MainMenu")
                         .setPosition(ScaledPosition.fromRelativePosition(0.5, 0.5))
                         .setSize(100, 40)
                         .onClick {
                             mc.displayGuiScreen(GuiMainMenu())
+                        },
+
+                Button("SelectWorld")
+                        .setPosition(ScaledPosition.fromRelativePosition(0.2, 0.2))
+                        .setSize(100, 40)
+                        .onClick {
+                            mc.displayGuiScreen(GuiSelectWorld(this))
                         }
         )
     }
