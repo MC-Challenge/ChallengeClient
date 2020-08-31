@@ -2,11 +2,13 @@ package net.challenge.client.injection.mixins
 
 import net.challenge.client.core.ClientCore
 import net.challenge.client.ui.animation.AnimationUtil
+import net.challenge.client.ui.hud.customHud.GuiCustomHud
 import net.challenge.client.ui.screen.TestWidgetScreen
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiScreen
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import org.lwjgl.input.Keyboard
 import org.lwjgl.opengl.Display
 import org.spongepowered.asm.mixin.Mixin
 import org.spongepowered.asm.mixin.Shadow
@@ -44,6 +46,13 @@ class MixinMinecraft {
         val deltaTime = (Minecraft.getSystemTime() - AnimationUtil.deltaTime).toInt()
         AnimationUtil.lastFrame = Minecraft.getSystemTime().toFloat()
         AnimationUtil.deltaTime = deltaTime.toFloat()
+    }
+
+    @Inject(method = "runTick", at = [At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;dispatchKeypresses()V", shift = At.Shift.AFTER)])
+    private fun runTick(callbackInfo: CallbackInfo) {
+        val k: Int = Keyboard.getEventKey()
+        if (k == Keyboard.KEY_RSHIFT)
+            Minecraft.getMinecraft().displayGuiScreen(GuiCustomHud())
     }
 
 }
