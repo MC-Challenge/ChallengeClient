@@ -18,12 +18,12 @@
 package net.challenge.client.ui.widget.interaction
 
 import net.challenge.client.ui.adapter.input.mouse.IGuiMouseClick
-import net.challenge.client.ui.widget.IWidget
+import net.challenge.client.ui.widget.IGuiWidget
 
 /**
  * This gives an IWidget the feature to be clicked.
  */
-interface IClickable<W : IWidget> : IGuiMouseClick {
+interface IClickable<W : IGuiWidget> : IGuiMouseClick {
 
     /**
      * Registered click listeners.

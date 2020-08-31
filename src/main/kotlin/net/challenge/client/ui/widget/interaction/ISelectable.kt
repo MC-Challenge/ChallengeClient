@@ -17,12 +17,12 @@
 
 package net.challenge.client.ui.widget.interaction
 
-import net.challenge.client.ui.widget.IWidget
+import net.challenge.client.ui.widget.IGuiWidget
 
 /**
  * This gives an IWidget the function to be selected
  */
-interface ISelectable<W : IWidget> {
+interface ISelectable<W : IGuiWidget> {
 
     /**
      * Registered select listeners.

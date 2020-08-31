@@ -17,11 +17,11 @@
 
 package net.challenge.client.ui.adapter.input.mouse
 
-import net.challenge.client.ui.widget.IWidget
+import net.challenge.client.ui.widget.IGuiWidget
 import net.minecraft.client.gui.GuiScreen
 
 /**
- * This can be implemented in a [IWidget] if you want to have an adapter to the method [GuiScreen.mouseClickMove]
+ * This can be implemented in a [IGuiWidget] if you want to have an adapter to the method [GuiScreen.mouseClickMove]
  */
 interface IGuiMouseClickAndMove {
 

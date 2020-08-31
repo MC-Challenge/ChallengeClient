@@ -15,18 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.ui.adapter.input.mouse
+package net.challenge.client.ui.adapter
 
 import net.challenge.client.ui.widget.IGuiWidget
 import net.minecraft.client.gui.GuiScreen
 
 /**
- * This can be implemented in a [IGuiWidget] if you want to have an adapter to the method [GuiScreen.handleMouseInput]
+ * This can be implemented in a [IGuiWidget] if you want to have an adapter to the method [GuiScreen.updateScreen]
  */
-interface IGuiHandleMouseInput {
+interface IGuiUpdate {
 
     /**
-     * Called when mouse has input.
+     * Update the screen anyone tick
      */
-    fun handleMouseInput()
+    fun updateScreen()
 }

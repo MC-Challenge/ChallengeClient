@@ -22,9 +22,9 @@ import net.challenge.client.ui.position.ScaledPosition
 import net.challenge.client.ui.widget.renderer.WidgetRenderers
 
 /**
- * Default implementation of [IWidget]
+ * Default implementation of [IGuiWidget]
  */
-open class Widget<W : Widget<W>> : IWidget {
+open class Widget<W : Widget<W>> : IGuiWidget {
 
     override var position: IPosition = ScaledPosition(0, 0)
 

@@ -17,14 +17,14 @@
 
 package net.challenge.client.ui.widget
 
-import net.challenge.client.ui.adapter.IRender
+import net.challenge.client.ui.adapter.IGuiRender
 import net.challenge.client.ui.position.IPosition
 
 /**
  * This is the basic structure element of a GUI-Screen.
  * A widget can interact with the user if the desired Gui-Adapters (find in [net.challenge.client.ui.adapter]) are implemented.
  */
-interface IWidget : IRender {
+interface IGuiWidget : IGuiRender {
 
     /**
      * Position of the widget

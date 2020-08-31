@@ -17,7 +17,7 @@
 
 package net.challenge.client.ui.widget.renderer
 
-import net.challenge.client.ui.widget.IWidget
+import net.challenge.client.ui.widget.IGuiWidget
 import net.challenge.client.ui.widget.elements.Button
 import net.challenge.client.ui.widget.elements.Checkbox
 import net.challenge.client.ui.widget.elements.Slider
@@ -47,14 +47,14 @@ object WidgetRenderers {
     /**
      * TODO Doc
      */
-    fun <W : IWidget> setRenderer(clazz: Class<W>, renderer: IWidgetRenderer<W>) {
+    fun <W : IGuiWidget> setRenderer(clazz: Class<W>, renderer: IWidgetRenderer<W>) {
         this.renderers[clazz] = renderer
     }
 
     /**
      * TODO Doc
      */
-    fun <C : IWidget> getRenderer(clazz: Class<C>): IWidgetRenderer<C>? {
+    fun <C : IGuiWidget> getRenderer(clazz: Class<C>): IWidgetRenderer<C>? {
         @Suppress("UNCHECKED_CAST")
         return this.renderers[clazz] as? IWidgetRenderer<C>
     }

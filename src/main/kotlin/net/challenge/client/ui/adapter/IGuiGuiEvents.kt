@@ -17,19 +17,13 @@
 
 package net.challenge.client.ui.adapter
 
-import net.challenge.client.ui.widget.IWidget
+import net.challenge.client.ui.adapter.input.IGuiInput
+import net.challenge.client.ui.widget.IGuiWidget
 import net.minecraft.client.gui.GuiScreen
 
 /**
- * This can be implemented in a [IWidget] if you want to have an adapter to the method [GuiScreen.drawScreen]
+ * This can be implemented in a [IGuiWidget] if you want to have adapters
+ * to all event methods in the [GuiScreen]
  */
-interface IRender {
-
-    /**
-     * Render the renderer.
-     *
-     * @param mouseX Mouse X position in pixel.
-     * @param mouseY Mouse Y position in pixel.
-     */
-    fun render(mouseX: Int, mouseY: Int)
+interface IGuiGuiEvents : IGuiClose, IGuiInput, IGuiRender, IGuiUpdate {
 }

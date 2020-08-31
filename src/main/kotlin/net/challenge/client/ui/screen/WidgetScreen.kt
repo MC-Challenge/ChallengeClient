@@ -18,7 +18,7 @@
 package net.challenge.client.ui.screen
 
 import net.challenge.client.ui.screen.container.WidgetContainer
-import net.challenge.client.ui.widget.IWidget
+import net.challenge.client.ui.widget.IGuiWidget
 import net.minecraft.client.gui.GuiScreen
 
 /**
@@ -67,12 +67,18 @@ open class WidgetScreen : GuiScreen() {
         widgetContainer.mouseClickAndMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)
     }
 
+    override fun updateScreen() {
+        widgetContainer.updateScreen()
+
+        super.updateScreen()
+    }
+
     /**
      * Register widgets to the [WidgetContainer]
      *
      * @param widget This widget will be added to the [WidgetContainer]
      */
-    fun addWidgets(vararg widget: IWidget) {
+    fun addWidgets(vararg widget: IGuiWidget) {
         widgetContainer.addWidgets(*widget)
     }
 }

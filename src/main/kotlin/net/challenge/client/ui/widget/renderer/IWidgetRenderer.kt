@@ -17,13 +17,13 @@
 
 package net.challenge.client.ui.widget.renderer
 
-import net.challenge.client.ui.widget.IWidget
+import net.challenge.client.ui.widget.IGuiWidget
 
 /**
  * This is implemented to give a widget element a look.
  * These renderers must then be registered in [WidgetRenderers]
  */
-interface IWidgetRenderer<W : IWidget> {
+interface IWidgetRenderer<W : IGuiWidget> {
 
     /**
      * Render the widget look

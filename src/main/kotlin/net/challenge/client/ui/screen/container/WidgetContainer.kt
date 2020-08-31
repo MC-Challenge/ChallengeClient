@@ -18,44 +18,45 @@
 package net.challenge.client.ui.screen.container
 
 import net.challenge.client.ui.adapter.IGuiClose
-import net.challenge.client.ui.adapter.IGuiEvents
-import net.challenge.client.ui.adapter.IRender
+import net.challenge.client.ui.adapter.IGuiGuiEvents
+import net.challenge.client.ui.adapter.IGuiRender
+import net.challenge.client.ui.adapter.IGuiUpdate
 import net.challenge.client.ui.adapter.input.IGuiKeyType
 import net.challenge.client.ui.adapter.input.mouse.IGuiHandleMouseInput
 import net.challenge.client.ui.adapter.input.mouse.IGuiMouseClick
 import net.challenge.client.ui.adapter.input.mouse.IGuiMouseClickAndMove
 import net.challenge.client.ui.adapter.input.mouse.IGuiMouseRelease
-import net.challenge.client.ui.widget.IWidget
+import net.challenge.client.ui.widget.IGuiWidget
 import java.util.function.Consumer
 
 /**
  * Container for widgets
  * TODO Detailed explanation
  */
-class WidgetContainer : IGuiEvents {
+class WidgetContainer : IGuiGuiEvents {
 
     /**
      * All registered widgets in this container
      */
-    private var widgets: List<IWidget> = listOf()
+    private var widgets: List<IGuiWidget> = listOf()
 
     /**
      * A cache for all widgets that are currently visible.
      */
-    private var visibleWidgets: List<IWidget> = listOf()
+    private var visibleWidgets: List<IGuiWidget> = listOf()
 
 
     override fun render(mouseX: Int, mouseY: Int) {
         // Cache is updated and reversed the list
-        visibleWidgets = widgets.filter(IWidget::visible).toList().reversed()
+        visibleWidgets = widgets.filter(IGuiWidget::visible).toList().reversed()
 
-        visibleWidgets.forEach(Consumer { widget: IWidget ->
-            (widget as IRender).render(mouseX, mouseY)
+        visibleWidgets.forEach(Consumer { widget: IGuiWidget ->
+            (widget as IGuiRender).render(mouseX, mouseY)
         })
     }
 
     override fun onGuiClose() {
-        visibleWidgets.forEach(Consumer { widget: IWidget ->
+        visibleWidgets.forEach(Consumer { widget: IGuiWidget ->
             (widget as IGuiClose).onGuiClose()
         })
     }
@@ -63,7 +64,7 @@ class WidgetContainer : IGuiEvents {
     override fun keyType(typedChar: Char, keyCode: Int) {
         visibleWidgets.filter {
             (it is IGuiKeyType)
-        }.forEach(Consumer { widget: IWidget ->
+        }.forEach(Consumer { widget: IGuiWidget ->
             (widget as IGuiKeyType).keyType(typedChar, keyCode)
         })
     }
@@ -71,7 +72,7 @@ class WidgetContainer : IGuiEvents {
     override fun handleMouseInput() {
         visibleWidgets.filter {
             (it is IGuiHandleMouseInput)
-        }.forEach(Consumer { widget: IWidget ->
+        }.forEach(Consumer { widget: IGuiWidget ->
             (widget as IGuiHandleMouseInput).handleMouseInput()
         })
     }
@@ -81,7 +82,7 @@ class WidgetContainer : IGuiEvents {
 
         visibleWidgets.filter {
             (it is IGuiMouseClick)
-        }.forEach(Consumer { widget: IWidget ->
+        }.forEach(Consumer { widget: IGuiWidget ->
             if ((widget as IGuiMouseClick).mouseClick(mouseX, mouseY, mouseButton))
                 result = true
         })
@@ -92,7 +93,7 @@ class WidgetContainer : IGuiEvents {
     override fun mouseClickAndMove(mouseX: Int, mouseY: Int, clickedMouseButton: Int, timeSinceLastClick: Long) {
         visibleWidgets.filter {
             (it is IGuiMouseClickAndMove)
-        }.forEach(Consumer { widget: IWidget ->
+        }.forEach(Consumer { widget: IGuiWidget ->
             (widget as IGuiMouseClickAndMove).mouseClickAndMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)
         })
     }
@@ -100,8 +101,16 @@ class WidgetContainer : IGuiEvents {
     override fun mouseRelease(mouseX: Int, mouseY: Int, mouseButton: Int) {
         visibleWidgets.filter {
             (it is IGuiMouseRelease)
-        }.forEach(Consumer { widget: IWidget ->
+        }.forEach(Consumer { widget: IGuiWidget ->
             (widget as IGuiMouseRelease).mouseRelease(mouseX, mouseY, mouseButton)
+        })
+    }
+
+    override fun updateScreen() {
+        visibleWidgets.filter {
+            (it is IGuiUpdate)
+        }.forEach(Consumer { widget: IGuiWidget ->
+            (widget as IGuiUpdate).updateScreen()
         })
     }
 
@@ -110,7 +119,7 @@ class WidgetContainer : IGuiEvents {
      *
      * @param widget This widget will be added to the [widgets] list
      */
-    fun addWidgets(vararg widget: IWidget) {
+    fun addWidgets(vararg widget: IGuiWidget) {
         widgets = widgets + widget
     }
 }
