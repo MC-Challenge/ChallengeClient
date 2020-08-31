@@ -22,6 +22,8 @@ import net.challenge.client.ui.widget.renderer.IWidgetRenderer
 import net.challenge.client.ui.widget.utils.RenderUtils
 import net.minecraft.client.Minecraft
 import java.awt.Color
+import kotlin.math.max
+import kotlin.math.min
 
 /**
  * Default renderer for a slider

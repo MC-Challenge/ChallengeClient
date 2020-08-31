@@ -17,17 +17,20 @@
 
 package net.challenge.client.ui.widget.elements
 
+import net.challenge.client.ui.adapter.IGuiUpdate
 import net.challenge.client.ui.adapter.input.mouse.IGuiMouseClick
 import net.challenge.client.ui.adapter.input.mouse.IGuiMouseClickAndMove
 import net.challenge.client.ui.adapter.input.mouse.IGuiMouseRelease
 import net.challenge.client.ui.widget.SelectableWidget
 import net.minecraft.util.MathHelper
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.round
 
 /**
  * A slider to change numbers
  */
-class Slider(val name: String) : SelectableWidget<Slider>(), IGuiMouseRelease, IGuiMouseClickAndMove, IGuiMouseClick {
+class Slider(val name: String) : SelectableWidget<Slider>(), IGuiMouseRelease, IGuiMouseClick {
 
     /**
      * Maximum value from the [value]
@@ -70,6 +73,14 @@ class Slider(val name: String) : SelectableWidget<Slider>(), IGuiMouseRelease, I
             selectListeners.forEach { it.invoke(this) }
         }
 
+    override fun render(mouseX: Int, mouseY: Int) {
+        if (dragging) {
+            val diff = maximum - minimum
+            value = max(min((mouseX.toDouble() - position.getAbsoluteX().toDouble()) / width.toDouble() * diff + minimum, maximum), minimum)
+        }
+
+        super.render(mouseX, mouseY)
+    }
 
     override fun mouseClick(mouseX: Int, mouseY: Int, mouseButton: Int): Boolean {
         if (isHover(mouseX, mouseY)) {
@@ -85,13 +96,6 @@ class Slider(val name: String) : SelectableWidget<Slider>(), IGuiMouseRelease, I
 
     override fun mouseRelease(mouseX: Int, mouseY: Int, mouseButton: Int) {
         dragging = false
-    }
-
-    override fun mouseClickAndMove(mouseX: Int, mouseY: Int, clickedMouseButton: Int, timeSinceLastClick: Long) {
-        if (!isHover(mouseX, mouseY) || clickedMouseButton != 0) return
-
-        val diff = maximum - minimum
-        value = minimum + MathHelper.clamp_double(((mouseX.toDouble() - position.getAbsoluteX().toDouble()) / width.toDouble()), 0.0, 1.0) * diff
     }
 
     /**

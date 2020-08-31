@@ -12,18 +12,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.ui.animation
+package net.challenge.client.features.modules.list;
 
-import net.minecraft.util.MathHelper
+import net.challenge.client.features.modules.Module;
+import org.jetbrains.annotations.NotNull;
 
-object AnimationUtil {
-
-    var deltaTime: Float = 0.0f
-    var lastFrame: Float = 0.0f
-
-    fun slide(current: Double, min: Double, max: Double, speed: Double, sliding: Boolean): Double {
-        speed.times(deltaTime * 0.2)
-        return MathHelper.clamp_double(if (sliding) if (current < max) current + (max - current) * speed else current else if (current > min) current - (current - min) * speed else current, min, max)
+public class test extends Module {
+    @NotNull
+    @Override
+    public String getName() {
+        return null;
     }
 
+    @Override
+    public void setName(@NotNull String name) {
+
+    }
+
+    @NotNull
+    @Override
+    public String getDescription() {
+        return null;
+    }
+
+    @Override
+    public void setDescription(@NotNull String description) {
+
+    }
 }
