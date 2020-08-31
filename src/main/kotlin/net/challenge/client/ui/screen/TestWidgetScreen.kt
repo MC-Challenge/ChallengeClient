@@ -44,9 +44,9 @@ class TestWidgetScreen : WidgetScreen() {
                         },
                 Slider("Value")
                         .setPosition(ScaledPosition(5, 10 + height))
+                        .setMaximum(1000.0)
                         .setValue(1000.0)
                         .setSize(width, height)
-                        .setMaximum(1000.0)
                         .onSelect {
                             println("Set value to ${it.value}")
                         },

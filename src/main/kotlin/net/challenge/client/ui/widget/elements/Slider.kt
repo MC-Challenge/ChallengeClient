@@ -60,7 +60,7 @@ class Slider(val name: String) : SelectableWidget<Slider>(), IGuiMouseRelease, I
     var value = 0.0
         set(value) {
             field = if (decimalPlaces == 0)
-                value.toInt().toDouble()
+                value - (value % value)
             else {
                 val multiplier = 10 * decimalPlaces
                 round(value * multiplier) / multiplier
