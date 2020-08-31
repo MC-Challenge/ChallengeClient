@@ -25,6 +25,7 @@ import net.challenge.client.features.cosmetics.registry.CosmeticRegistry
 import net.challenge.client.features.cosmetics.registry.ICosmeticRegistry
 import net.challenge.client.features.modules.registry.IModuleRegistry
 import net.challenge.client.features.modules.registry.ModuleRegistry
+import net.challenge.client.ui.font.FontHandler
 import net.challenge.client.value.registry.IValueRegistry
 import net.challenge.client.value.registry.ValueRegistry
 import net.norisk.core.features.command.CommandRegistry
@@ -56,6 +57,7 @@ object ClientCore : IClientCore {
         logger.debug("Post-Start")
         logger.info(info.toString())
 
+        FontHandler.load()
         cosmeticRegistry.load()
         moduleRegistry.load()
     }
