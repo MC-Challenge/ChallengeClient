@@ -30,9 +30,11 @@ class MixinMinecraft {
     @Inject(method = "createDisplay", at = [At(value = "INVOKE", target = "Lorg/lwjgl/opengl/Display;setTitle(Ljava/lang/String;)V", shift = At.Shift.AFTER)])
     private fun createDisplay(callbackInfo: CallbackInfo) {
         val info = ClientCore.info
-        Display.setTitle("${ info.name } | ${ info.version }")
+        Display.setTitle("${info.name} | ${info.version}")
     }
 
     @Inject(method = "startGame", at = [At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;displayGuiScreen(Lnet/minecraft/client/gui/GuiScreen;)V", shift = At.Shift.AFTER)])
-    private fun afterMainScreen(callbackInfo: CallbackInfo) { }
+    private fun afterMainScreen(callbackInfo: CallbackInfo) {
+        Minecraft.getMinecraft().displayGuiScreen(TestWidgetScreen())
+    }
 }

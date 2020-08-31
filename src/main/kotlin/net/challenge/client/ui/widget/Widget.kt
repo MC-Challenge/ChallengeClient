@@ -40,4 +40,71 @@ open class Widget<W : Widget<W>> : IWidget {
         @Suppress("UNCHECKED_CAST")
         WidgetRenderers.getRenderer(this.javaClass)?.render(this as W, mouseX, mouseY)
     }
+
+    /**
+     * Set the position of the widget
+     *
+     * @param position Position to set
+     * @return this
+     */
+    fun setPosition(position: IPosition) : W {
+        this.position = position
+
+        @Suppress("UNCHECKED_CAST")
+        return this as W
+    }
+
+    /**
+     * Set the visibility of the widget
+     *
+     * @param visible Visibility to set
+     * @return this
+     */
+    fun setVisible(visible: Boolean) : W {
+        this.visible = visible
+
+        @Suppress("UNCHECKED_CAST")
+        return this as W
+    }
+
+    /**
+     * Set the width of the widget
+     *
+     * @param width Width to set
+     * @return this
+     */
+    fun setWidth(width: Int) : W {
+        this.width = width
+
+        @Suppress("UNCHECKED_CAST")
+        return this as W
+    }
+
+    /**
+     * Set the height of the widget
+     *
+     * @param height Height to set
+     * @return this
+     */
+    fun setHeight(height: Int) : W {
+        this.height = height
+
+        @Suppress("UNCHECKED_CAST")
+        return this as W
+    }
+
+    /**
+     * Set the width and height of the widget
+     *
+     * @param width Width to set
+     * @param height Height to set
+     * @return this
+     */
+    fun setSize(width: Int, height: Int) : W {
+        this.width = width
+        this.height = height
+
+        @Suppress("UNCHECKED_CAST")
+        return this as W
+    }
 }

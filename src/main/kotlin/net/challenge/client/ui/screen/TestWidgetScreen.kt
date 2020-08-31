@@ -17,8 +17,10 @@
 
 package net.challenge.client.ui.screen
 
+import net.challenge.client.ui.position.ScaledPosition
 import net.challenge.client.ui.widget.elements.Button
 import net.minecraft.client.gui.Gui
+import net.minecraft.client.gui.GuiMainMenu
 import java.awt.Color
 
 /**
@@ -27,12 +29,14 @@ import java.awt.Color
 class TestWidgetScreen : WidgetScreen() {
 
     init {
-        val btn = Button("Test Button")
-        btn.position.setAbsolute(100, 100)
-        btn.width = 100
-        btn.height = 40
-
-        addWidgets(btn)
+        addWidgets(
+                Button("Main-Menu")
+                        .setPosition(ScaledPosition.fromRelativePosition(0.5, 0.5))
+                        .setSize(100, 40)
+                        .onClick {
+                            mc.displayGuiScreen(GuiMainMenu())
+                        }
+        )
     }
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {

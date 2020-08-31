@@ -15,11 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.ui.widget.elements
+package net.challenge.client.ui.widget
 
-import net.challenge.client.ui.widget.ClickableWidget
+import net.challenge.client.ui.widget.interaction.ISelectable
 
 /**
- * Default implementation of a [ClickableWidget]
+ * Default implementation from a widget that can be clicked and selected
  */
-class Button(val name: String) : ClickableWidget<Button>()
+open class SelectableWidget<W : ClickableWidget<W>> : ClickableWidget<W>(), ISelectable<W> {
+
+    override val selectListeners: MutableCollection<(W) -> Unit> = arrayListOf()
+}

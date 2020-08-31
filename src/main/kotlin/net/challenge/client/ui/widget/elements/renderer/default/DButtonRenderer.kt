@@ -19,6 +19,7 @@ package net.challenge.client.ui.widget.elements.renderer.default
 
 import net.challenge.client.ui.widget.elements.Button
 import net.challenge.client.ui.widget.renderer.IWidgetRenderer
+import net.challenge.client.ui.widget.utils.RenderUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
 import java.awt.Color
@@ -32,7 +33,19 @@ class DButtonRenderer : IWidgetRenderer<Button> {
         val x = widget.position.getAbsoluteX()
         val y = widget.position.getAbsoluteY()
 
-        Gui.drawRect(x, y, x + widget.width, y + widget.height, Color.WHITE.rgb)
-        Minecraft.getMinecraft().fontRendererObj.drawString(widget.name, x, y, Color.RED.rgb)
+        val hover = widget.isHover(mouseX, mouseY)
+
+        var bgColor = Color(50, 50, 50)
+        var textColor = Color(200, 200, 200).rgb
+
+        if (hover) {
+            bgColor = Color(60, 60, 60)
+            textColor = Color.WHITE.rgb
+        }
+
+        val font = Minecraft.getMinecraft().fontRendererObj
+
+        RenderUtils.drawRoundRect(x, y, widget.width, widget.height, 40, bgColor)
+        font.drawString(widget.name, x + widget.width / 2 - font.getStringWidth(widget.name) / 2, y + widget.height / 2 - font.FONT_HEIGHT / 3, textColor)
     }
 }

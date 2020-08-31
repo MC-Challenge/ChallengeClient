@@ -17,37 +17,36 @@
 
 package net.challenge.client.ui.widget.interaction
 
-import net.challenge.client.ui.adapter.input.mouse.IGuiMouseClick
 import net.challenge.client.ui.widget.IWidget
 
 /**
- * This gives an IWidget the feature to be clicked.
+ * This gives an IWidget the function to be selected
  */
-interface IClickable<W : IWidget> : IGuiMouseClick {
+interface ISelectable<W : IWidget> {
 
     /**
-     * Registered click listeners.
-     * This listener will be executed after every click on the widget
+     * Registered select listeners.
+     * This listener will be executed after a another option is selected for the widget
      */
-    val clickListeners: MutableCollection<(W) -> Unit>
+    val selectListeners: MutableCollection<(W) -> Unit>
 
     /**
      * Register a listener to respond to a click
      *
-     * @param listener This listener will be executed after registration with every click on the widget
+     * @param listener This listener will be executed after a another option is selected for the widget
      */
-    fun registerClickListener(listener: (W) -> Unit) {
-        clickListeners.add(listener)
+    fun registerSelectListener(listener: (W) -> Unit) {
+        selectListeners.add(listener)
     }
 
     /**
-     * Register a listener to respond to a click
+     * Register a listener to respond to a change from another option
      *
-     * @param listener This listener will be executed after registration with every click on the widget
+     * @param listener This listener will be executed after a another option is selected for the widget
      * @return this
      */
-    fun onClick(listener: (W) -> Unit) : W {
-        registerClickListener(listener)
+    fun onSelect(listener: (W) -> Unit) : W {
+        registerSelectListener(listener)
 
         @Suppress("UNCHECKED_CAST")
         return this as W
