@@ -19,8 +19,10 @@ package net.challenge.client.ui.widget.renderer
 
 import net.challenge.client.ui.widget.IWidget
 import net.challenge.client.ui.widget.elements.Button
+import net.challenge.client.ui.widget.elements.Checkbox
 import net.challenge.client.ui.widget.elements.Slider
 import net.challenge.client.ui.widget.elements.renderer.default.DButtonRenderer
+import net.challenge.client.ui.widget.elements.renderer.default.DCheckboxRenderer
 import net.challenge.client.ui.widget.elements.renderer.default.DSliderRenderer
 
 /**
@@ -38,6 +40,7 @@ object WidgetRenderers {
         // Set Default Renderers
         setRenderer(Button::class.java, DButtonRenderer())
         setRenderer(Slider::class.java, DSliderRenderer())
+        setRenderer(Checkbox::class.java, DCheckboxRenderer())
     }
 
 

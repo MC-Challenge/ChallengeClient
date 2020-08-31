@@ -17,6 +17,7 @@
 
 package net.challenge.client.ui.widget.elements
 
+import net.challenge.client.ui.adapter.input.mouse.IGuiMouseClick
 import net.challenge.client.ui.adapter.input.mouse.IGuiMouseClickAndMove
 import net.challenge.client.ui.adapter.input.mouse.IGuiMouseRelease
 import net.challenge.client.ui.widget.SelectableWidget
@@ -24,9 +25,9 @@ import net.minecraft.util.MathHelper
 import kotlin.math.round
 
 /**
- *
+ * A slider to change numbers
  */
-class Slider(val name: String) : SelectableWidget<Slider>(), IGuiMouseRelease, IGuiMouseClickAndMove {
+class Slider(val name: String) : SelectableWidget<Slider>(), IGuiMouseRelease, IGuiMouseClickAndMove, IGuiMouseClick {
 
     /**
      * Maximum value from the [value]
@@ -75,9 +76,11 @@ class Slider(val name: String) : SelectableWidget<Slider>(), IGuiMouseRelease, I
             if (mouseButton == 0) {
                 dragging = true
             }
+
+            return true
         }
 
-        return super.mouseClick(mouseX, mouseY, mouseButton)
+        return false
     }
 
     override fun mouseRelease(mouseX: Int, mouseY: Int, mouseButton: Int) {

@@ -19,6 +19,7 @@ package net.challenge.client.ui.screen
 
 import net.challenge.client.ui.position.ScaledPosition
 import net.challenge.client.ui.widget.elements.Button
+import net.challenge.client.ui.widget.elements.Checkbox
 import net.challenge.client.ui.widget.elements.Slider
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.GuiMainMenu
@@ -43,12 +44,19 @@ class TestWidgetScreen : WidgetScreen() {
                             mc.displayGuiScreen(GuiSelectWorld(this))
                         },
                 Slider("Value")
-                        .setPosition(ScaledPosition(19, 10 + height))
+                        .setPosition(ScaledPosition(5, 10 + height))
                         .setValue(5.0)
                         .setSize(width, height)
                         .asPercent()
                         .onSelect {
                             println("Set value to ${ it.value }")
+                        },
+                Checkbox("CheckBox")
+                        .setPosition(ScaledPosition(5, 15 + height * 2))
+                        .setSize(width, height)
+                        .setValue(true)
+                        .onSelect {
+                            println("Set box to " + it.value)
                         }
         )
     }

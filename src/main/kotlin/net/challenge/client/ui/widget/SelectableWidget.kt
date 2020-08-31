@@ -22,7 +22,7 @@ import net.challenge.client.ui.widget.interaction.ISelectable
 /**
  * Default implementation from a widget that can be clicked and selected
  */
-open class SelectableWidget<W : ClickableWidget<W>> : ClickableWidget<W>(), ISelectable<W> {
+open class SelectableWidget<W : Widget<W>> : Widget<W>(), ISelectable<W> {
 
     override val selectListeners: MutableCollection<(W) -> Unit> = arrayListOf()
 }

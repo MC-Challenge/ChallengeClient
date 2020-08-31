@@ -17,35 +17,32 @@
 
 package net.challenge.client.ui.widget.elements.renderer.default
 
-import net.challenge.client.ui.widget.elements.Slider
+import net.challenge.client.ui.widget.elements.Checkbox
 import net.challenge.client.ui.widget.renderer.IWidgetRenderer
 import net.challenge.client.ui.widget.utils.RenderUtils
 import net.minecraft.client.Minecraft
 import java.awt.Color
 
 /**
- * Default renderer for a slider
+ * Default renderer for a checkbox
  */
-class DSliderRenderer : IWidgetRenderer<Slider> {
+class DCheckboxRenderer : IWidgetRenderer<Checkbox> {
 
-    override fun render(widget: Slider, mouseX: Int, mouseY: Int) {
+    override fun render(widget: Checkbox, mouseX: Int, mouseY: Int) {
         val x = widget.position.getAbsoluteX().toFloat()
         val y = widget.position.getAbsoluteY().toFloat()
 
         val width = widget.width.toFloat()
         val height = widget.height.toFloat()
 
-        RenderUtils.drawRect(x, y, width, height, Color(50, 50, 50))
-        RenderUtils.drawRect(x, y + height - 3.0F, (widget.getAsPercent().toFloat() * width).coerceAtMost(width), 2.0F, Color.WHITE)
+        RenderUtils.drawRect(x, y, width, height,  Color(50, 50, 50))
+
+        var fontColor = Color.WHITE
+
+        if (widget.value)
+            fontColor = Color.GREEN
 
         val font = Minecraft.getMinecraft().fontRendererObj
-        font.drawString(widget.name, x.toInt() + 2, y.toInt() + 2, Color.WHITE.rgb)
-
-        var value = widget.value.toString()
-
-        if (widget.isPercent)
-            value += "%"
-
-        font.drawString(value, x.toInt() + width.toInt() - 3 - font.getStringWidth(value), y.toInt() + 2, Color.WHITE.rgb)
+        font.drawString(widget.name, x.toInt() + width.toInt()/2 - font.getStringWidth(widget.name) / 2, y.toInt() + height.toInt()/3, fontColor.rgb)
     }
 }
