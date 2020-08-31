@@ -14,6 +14,7 @@
 
 package net.challenge.client.features.cosmetics.registry
 
+import net.challenge.client.features.cosmetics.Cosmetic
 import net.challenge.client.features.cosmetics.ICosmetic
 import net.minecraft.entity.player.EntityPlayer
 
@@ -37,14 +38,14 @@ interface ICosmeticRegistry {
      *
      * @param cosmetics are the cosmetics, that will be registered
      */
-    fun registerCosmetics(vararg cosmetics: ICosmetic)
+    fun registerCosmetics(vararg cosmetics: Cosmetic)
 
     /**
      * This method, registers one module
      *
      * @param cosmetic is the cosmetic, that will be registered
      */
-    fun registerCosmetic(cosmetic: ICosmetic)
+    fun registerCosmetic(cosmetic: Cosmetic)
 
 
     /**
@@ -52,7 +53,7 @@ interface ICosmeticRegistry {
      *
      * @return The cosmetic that was found, or null
      */
-    fun getCosmetic(name: String): ICosmetic
+    fun getCosmetic(name: String): Cosmetic
 
     /**
      * Getting an cosmetic by class
