@@ -20,25 +20,18 @@ package net.challenge.client.features.modules
 import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.annotations.ModuleInfo
 import net.challenge.client.value.ValueHandler
+import net.challenge.client.value.list.BooleanValue
 
 /**
  * Default implementation of [IModule]
  */
 open class Module : IModule {
 
-    override var name: String = "No-Name"
+    final override var name: String = "No-Name"
 
-    override var description: String = "No-Description"
+    final override var description: String = "No-Description"
 
-    override var enabled: Boolean = false
-        set(value) {
-            field = value
-
-            if (value)
-                onEnable()
-            else
-                onDisable()
-        }
+    private val enabled: BooleanValue = BooleanValue("enabled", false)
 
 
     init {
@@ -46,6 +39,9 @@ open class Module : IModule {
 
         name = info.name
         description = info.description
+
+        // TODO Only for testing
+        setEnabled(true)
     }
 
 
@@ -57,7 +53,16 @@ open class Module : IModule {
         ClientCore.eventBus.unsubscribe(this)
     }
 
-    override fun toggle() {
-        enabled = !enabled
+    override fun setEnabled(enabled: Boolean) {
+        this.enabled.value = enabled
+
+        if (enabled)
+            onEnable()
+        else
+            onDisable()
+    }
+
+    override fun isEnabled(): Boolean {
+        return enabled.value
     }
 }

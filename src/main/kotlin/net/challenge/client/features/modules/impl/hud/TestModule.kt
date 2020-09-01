@@ -9,7 +9,7 @@ import net.challenge.client.features.modules.annotations.ModuleInfo
  * A module for testing
  */
 @ModuleInfo(name = "Test")
-class TestModule : SimpleHudModule() {
+object TestModule : SimpleHudModule() {
 
     override fun getValue(): String {
         return "loading ..."
