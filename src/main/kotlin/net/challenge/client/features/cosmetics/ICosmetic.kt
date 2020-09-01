@@ -34,16 +34,6 @@ interface ICosmetic {
     var enabled: Boolean
 
     /**
-     * Will be executed when the cosmetic is activated
-     */
-    fun onEnable()
-
-    /**
-     * Will be executed when the cosmetic is deactivated
-     */
-    fun onDisable()
-
-    /**
      * Toggles the cosmetic
      */
     fun toggle()
@@ -52,5 +42,10 @@ interface ICosmetic {
      * Renders the cosmetic
      */
     fun render(player: EntityPlayer, x: Double, y: Double, z: Double, partialTicks: Float)
+
+    /**
+     * [interpolate](https://de.wikipedia.org/wiki/Interpolation_(Mathematik))
+     */
+    fun interpolate(yaw1: Float, yaw2: Float, percent: Float): Float
 
 }

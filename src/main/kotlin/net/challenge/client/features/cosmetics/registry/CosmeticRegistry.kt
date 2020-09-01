@@ -14,7 +14,9 @@
 
 package net.challenge.client.features.cosmetics.registry
 
+import net.challenge.client.features.cosmetics.Cosmetic
 import net.challenge.client.features.cosmetics.ICosmetic
+import net.challenge.client.features.cosmetics.list.CosmeticWing
 import net.minecraft.entity.player.EntityPlayer
 import java.util.function.Consumer
 
@@ -26,34 +28,36 @@ class CosmeticRegistry : ICosmeticRegistry {
     /**
      * Collection of all registered client modules
      */
-    private var cosmetics: Collection<ICosmetic> = ArrayList()
+    private var cosmetics: Collection<Cosmetic> = ArrayList()
 
 
     override fun load() {
-
+        registerCosmetics(
+                CosmeticWing()
+        )
     }
 
     override fun renderActivated(player: EntityPlayer, x: Double, y: Double, z: Double, partialTicks: Float) {
-        this.cosmetics.stream().filter { cosmetic: ICosmetic? -> cosmetic!!.enabled }.forEach { cosmetic ->
+        this.cosmetics.stream().filter { cosmetic: Cosmetic -> cosmetic.enabled }.forEach { cosmetic ->
             run {
                 cosmetic.render(player, x, y, z, partialTicks)
             }
         }
     }
 
-    override fun registerCosmetics(vararg cosmetics: ICosmetic) {
+    override fun registerCosmetics(vararg cosmetics: Cosmetic) {
         cosmetics.forEach(this::registerCosmetic)
     }
 
-    override fun registerCosmetic(cosmetic: ICosmetic) {
+    override fun registerCosmetic(cosmetic: Cosmetic) {
         cosmetics += cosmetic
     }
 
-    override fun getCosmetic(name: String): ICosmetic {
-        return cosmetics.stream().filter { cosmetic: ICosmetic -> name.equals(cosmetic.name, ignoreCase = true) }.findFirst().orElse(null)
+    override fun getCosmetic(name: String): Cosmetic {
+        return cosmetics.stream().filter { cosmetic: Cosmetic -> name.equals(cosmetic.name, ignoreCase = true) }.findFirst().orElse(null)
     }
 
     override fun <T : ICosmetic> getCosmetic(clazz: Class<T>): T? {
-        return cosmetics.stream().filter { cosmetic: ICosmetic -> cosmetic.javaClass == clazz }.findFirst().orElse(null) as T
+        return cosmetics.stream().filter { cosmetic: Cosmetic -> cosmetic.javaClass == clazz }.findFirst().orElse(null) as T
     }
 }

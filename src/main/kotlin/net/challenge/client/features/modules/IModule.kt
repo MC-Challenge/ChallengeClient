@@ -28,12 +28,12 @@ interface IModule : Listenable, ValueHandler {
     /**
      * Name of the module
      */
-    var name: String
+    val name: String
 
     /**
      * Description of the module
      */
-    var description: String
+    val description: String
 
     /**
      * Is the module enabled
