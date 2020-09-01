@@ -21,4 +21,4 @@ package net.challenge.client.features.modules.annotations
  * This annotation is implemented over each module to give it its metadata
  */
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-annotation class ModuleInfo(val name: String, val description: String = "")
+annotation class ModuleInfo(val name: String, val description: String = "No-Description")

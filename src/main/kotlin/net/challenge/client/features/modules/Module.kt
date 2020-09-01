@@ -24,7 +24,11 @@ import net.challenge.client.value.ValueHandler
 /**
  * Default implementation of [IModule]
  */
-abstract class Module : IModule {
+open class Module : IModule {
+
+    override var name: String = "No-Name"
+
+    override var description: String = "No-Description"
 
     override var enabled: Boolean = false
         set(value) {

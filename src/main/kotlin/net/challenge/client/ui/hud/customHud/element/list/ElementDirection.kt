@@ -14,21 +14,25 @@
 
 package net.challenge.client.ui.hud.customHud.element.list
 
+import net.challenge.client.features.modules.HudModule
+import net.challenge.client.features.modules.annotations.ModuleInfo
 import net.challenge.client.ui.hud.customHud.element.IHudElement
 import net.challenge.client.ui.position.IPosition
 import net.challenge.client.ui.position.ScaledPosition
 import net.minecraft.client.gui.Gui
 
-class ElementDirection : IHudElement {
-    override var position: IPosition = ScaledPosition(10, 10)
-    override var width: Int = 10
-    override var height: Int = 10
-    override var xDist: Int = 0
-    override var yDist: Int = 0
-    override var visible: Boolean = true
-    override var dragging: Boolean = false
+@ModuleInfo(name = "Direction")
+class ElementDirection : HudModule() {
 
     override fun drawElement(mouseX: Int, mouseY: Int, partialTicks: Float) {
-        Gui.drawRect(position.getAbsoluteX(), position.getAbsoluteY(), position.getAbsoluteX() + width, position.getAbsoluteY() + height, -1)
+        Gui.drawRect(position.getAbsoluteX(), position.getAbsoluteY(), position.getAbsoluteX() + getElementWidth(), position.getAbsoluteY() + getElementHeight(), -1)
+    }
+
+    override fun getElementWidth(): Int {
+        return 10
+    }
+
+    override fun getElementHeight(): Int {
+        return 10
     }
 }

@@ -38,34 +38,14 @@ interface IHudElement {
     var position: IPosition
 
     /**
-     * Width of the element
+     * Get the width of the element
      */
-    var width: Int
+    fun getElementWidth() : Int
 
     /**
-     * Height of the element
+     * Get the width of the element
      */
-    var height: Int
-
-    /**
-     * x-dist of the element
-     */
-    var xDist: Int
-
-    /**
-     * y-dist of the element
-     */
-    var yDist: Int
-
-    /**
-     * If the element is not visible no implemented input methods are executed and the widget is not rendered anymore
-     */
-    var visible: Boolean
-
-    /**
-     * is if the element is dragging
-     */
-    var dragging: Boolean
+    fun getElementHeight() : Int
 
     /**
      * # Rendering
@@ -74,52 +54,9 @@ interface IHudElement {
     fun drawElement(mouseX: Int, mouseY: Int, partialTicks: Float)
 
     fun render(mouseX: Int, mouseY: Int, partialTicks: Float) {
-        if (dragging) {
-            manageDragging(mouseX, mouseY)
-        }
-
         if (this is IHudPreview)
             (this as IHudPreview).drawPreview(mouseX, mouseY, partialTicks)
         else
             drawElement(mouseX, mouseY, partialTicks)
     }
-
-    fun manageDragging(mouseX: Int, mouseY: Int) {
-
-        //sets the absolute
-        position.setAbsolute(mouseX + xDist, mouseY + yDist)
-
-    }
-
-    /**
-     * # Mouse Input
-     * This method, is for handling the mouse-input
-     */
-    fun mouseClicked(mouseX: Int, mouseY: Int, mouseButton: Int) {
-        //when the mouse, is in an concrete area, drag!
-        if (mouseX >= position.getAbsoluteX() && mouseY >= position.getAbsoluteY() && mouseX < position.getAbsoluteX() + width && mouseY < position.getAbsoluteY() + height) {
-
-            //when the mouse-button is left drag, and when not, open
-            if (mouseButton == 0) {
-
-                //sets 'dragging' to true
-                dragging = true
-            }
-
-            //sets the 'xDist'
-            xDist = position.getAbsoluteX() - mouseX
-
-            //sets the 'yDist'
-            yDist = position.getAbsoluteY() - mouseY
-        }
-    }
-
-    /**
-     * # Mouse Releasing
-     * This method, is for handling the mouse-release
-     */
-    fun mouseReleased(mouseX: Int, mouseY: Int, state: Int) {
-        dragging = false
-    }
-
 }

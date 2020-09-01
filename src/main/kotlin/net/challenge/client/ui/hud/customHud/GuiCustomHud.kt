@@ -17,50 +17,121 @@ package net.challenge.client.ui.hud.customHud
 import net.challenge.client.ui.hud.customHud.element.IHudElement
 import net.challenge.client.ui.hud.customHud.element.list.ElementDirection
 import net.minecraft.client.gui.GuiScreen
+import net.minecraft.client.gui.ScaledResolution
 import java.util.function.Consumer
+import java.util.function.Predicate
+
 
 class GuiCustomHud : GuiScreen() {
 
     /**
-     * Collection of all enabled custom-hud-modules
+     * x-dist of the element
      */
-    private var enabledModules: Collection<IHudElement> = ArrayList()
+    private var xDist: Int = 0
+
+    /**
+     * y-dist of the element
+     */
+    private var yDist: Int = 0
+
+    /**
+     * Collection of all enabled custom-hud-elements
+     */
+    private var enabledElements: Collection<IHudElement> = ArrayList()
+
+    /**
+     * Selected hud-element what is moved around.
+     */
+    private var draggingElement: IHudElement? = null
+
 
     init {
-        enabledModules += ElementDirection()
+        enabledElements += ElementDirection()
     }
 
-    override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
 
-        enabledModules.forEach(Consumer {
-            run {
-                it.render(mouseX, mouseY, partialTicks)
-            }
-        })
+    override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
+        moveDraggingElement(mouseX, mouseY)
+        renderPreview(mouseX, mouseY, partialTicks)
 
         super.drawScreen(mouseX, mouseY, partialTicks)
     }
 
-    override fun mouseClicked(mouseX: Int, mouseY: Int, mouseButton: Int) {
-
-        enabledModules.forEach(Consumer {
+    /**
+     * Render a preview of all hud-elements.
+     *
+     * @param mouseX Mouse X position in pixels
+     * @param mouseY Mouse Y position in pixels
+     * @param partialTicks How much time has elapsed since the last tick, in ticks,
+     * for use by display rendering routines (range: 0.0 - 1.0).
+     * This field is frozen if the display is paused to eliminate jitter.
+     */
+    private fun renderPreview(mouseX: Int, mouseY: Int, partialTicks: Float) {
+        enabledElements.forEach(Consumer {
             run {
-                it.mouseClicked(mouseX, mouseY, mouseButton)
+                it.render(mouseX, mouseY, partialTicks)
             }
         })
+    }
 
+    override fun mouseClicked(mouseX: Int, mouseY: Int, mouseButton: Int) {
+        updateHeldRenderer(mouseX, mouseY)
         super.mouseClicked(mouseX, mouseY, mouseButton)
     }
 
-    override fun mouseReleased(mouseX: Int, mouseY: Int, state: Int) {
+    /**
+     * If the mouse position is above a element, this held render
+     * is assigned and the distance between the position of the
+     * element and the mouse is calculated .
+     *
+     * @param mouseX Mouse X position in pixels
+     * @param mouseY Mouse Y position in pixels
+     */
+    private fun updateHeldRenderer(mouseX: Int, mouseY: Int) {
+        draggingElement = enabledElements.stream().filter(MouseOverElement(mouseX, mouseY)).findFirst().orElse(null)
 
-        enabledModules.forEach(Consumer {
-            run {
-                it.mouseReleased(mouseX, mouseY, state)
-            }
-        })
+        if (draggingElement == null) return
+
+        xDist = draggingElement!!.position.getAbsoluteX() - mouseX
+        yDist = draggingElement!!.position.getAbsoluteY() - mouseY
+    }
+
+    override fun mouseReleased(mouseX: Int, mouseY: Int, state: Int) {
+        draggingElement = null
 
         super.mouseReleased(mouseX, mouseY, state)
     }
 
+    /**
+     * If a render element is selected the position is set
+     * to the x y of the mouse position.
+     *
+     * @param mouseX Mouse X position in pixels
+     * @param mouseY Mouse Y position in pixels
+     */
+    private fun moveDraggingElement(mouseX: Int, mouseY: Int) {
+        if (draggingElement == null) return
+
+        val sr = ScaledResolution(mc)
+        val newX = 0.coerceAtLeast((mouseX + xDist).coerceAtMost((sr.scaledWidth - draggingElement!!.getElementWidth()).coerceAtLeast(0)))
+        val newY = 0.coerceAtLeast((mouseY + yDist).coerceAtMost((sr.scaledHeight - draggingElement!!.getElementHeight()).coerceAtLeast(0)))
+
+        draggingElement!!.position.setAbsolute(newX, newY)
+    }
+
+    /**
+     * find all elements where the mouse is over
+     *
+     * @param mouseX Mouse X position in pixels
+     * @param mouseY Mouse X position in pixels
+     */
+    private class MouseOverElement(private val mouseX: Int, private val mouseY: Int) : Predicate<IHudElement> {
+
+        override fun test(element: IHudElement): Boolean {
+            val x: Int = element.position.getAbsoluteX()
+            val y: Int = element.position.getAbsoluteY()
+
+            return mouseX >= x && mouseX <= x + element.getElementWidth() && mouseY >= y && mouseY <= y + element.getElementHeight()
+        }
+    }
 }
