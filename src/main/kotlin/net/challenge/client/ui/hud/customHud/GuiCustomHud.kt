@@ -23,7 +23,11 @@ import net.minecraft.client.gui.ScaledResolution
 import java.util.function.Consumer
 import java.util.function.Predicate
 
-
+/**
+ * # GuiCustomHud
+ *
+ * TODO Doc
+ */
 class GuiCustomHud : GuiScreen() {
 
     /**
