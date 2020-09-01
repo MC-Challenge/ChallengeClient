@@ -19,7 +19,7 @@ package net.challenge.client.features.modules
 
 import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.annotations.ModuleInfo
-import net.challenge.client.value.ValueHandler
+import net.challenge.client.value.VTag
 import net.challenge.client.value.list.BooleanValue
 
 /**
@@ -31,7 +31,8 @@ open class Module : IModule {
 
     final override var description: String = "No-Description"
 
-    private val enabled: BooleanValue = BooleanValue("enabled", false)
+    @VTag(name = "Enabled", description = "Is the module enabled")
+    private val enabled: BooleanValue = BooleanValue(false)
 
 
     init {

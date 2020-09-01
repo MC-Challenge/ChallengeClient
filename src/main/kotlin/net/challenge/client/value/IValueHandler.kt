@@ -14,4 +14,4 @@
 
 package net.challenge.client.value
 
-interface ValueHandler
+interface IValueHandler

@@ -16,4 +16,4 @@ package net.challenge.client.value.list
 
 import net.challenge.client.value.Value
 
-class NumberValue<T : Number?>(name: String, defaultVal: T, min: T, max: T) : Value<T>(name, defaultVal)
+class NumberValue<T : Number?>(defaultVal: T, val minimum: T, val maximum: T) : Value<T>(defaultVal)

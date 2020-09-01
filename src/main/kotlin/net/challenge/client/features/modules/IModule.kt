@@ -18,12 +18,12 @@
 package net.challenge.client.features.modules
 
 import me.zero.alpine.listener.Listenable
-import net.challenge.client.value.ValueHandler
+import net.challenge.client.value.IValueHandler
 
 /**
  * A function of the client
  */
-interface IModule : Listenable, ValueHandler {
+interface IModule : Listenable, IValueHandler {
 
     /**
      * Name of the module

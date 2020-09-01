@@ -14,10 +14,42 @@
 
 package net.challenge.client.value
 
-abstract class Value<T>(val name: String, var value: T) {
+/**
+ * TODO Doc
+ */
+abstract class Value<T>(var value: T) {
 
+    /**
+     * Name of the value
+     */
+    var name: String = "No-Name"
+
+    /**
+     * Description of the value
+     */
+    var description: String = "No-Description"
+
+    /**
+     * TODO Doc
+     */
     fun setObjectObject(new: Any) {
         this.value = (new as T?)!!
     }
 
+    /**
+     * Set info from the tag to the value
+     *
+     * @param tag Use this tag to update
+     */
+    fun setTagInfo(tag: VTag) {
+        name = tag.name
+        description = tag.description
+    }
 }
+
+/**
+ * TODO Doc
+ */
+@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.FIELD)
+annotation class VTag(val name: String, val description: String = "No-Description")

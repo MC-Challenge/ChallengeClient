@@ -16,4 +16,4 @@ package net.challenge.client.value.list
 
 import net.challenge.client.value.Value
 
-class ModeValue(name: String, defaultVal: String, vararg modes: String) : Value<String>(name, defaultVal)
+class ModeValue(defaultVal: String, val modes: Array<String>) : Value<String>(defaultVal)

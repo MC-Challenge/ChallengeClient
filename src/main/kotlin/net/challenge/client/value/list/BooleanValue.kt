@@ -16,4 +16,4 @@ package net.challenge.client.value.list
 
 import net.challenge.client.value.Value
 
-class BooleanValue(name: String, defaultValue: Boolean) : Value<Boolean>(name, defaultValue)
+class BooleanValue(defaultValue: Boolean) : Value<Boolean>(defaultValue)

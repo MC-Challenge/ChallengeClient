@@ -14,37 +14,30 @@
 
 package net.challenge.client.value.registry
 
-import com.google.common.collect.Lists
+import net.challenge.client.value.IValueHandler
 import net.challenge.client.value.Value
-import net.challenge.client.value.ValueHandler
+import net.challenge.client.value.registry.scanner.ValueScanner
 
 /**
- * default implementation of [IValueRegistry]
+ * Default implementation of [IValueRegistry]
  */
 class ValueRegistry : IValueRegistry {
 
     /**
      * Are the values
      */
-    private var values: HashMap<ValueHandler, List<Value<*>>> = HashMap()
+    private var values: HashMap<IValueHandler, List<Value<*>>> = HashMap()
 
-    override fun registerValueHandler(valueHandler: ValueHandler) {
-        val values: MutableList<Value<*>> = Lists.newArrayList<Value<*>>()
-        for (field in valueHandler.javaClass.declaredFields) {
-            try {
-                field.isAccessible = true
-                val obj = field[valueHandler]
-                if (obj is Value<*>) {
-                    values.add(obj)
-                }
-            } catch (e: IllegalAccessException) {
-                e.printStackTrace()
-            }
-        }
-        this.values.put(valueHandler, values)
+
+    override fun registerValueHandler(valueHandler: IValueHandler) {
+        val findValues = ValueScanner.findValues(valueHandler)
+
+        if (findValues.isEmpty()) return
+
+        this.values[valueHandler] = findValues
     }
 
-    override fun getAllValuesFrom(valueHandler: ValueHandler): List<Value<*>>? {
+    override fun getAllValuesFrom(valueHandler: IValueHandler): List<Value<*>>? {
         for ((key, value) in values.entries) {
             if (key == valueHandler) return value
         }

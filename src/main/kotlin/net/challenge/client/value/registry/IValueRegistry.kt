@@ -14,9 +14,8 @@
 
 package net.challenge.client.value.registry
 
-import net.challenge.client.features.modules.Module
 import net.challenge.client.value.Value
-import net.challenge.client.value.ValueHandler
+import net.challenge.client.value.IValueHandler
 
 interface IValueRegistry {
 
@@ -25,13 +24,13 @@ interface IValueRegistry {
      * # Register Handler
      * This method, registers an handler
      */
-    fun registerValueHandler(valueHandler: ValueHandler)
+    fun registerValueHandler(valueHandler: IValueHandler)
 
     /**
      * # Getting Values, from an Handler
      * This method, fetches the values, from an handler
      * @return all values of the handler, that was typed in
      */
-    fun getAllValuesFrom(valueHandler: ValueHandler): List<Value<*>>?
+    fun getAllValuesFrom(valueHandler: IValueHandler): List<Value<*>>?
 
 }

@@ -1,6 +1,7 @@
 package net.challenge.client.features.modules
 
 import net.challenge.client.ui.font.FontHandler
+import net.challenge.client.value.VTag
 import net.challenge.client.value.list.BooleanValue
 import java.awt.Color
 
@@ -14,7 +15,8 @@ abstract class SimpleHudModule : HudModule() {
     /**
      * TODO Doc
      */
-    protected val hasShadow: BooleanValue = BooleanValue("Shadow", false)
+    @VTag(name = "Shadow", description = "Should the text have a shadow")
+    protected val hasShadow: BooleanValue = BooleanValue( false)
 
 
     /**
