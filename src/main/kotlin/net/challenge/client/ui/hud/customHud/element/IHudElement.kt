@@ -52,11 +52,4 @@ interface IHudElement {
      * This method renders the element
      */
     fun drawElement(mouseX: Int, mouseY: Int, partialTicks: Float)
-
-    fun render(mouseX: Int, mouseY: Int, partialTicks: Float) {
-        if (this is IHudPreview)
-            (this as IHudPreview).drawPreview(mouseX, mouseY, partialTicks)
-        else
-            drawElement(mouseX, mouseY, partialTicks)
-    }
 }

@@ -14,8 +14,10 @@
 
 package net.challenge.client.ui.hud.customHud
 
+import net.challenge.client.core.ClientCore
 import net.challenge.client.ui.hud.customHud.element.IHudElement
-import net.challenge.client.ui.hud.customHud.element.list.ElementDirection
+import net.challenge.client.ui.hud.customHud.element.IHudPreview
+import net.challenge.client.ui.hud.customHud.renderer.HudRenderer
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.ScaledResolution
 import java.util.function.Consumer
@@ -35,19 +37,14 @@ class GuiCustomHud : GuiScreen() {
     private var yDist: Int = 0
 
     /**
-     * Collection of all enabled custom-hud-elements
-     */
-    private var enabledElements: Collection<IHudElement> = ArrayList()
-
-    /**
      * Selected hud-element what is moved around.
      */
     private var draggingElement: IHudElement? = null
 
-
-    init {
-        enabledElements += ElementDirection()
-    }
+    /**
+     * Collection of all enabled custom-hud-elements
+     */
+    private var enabledElements: Collection<IHudElement> = ClientCore.hudRenderer.enabledElements
 
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
@@ -69,7 +66,10 @@ class GuiCustomHud : GuiScreen() {
     private fun renderPreview(mouseX: Int, mouseY: Int, partialTicks: Float) {
         enabledElements.forEach(Consumer {
             run {
-                it.render(mouseX, mouseY, partialTicks)
+                if (it is IHudPreview)
+                    (it as IHudPreview).drawPreview(mouseX, mouseY, partialTicks)
+                else
+                    it.drawElement(mouseX, mouseY, partialTicks)
             }
         })
     }
