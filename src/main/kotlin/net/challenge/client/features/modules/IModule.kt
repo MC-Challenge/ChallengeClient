@@ -36,23 +36,30 @@ interface IModule : Listenable, ValueHandler {
     val description: String
 
     /**
-     * Is the module enabled
-     */
-    var enabled: Boolean
-
-
-    /**
      * Will be executed when the module is activated
      */
-    fun onEnable();
+    fun onEnable()
 
     /**
      * Will be executed when the module is deactivated
      */
-    fun onDisable();
+    fun onDisable()
 
     /**
      * Toggle the module
      */
-    fun toggle()
+    fun toggle() {
+        setEnabled(!isEnabled())
+    }
+
+    /**
+     * Set the enabled state
+     * @param enabled Set state to this value
+     */
+    fun setEnabled(enabled: Boolean)
+
+    /**
+     * Is the module enabled
+     */
+    fun isEnabled(): Boolean
 }

@@ -19,6 +19,8 @@ package net.challenge.client.features.modules.registry
 
 import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.IModule
+import net.challenge.client.features.modules.impl.hud.TestModule
+import net.challenge.client.ui.hud.customHud.element.list.ElementDirection
 
 
 /**
@@ -33,7 +35,10 @@ class ModuleRegistry : IModuleRegistry {
 
 
     override fun load() {
-
+        registerModules(
+                TestModule,
+                ElementDirection()
+        )
     }
 
     override fun registerModules(vararg modules: IModule) {

@@ -12,31 +12,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.features.modules.list;
+package net.challenge.client.ui.hud.customHud.element
 
-import net.challenge.client.features.modules.Module;
-import org.jetbrains.annotations.NotNull;
+interface IHudPreview {
 
-public class test extends Module {
-    @NotNull
-    @Override
-    public String getName() {
-        return null;
-    }
+    /**
+     * # Rendering
+     * This method renders the preview-element
+     */
+    fun drawPreview(mouseX: Int, mouseY: Int, partialTicks: Float)
 
-    @Override
-    public void setName(@NotNull String name) {
-
-    }
-
-    @NotNull
-    @Override
-    public String getDescription() {
-        return null;
-    }
-
-    @Override
-    public void setDescription(@NotNull String description) {
-
-    }
 }

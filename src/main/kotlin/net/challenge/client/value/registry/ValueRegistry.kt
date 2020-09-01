@@ -34,8 +34,8 @@ class ValueRegistry : IValueRegistry {
             try {
                 field.isAccessible = true
                 val obj = field[valueHandler]
-                if (obj is ValueHandler) {
-                    values.add(obj as Value<*>)
+                if (obj is Value<*>) {
+                    values.add(obj)
                 }
             } catch (e: IllegalAccessException) {
                 e.printStackTrace()
