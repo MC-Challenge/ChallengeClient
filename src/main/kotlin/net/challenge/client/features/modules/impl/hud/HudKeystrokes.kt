@@ -24,21 +24,21 @@ import org.lwjgl.input.Keyboard
 import java.awt.Color
 import java.lang.reflect.Field
 
-@ModuleInfo(name = "Keyboard")
+@ModuleInfo(name = "Keystrokes")
 object HudKeystrokes : HudModule() {
     override fun getElementWidth(): Int {
-        return 125
+        return 85
     }
 
     override fun getElementHeight(): Int {
-        return 75
+        return 55
     }
 
     override fun drawElement(mouseX: Int, mouseY: Int, partialTicks: Float) {
 
         val buttonWidth = 27
         val buttonHeight = 27
-        var start = 15
+        var start = 0
 
         val keyForwardColor: Int = if (Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindForward.keyCode)) Color(143, 207, 209).rgb else Integer.MIN_VALUE
         val keyBackwardsColor: Int = if (Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindBack.keyCode)) Color(223, 94, 136).rgb else Integer.MIN_VALUE
@@ -48,7 +48,7 @@ object HudKeystrokes : HudModule() {
         val forwardXPos = (position.getAbsoluteX() + (start + buttonWidth + 2))
         val forwardYPos = (position.getAbsoluteY() + getElementHeight() / 2)
 
-        val font: IFontRenderer = FontHandler.fancyFontRenderer
+        val font: IFontRenderer = FontHandler.mcFontRenderer
 
         Gui.drawRect(forwardXPos, forwardYPos - buttonHeight, forwardXPos + buttonWidth, forwardYPos, keyForwardColor)
         font.drawString(Keyboard.getKeyName(Minecraft.getMinecraft().gameSettings.keyBindForward.keyCode).toString(), (forwardXPos + 1 + buttonWidth / 2) - font.getStringWidth(Keyboard.getKeyName(Minecraft.getMinecraft().gameSettings.keyBindForward.keyCode).toString()) / 2, forwardYPos - buttonHeight / 2 - font.getFontHeight() / 2, -1);
@@ -62,9 +62,9 @@ object HudKeystrokes : HudModule() {
             }
 
             val character: String = when (x) {
-                0 -> "A"
-                1 -> "S"
-                else -> "D"
+                0 -> Keyboard.getKeyName(Minecraft.getMinecraft().gameSettings.keyBindLeft.keyCode).toString()
+                1 -> Keyboard.getKeyName(Minecraft.getMinecraft().gameSettings.keyBindBack.keyCode).toString()
+                else -> Keyboard.getKeyName(Minecraft.getMinecraft().gameSettings.keyBindRight.keyCode).toString()
             }
 
             val keyStartX = (position.getAbsoluteX() + start)

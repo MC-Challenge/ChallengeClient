@@ -17,6 +17,7 @@ package net.challenge.client.ui.hud.customHud
 import net.challenge.client.core.ClientCore
 import net.challenge.client.ui.hud.customHud.element.IHudElement
 import net.challenge.client.ui.hud.customHud.element.IHudPreview
+import net.challenge.client.ui.widget.utils.RenderUtils
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.ScaledResolution
@@ -55,8 +56,6 @@ class GuiCustomHud : GuiScreen() {
         Gui.drawRect(0, 0, mc.displayWidth, mc.displayHeight, Integer.MIN_VALUE)
         moveDraggingElement(mouseX, mouseY)
         renderPreview(mouseX, mouseY, partialTicks)
-
-        println(ClientCore.hudRenderer.enabledElements)
 
         super.drawScreen(mouseX, mouseY, partialTicks)
     }

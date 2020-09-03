@@ -26,6 +26,9 @@ import net.challenge.client.events.Render2DEvent
 import net.challenge.client.ui.hud.customHud.GuiCustomHud
 import net.challenge.client.ui.hud.customHud.element.IHudElement
 import net.challenge.client.utils.IMC
+import net.minecraft.client.gui.Gui
+import net.minecraft.client.gui.ScaledResolution
+import org.lwjgl.opengl.GL11
 import java.util.function.Predicate
 
 object HudRenderer : IHudRenderer, Listenable, IMC {
@@ -52,9 +55,6 @@ object HudRenderer : IHudRenderer, Listenable, IMC {
     override fun renderHudElements(mouseX: Int, mouseY: Int, partialTicks: Float) {
         enabledElements.forEach {
             run {
-                if (mc.currentScreen is GuiCustomHud) {
-
-                }
                 it.drawElement(mouseX, mouseY, partialTicks)
             }
         }
