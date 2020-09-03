@@ -52,6 +52,9 @@ object HudRenderer : IHudRenderer, Listenable, IMC {
     override fun renderHudElements(mouseX: Int, mouseY: Int, partialTicks: Float) {
         enabledElements.forEach {
             run {
+                if (mc.currentScreen is GuiCustomHud) {
+
+                }
                 it.drawElement(mouseX, mouseY, partialTicks)
             }
         }

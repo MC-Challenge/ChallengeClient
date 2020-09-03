@@ -31,7 +31,7 @@ abstract class AbstractCommand {
      *
      * This method, will run, when the player typed in the command
      */
-    abstract fun run(arguments: Array<String?>?)
+    abstract fun run(arguments: Array<String?>)
 
 
     /**

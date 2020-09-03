@@ -26,6 +26,11 @@ import net.challenge.client.features.modules.IModule
 interface IModuleRegistry {
 
     /**
+     * Collection of all registered client modules
+     */
+    var modules: Collection<IModule>
+
+    /**
      * Loading modules
      */
     fun load()
@@ -50,7 +55,7 @@ interface IModuleRegistry {
      *
      * @return The module that was found, or null
      */
-    fun getModule(name: String): IModule
+    fun getModule(name: String): IModule?
 
     /**
      * Getting an module by class

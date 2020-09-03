@@ -13,10 +13,17 @@ import java.awt.Color
 abstract class SimpleHudModule : HudModule() {
 
     /**
-     * TODO Doc
+     * Option, if the text should drop an shadow
      */
     @VTag(name = "Shadow", description = "Should the text have a shadow")
-    protected val hasShadow: BooleanValue = BooleanValue( false)
+    protected val hasShadow: BooleanValue = BooleanValue(false)
+
+
+    /**
+     * Option, if the text should have a prefix
+     */
+    @VTag(name = "Prefix", description = "Should have a Prefix")
+    protected val hasPrefix: BooleanValue = BooleanValue(false)
 
 
     /**
@@ -36,13 +43,21 @@ abstract class SimpleHudModule : HudModule() {
 
     override fun drawElement(mouseX: Int, mouseY: Int, partialTicks: Float) {
         val font = FontHandler.mcFontRenderer
-        val text = getDisplayName() + ": " + getValue()
+        var text = getDisplayName() + ": " + getValue()
 
-        font.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), Color.WHITE.rgb)
+        if (!hasPrefix.value)
+            text = getValue()
+
+        if (hasShadow.value) font.drawStringWithShadow(text, position.getAbsoluteX().toFloat(), position.getAbsoluteY().toFloat(), Color.WHITE.rgb)
+        else font.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), Color.WHITE.rgb)
     }
 
     override fun getElementWidth(): Int {
-        return FontHandler.mcFontRenderer.getStringWidth("${ getDisplayName() }: ${ getValue() }")
+        var text = getDisplayName() + ": " + getValue()
+
+        if (!hasPrefix.value)
+            text = getValue()
+        return FontHandler.mcFontRenderer.getStringWidth(text)
     }
 
     override fun getElementHeight(): Int {

@@ -1,6 +1,7 @@
-package net.norisk.core.features.command
+package net.challenge.client.features.commands
 
-import net.challenge.client.features.commands.AbstractCommand
+import net.challenge.client.features.commands.list.CommandToggle
+import net.challenge.client.features.commands.list.CommandToggleCosmetic
 import java.util.*
 
 class CommandRegistry {
@@ -15,7 +16,8 @@ class CommandRegistry {
 
     fun init() {
         registerCommands(
-
+                CommandToggle(),
+                CommandToggleCosmetic()
         )
     }
 
@@ -55,9 +57,10 @@ class CommandRegistry {
 
         if (!message.startsWith(".")) return false
 
-        val command: AbstractCommand = getCommand(arguments[0])
+        val command: AbstractCommand? = getCommand(arguments[0])
 
         return run {
+            if (command == null) return false
             val args = arrayOfNulls<String>(arguments.size - 1)
             System.arraycopy(arguments, 1, args, 0, arguments.size - 1)
             command.run(args)
@@ -70,7 +73,7 @@ class CommandRegistry {
      * @return the command that was found, or null
      */
 
-    fun getCommand(name: String): AbstractCommand {
+    fun getCommand(name: String): AbstractCommand? {
         return clientCommands.stream().filter { mod: AbstractCommand -> name.equals(mod.name, ignoreCase = true) || mod.aliases.contains(name) }.findFirst().orElse(null)
     }
 

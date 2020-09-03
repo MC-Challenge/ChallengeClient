@@ -9,7 +9,6 @@ abstract class HudModule : Module(), IHudElement {
 
     override var position: IPosition = ScaledPosition(10, 10)
 
-
     override fun onEnable() {
         ClientCore.hudRenderer.enabledElements += this
 

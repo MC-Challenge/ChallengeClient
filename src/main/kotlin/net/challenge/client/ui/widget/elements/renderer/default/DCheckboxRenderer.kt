@@ -35,7 +35,7 @@ class DCheckboxRenderer : IWidgetRenderer<Checkbox> {
         val width = widget.width.toFloat()
         val height = widget.height.toFloat()
 
-        RenderUtils.drawRect(x, y, width, height,  Color(50, 50, 50))
+        RenderUtils.drawRect(x, y, width, height, Color(50, 50, 50))
 
         var fontColor = Color.WHITE
 

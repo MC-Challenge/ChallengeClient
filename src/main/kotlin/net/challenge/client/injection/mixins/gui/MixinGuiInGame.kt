@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
 class MixinGuiInGame {
 
     // TODO is the injection correct? TEST!
-    @Inject(method = "renderTooltip", at = [(At("HEAD"))])
+    @Inject(method = "renderTooltip", at = [(At("RETURN"))])
     private fun renderTooltip(sr: ScaledResolution, partialTicks: Float, callbackInfo: CallbackInfo) {
         ClientCore.eventBus.post(Render2DEvent(sr, partialTicks))
     }

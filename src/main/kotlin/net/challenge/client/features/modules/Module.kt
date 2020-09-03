@@ -32,7 +32,7 @@ open class Module : IModule {
     final override var description: String = "No-Description"
 
     @VTag(name = "Enabled", description = "Is the module enabled")
-    private val enabled: BooleanValue = BooleanValue(false)
+    private val enabled: BooleanValue = BooleanValue(true)
 
 
     init {
@@ -40,9 +40,6 @@ open class Module : IModule {
 
         name = info.name
         description = info.description
-
-        // TODO Only for testing
-        setEnabled(true)
     }
 
 

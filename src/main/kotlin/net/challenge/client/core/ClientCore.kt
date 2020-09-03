@@ -30,7 +30,7 @@ import net.challenge.client.ui.hud.customHud.renderer.HudRenderer
 import net.challenge.client.ui.hud.customHud.renderer.IHudRenderer
 import net.challenge.client.value.registry.IValueRegistry
 import net.challenge.client.value.registry.ValueRegistry
-import net.norisk.core.features.command.CommandRegistry
+import net.challenge.client.features.commands.CommandRegistry
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 
@@ -65,6 +65,7 @@ object ClientCore : IClientCore {
         FontHandler.load()
         cosmeticRegistry.load()
         moduleRegistry.load()
+        commandRegistry.init()
     }
 
     override fun onShutdown() {

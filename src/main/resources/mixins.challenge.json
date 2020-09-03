@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "gui.MixinGuiScreen",
+    "gui.MixinGuiInGame",
     "entity.renderer.MixinRenderPlayer",
     "MixinMinecraft"
   ]
