@@ -66,7 +66,7 @@ class CosmeticWing : Cosmetic() {
     private class ModelWing : ModelBase(), Listenable {
         val wing = ModelRenderer(this, "wing")
         val wingTip = ModelRenderer(this, "wingtip")
-        val location = ResourceLocation("client/cosmetic/wings/wing.png")
+        val location = ResourceLocation("challenge/cosmetics/wings/dragon/dragon.png")
 
         init {
             setTextureOffset("wing.bone", 0, 0)

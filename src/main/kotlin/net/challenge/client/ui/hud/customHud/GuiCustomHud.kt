@@ -18,6 +18,7 @@ import net.challenge.client.core.ClientCore
 import net.challenge.client.ui.hud.customHud.element.IHudElement
 import net.challenge.client.ui.hud.customHud.element.IHudPreview
 import net.challenge.client.ui.widget.utils.RenderUtils
+import net.challenge.client.utils.BlurUtil
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.ScaledResolution
@@ -53,7 +54,7 @@ class GuiCustomHud : GuiScreen() {
 
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
-        Gui.drawRect(0, 0, mc.displayWidth, mc.displayHeight, Integer.MIN_VALUE)
+        BlurUtil.blur()
         moveDraggingElement(mouseX, mouseY)
         renderPreview(mouseX, mouseY, partialTicks)
 
