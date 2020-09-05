@@ -29,7 +29,7 @@ import java.io.IOException
 object BlurUtil : IMC {
 
     //is the shader-config
-    private val resourceLocation = ResourceLocation("client/shader/blur.json")
+    private val resourceLocation = ResourceLocation("challenge/shader/blur.json")
 
     //are the render ticks
     var renderPartialTicks: Float? = null

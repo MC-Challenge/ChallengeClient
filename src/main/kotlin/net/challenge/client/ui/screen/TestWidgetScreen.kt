@@ -35,7 +35,6 @@ class TestWidgetScreen : WidgetScreen() {
         val height = 15
 
         addWidgets(
-
                 Button("SelectWorld")
                         .setPosition(ScaledPosition(5, 5))
                         .setSize(width, height)
