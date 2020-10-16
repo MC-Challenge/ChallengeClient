@@ -20,7 +20,7 @@ import net.challenge.client.features.commands.AbstractCommand
 import net.challenge.client.features.modules.Module
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ChatComponentText
-import net.norisk.core.features.command.annotations.CommandInfo
+import net.challenge.client.features.commands.annotations.CommandInfo
 
 @CommandInfo(name = "toggle", description = "Toggle an Module :)", syntax = "Use §a'Toggle <Module>'§7, to toggle a Module.", aliases = "t")
 class CommandToggle : AbstractCommand() {

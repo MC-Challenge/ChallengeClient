@@ -4,7 +4,7 @@ import com.google.common.collect.Lists
 import net.challenge.client.core.ClientCore
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ChatComponentText
-import net.norisk.core.features.command.annotations.CommandInfo
+import net.challenge.client.features.commands.annotations.CommandInfo
 
 abstract class AbstractCommand {
     var name: String = ""

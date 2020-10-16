@@ -19,7 +19,7 @@ import net.challenge.client.core.ClientCore.info
 import net.challenge.client.features.commands.AbstractCommand
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ChatComponentText
-import net.norisk.core.features.command.annotations.CommandInfo
+import net.challenge.client.features.commands.annotations.CommandInfo
 
 @CommandInfo(name = "toggleCosmetic", description = "Toggle an Cosmetic :)", syntax = "§7Use §a'ToggleC <Cosmetic>'§7, to toggle a Cosmetic.", aliases = "tc, toggleC")
 class CommandToggleCosmetic : AbstractCommand() {
