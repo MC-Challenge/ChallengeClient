@@ -21,6 +21,7 @@ import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.IModule
 import net.challenge.client.features.modules.impl.hud.HudDirection
 import net.challenge.client.features.modules.impl.hud.HudKeystrokes
+import net.challenge.client.features.modules.impl.hud.HudXYZ
 
 
 /**
@@ -33,7 +34,8 @@ class ModuleRegistry : IModuleRegistry {
     override fun load() {
         registerModules(
                 HudDirection,
-                HudKeystrokes
+                HudKeystrokes,
+                HudXYZ
         )
     }
 
