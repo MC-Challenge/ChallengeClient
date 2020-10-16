@@ -6,8 +6,7 @@
   "mixins": [
     "gui.MixinGuiScreen",
     "gui.MixinGuiInGame",
-    "entity.renderer.MixinRenderPlayer",
-    "client.shader.MixinShaderGroup",
-    "MixinMinecraft"
+    "renderer.MixinRenderPlayer",
+    "client.MixinMinecraft"
   ]
 }

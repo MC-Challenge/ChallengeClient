@@ -15,14 +15,11 @@
 package net.challenge.client.utils
 
 import com.google.gson.JsonSyntaxException
-import net.challenge.client.injection.mixins.MixinMinecraft
-import net.challenge.client.injection.mixins.client.shader.MixinShaderGroup
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.shader.Framebuffer
 import net.minecraft.client.shader.ShaderGroup
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.Timer
 import java.io.IOException
 
 
