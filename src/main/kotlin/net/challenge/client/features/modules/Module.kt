@@ -40,6 +40,8 @@ open class Module : IModule {
 
         name = info.name
         description = info.description
+
+        setEnabled(enabled.value)
     }
 
 
