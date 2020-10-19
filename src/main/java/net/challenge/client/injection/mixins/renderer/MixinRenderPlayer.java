@@ -3,6 +3,7 @@ package net.challenge.client.injection.mixins.renderer;
 
 import net.challenge.client.core.ClientCore;
 import net.challenge.client.events.RenderPlayerEvent;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
@@ -29,6 +30,7 @@ public abstract class MixinRenderPlayer extends RendererLivingEntity<AbstractCli
         GlStateManager.resetColor();
         final RenderPlayerEvent event = new RenderPlayerEvent(entity, renderManager, x, y, z, partialTicks);
         ClientCore.INSTANCE.getEventBus().post(event);
-        ClientCore.INSTANCE.getCosmeticRegistry().renderActivated(entity, x, y, z, partialTicks);
+
+        if(entity == Minecraft.getMinecraft().thePlayer) ClientCore.INSTANCE.getCosmeticRegistry().renderActivated(entity, x, y, z, partialTicks);
     }
 }

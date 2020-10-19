@@ -24,6 +24,7 @@ import net.challenge.client.core.info.IClientInfo
 import net.challenge.client.features.commands.CommandRegistry
 import net.challenge.client.features.cosmetics.registry.CosmeticRegistry
 import net.challenge.client.features.cosmetics.registry.ICosmeticRegistry
+import net.challenge.client.features.modules.impl.hud.HudXYZ
 import net.challenge.client.features.modules.registry.IModuleRegistry
 import net.challenge.client.features.modules.registry.ModuleRegistry
 import net.challenge.client.ui.font.FontHandler
@@ -67,7 +68,7 @@ object ClientCore : IClientCore {
         logger.debug("Post-Start")
         logger.info(info.toString())
 
-        config = JsonConfig(File(mc.mcDataDir, "challengeClient/config"))
+        config = JsonConfig(File(mc.mcDataDir, "challengeClient/config"), true)
 
         FontHandler.load()
         cosmeticRegistry.load()
