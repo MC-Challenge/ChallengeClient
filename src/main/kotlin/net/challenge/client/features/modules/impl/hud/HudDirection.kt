@@ -2,17 +2,11 @@ package net.challenge.client.features.modules.impl.hud
 
 import net.challenge.client.features.modules.SimpleHudModule
 import net.challenge.client.features.modules.annotations.ModuleInfo
-import net.challenge.client.value.VTag
-import net.challenge.client.value.list.BooleanValue
+import net.challenge.configu.value.VTag
+import net.challenge.configu.value.impl.VBool
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.Entity
-import net.minecraft.util.EnumFacing.*
 
-/**
- * # TestModule
- *
- * A module for testing
- */
 @ModuleInfo(name = "Direction")
 object HudDirection : SimpleHudModule() {
 
@@ -20,7 +14,7 @@ object HudDirection : SimpleHudModule() {
      * Option, if the text only has one character
      */
     @VTag(name = "One Character", description = "Should the text only have one character")
-    val oneCharacter: BooleanValue = BooleanValue(false)
+    val oneCharacter = VBool(false)
 
     override fun getValue(): String {
         val entity: Entity = Minecraft.getMinecraft().renderViewEntity

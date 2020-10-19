@@ -18,6 +18,7 @@
 package net.challenge.client.features.modules.registry
 
 import net.challenge.client.features.modules.IModule
+import net.challenge.client.features.modules.Module
 
 
 /**
@@ -28,7 +29,7 @@ interface IModuleRegistry {
     /**
      * Collection of all registered client modules
      */
-    var modules: Collection<IModule>
+    var modules: Collection<Module>
 
     /**
      * Loading modules
@@ -40,14 +41,14 @@ interface IModuleRegistry {
      *
      * @param modules are the modules, that will be registered
      */
-    fun registerModules(vararg modules: IModule)
+    fun registerModules(vararg modules: Module)
 
     /**
      * This method, registers one module
      *
      * @param module is the module, that will be registered
      */
-    fun registerModule(module: IModule)
+    fun registerModule(module: Module)
 
 
     /**

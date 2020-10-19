@@ -21,9 +21,10 @@ import me.zero.alpine.bus.EventBus
 
 import net.challenge.client.core.info.ClientInfo
 import net.challenge.client.core.info.IClientInfo
+import net.challenge.client.utils.IMC
 import org.apache.logging.log4j.Logger
 
-interface IClientCore {
+interface IClientCore : IMC {
 
     /**
      * Info of the client

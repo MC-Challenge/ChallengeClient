@@ -19,20 +19,22 @@ package net.challenge.client.features.modules
 
 import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.annotations.ModuleInfo
-import net.challenge.client.value.VTag
-import net.challenge.client.value.list.BooleanValue
+import net.challenge.configu.container.ValueContainer
+import net.challenge.configu.scanner.ValueScanner
+import net.challenge.configu.value.VTag
+import net.challenge.configu.value.impl.VBool
 
 /**
  * Default implementation of [IModule]
  */
-open class Module : IModule {
+open class Module : ValueContainer(ValueScanner), IModule {
 
     final override var name: String = "No-Name"
 
     final override var description: String = "No-Description"
 
     @VTag(name = "Enabled", description = "Is the module enabled")
-    private val enabled: BooleanValue = BooleanValue(false)
+    private val enabled = VBool(false)
 
 
     init {
@@ -64,5 +66,9 @@ open class Module : IModule {
 
     override fun isEnabled(): Boolean {
         return enabled.value
+    }
+
+    override fun getFileName(): String {
+        return name
     }
 }

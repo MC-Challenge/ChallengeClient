@@ -81,4 +81,9 @@ public class MixinMinecraft {
         if (key == Keyboard.KEY_RSHIFT)
             Minecraft.getMinecraft().displayGuiScreen(new GuiCustomHud());
     }
+
+    @Inject(method = "shutdown", at = @At("HEAD"))
+    private void shutdown(CallbackInfo callbackInfo) {
+        ClientCore.INSTANCE.onShutdown();
+    }
 }

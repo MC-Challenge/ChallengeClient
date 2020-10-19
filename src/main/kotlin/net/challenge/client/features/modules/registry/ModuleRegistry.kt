@@ -19,6 +19,7 @@ package net.challenge.client.features.modules.registry
 
 import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.IModule
+import net.challenge.client.features.modules.Module
 import net.challenge.client.features.modules.impl.hud.HudDirection
 import net.challenge.client.features.modules.impl.hud.HudKeystrokes
 import net.challenge.client.features.modules.impl.hud.HudXYZ
@@ -29,7 +30,7 @@ import net.challenge.client.features.modules.impl.hud.HudXYZ
  */
 class ModuleRegistry : IModuleRegistry {
 
-    override var modules: Collection<IModule> = ArrayList()
+    override var modules: Collection<Module> = ArrayList()
 
     override fun load() {
         registerModules(
@@ -37,13 +38,18 @@ class ModuleRegistry : IModuleRegistry {
                 HudKeystrokes,
                 HudXYZ
         )
+
+        modules.forEach {
+            it.load()
+            ClientCore.config.register(it)
+        }
     }
 
-    override fun registerModules(vararg modules: IModule) {
+    override fun registerModules(vararg modules: Module) {
         modules.forEach(this::registerModule)
     }
 
-    override fun registerModule(module: IModule) {
+    override fun registerModule(module: Module) {
         modules += module
         ClientCore.valueRegistry.registerValueHandler(module)
     }

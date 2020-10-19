@@ -1,9 +1,9 @@
 package net.challenge.client.features.modules
 
 import net.challenge.client.ui.font.FontHandler
-import net.challenge.client.value.VTag
-import net.challenge.client.value.list.BooleanValue
-import net.challenge.client.value.list.NumberValue
+import net.challenge.configu.value.VTag
+import net.challenge.configu.value.impl.VBool
+import net.challenge.configu.value.impl.VColor
 import java.awt.Color
 
 /**
@@ -17,32 +17,20 @@ abstract class SimpleHudModule : HudModule() {
      * Option, if the text should drop an shadow
      */
     @VTag(name = "Shadow", description = "Should the text have a shadow")
-    protected val hasShadow: BooleanValue = BooleanValue(false)
+    protected val hasShadow = VBool(false)
 
 
     /**
      * Option, if the text should have a prefix
      */
     @VTag(name = "Prefix", description = "Should have a Prefix")
-    protected val hasPrefix: BooleanValue = BooleanValue(false)
+    protected val hasPrefix = VBool(false)
 
     /**
      * Color Red
      */
-    @VTag(name = "Red", description = "Color Red")
-    protected val colorRed: NumberValue<Int> = NumberValue(64, 0, 255)
-
-    /**
-     * Color Green
-     */
-    @VTag(name = "Green", description = "Color Green")
-    protected val colorGreen: NumberValue<Int> = NumberValue(168, 0, 255)
-
-    /**
-     * Color Blue
-     */
-    @VTag(name = "Blue", description = "Color Blue")
-    protected val colorBlue: NumberValue<Int> = NumberValue(196, 0, 255)
+    @VTag(name = "Color", description = "Color")
+    protected val color = VColor(Color.BLUE)
 
 
     /**
@@ -67,8 +55,8 @@ abstract class SimpleHudModule : HudModule() {
         if (!hasPrefix.value)
             text = getValue()
 
-        if (hasShadow.value) font.drawStringWithShadow(text, position.getAbsoluteX().toFloat(), position.getAbsoluteY().toFloat(), Color(colorRed.value, colorGreen.value, colorBlue.value).rgb)
-        else font.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), Color(colorRed.value, colorGreen.value, colorBlue.value).rgb)
+        if (hasShadow.value) font.drawStringWithShadow(text, position.getAbsoluteX().toFloat(), position.getAbsoluteY().toFloat(), color.value.rgb)
+        else font.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), color.value.rgb)
     }
 
     override fun getElementWidth(): Int {
