@@ -38,7 +38,10 @@ class DSliderRenderer : IWidgetRenderer<Slider> {
         val height = widget.height.toFloat()
 
         RenderUtils.drawRect(x, y, width, height, Color(50, 50, 50))
-        RenderUtils.drawRect(x, y + height - 3.0F, (widget.getAsPercent().toFloat() * width).coerceAtMost(width), 2.0F, Color.WHITE)
+        val y2 = y + height - 3.0F
+        RenderUtils.drawRect(x, y2, (widget.getAsPercent().toFloat() * width).coerceAtMost(width), 2.0F, Color.WHITE)
+        RenderUtils.drawCircle(x + (widget.getAsPercent().toFloat() * width).coerceAtMost(width), y2 + 1, 2F, Color.WHITE.rgb)
+
 
         val font = Minecraft.getMinecraft().fontRendererObj
         font.drawString(widget.name, x.toInt() + 2, y.toInt() + 2, Color.WHITE.rgb)

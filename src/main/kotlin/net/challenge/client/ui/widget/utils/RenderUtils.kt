@@ -123,4 +123,31 @@ object RenderUtils {
     fun drawRect(x: Float, y: Float, width: Float, height: Float, color: Color) {
         drawRect(x, y, width, height, color.rgb)
     }
+
+    fun drawCircle(x: Float, y: Float, radius: Float, color: Int) {
+        val alpha = (color shr 24 and 0xFF) / 255.0f
+        val red = (color shr 16 and 0xFF) / 255.0f
+        val green = (color shr 8 and 0xFF) / 255.0f
+        val blue = (color and 0xFF) / 255.0f
+
+        GL11.glColor4f(red, green, blue, alpha)
+        GL11.glEnable(3042)
+        GL11.glDisable(3553)
+        GL11.glBlendFunc(770, 771)
+        GL11.glEnable(2848)
+        GL11.glPushMatrix()
+        GL11.glLineWidth(1.0f)
+        GL11.glBegin(9)
+
+        for (i in 0..360) {
+            GL11.glVertex2d(x + sin(i * 3.141592653589793 / 180.0) * radius, y + cos(i * 3.141592653589793 / 180.0) * radius)
+        }
+
+        GL11.glEnd()
+        GL11.glPopMatrix()
+        GL11.glEnable(3553)
+        GL11.glDisable(3042)
+        GL11.glDisable(2848)
+        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f)
+    }
 }
