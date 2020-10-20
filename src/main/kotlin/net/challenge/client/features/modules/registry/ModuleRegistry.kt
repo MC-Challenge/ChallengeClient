@@ -51,7 +51,6 @@ class ModuleRegistry : IModuleRegistry {
 
     override fun registerModule(module: Module) {
         modules += module
-        ClientCore.valueRegistry.registerValueHandler(module)
     }
 
     override fun getModule(name: String): IModule? {

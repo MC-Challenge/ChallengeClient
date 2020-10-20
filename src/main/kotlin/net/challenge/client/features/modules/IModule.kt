@@ -19,13 +19,12 @@ package net.challenge.client.features.modules
 
 import me.zero.alpine.listener.Listenable
 import net.challenge.client.utils.IMC
-import net.challenge.client.value.IValueHandler
 import net.challenge.configu.container.ISaveContainer
 
 /**
  * A function of the client
  */
-interface IModule : Listenable, IValueHandler, IMC, ISaveContainer {
+interface IModule : Listenable, IMC, ISaveContainer {
 
     /**
      * Name of the module
