@@ -16,12 +16,14 @@ package net.challenge.client.injection.mixins.client;
 
 import net.challenge.client.core.ClientCore;
 import net.challenge.client.core.info.IClientInfo;
+import net.challenge.client.events.WorldEvent;
 import net.challenge.client.ui.animation.AnimationUtil;
 import net.challenge.client.ui.hud.customHud.GuiCustomHud;
 import net.challenge.client.ui.screen.TestWidgetScreen;
 import net.challenge.client.utils.BlurUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.util.Timer;
 import net.minecraftforge.fml.relauncher.Side;
@@ -85,5 +87,10 @@ public class MixinMinecraft {
     @Inject(method = "shutdown", at = @At("HEAD"))
     private void shutdown(CallbackInfo callbackInfo) {
         ClientCore.INSTANCE.onShutdown();
+    }
+
+    @Inject(method = "loadWorld(Lnet/minecraft/client/multiplayer/WorldClient;Ljava/lang/String;)V", at = @At("HEAD"))
+    private void loadWorld(WorldClient world, String p_loadWorld_2_, final CallbackInfo callbackInfo) {
+        ClientCore.INSTANCE.getEventBus().post(new WorldEvent(world));
     }
 }

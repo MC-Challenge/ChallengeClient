@@ -1,8 +1,14 @@
 package net.challenge.client.events
 
+import me.zero.alpine.event.type.Cancellable
 import net.minecraft.client.entity.AbstractClientPlayer
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.gui.ScaledResolution
+import net.minecraft.client.multiplayer.WorldClient
 import net.minecraft.client.renderer.entity.RenderManager
+import net.minecraft.item.ItemStack
+import net.minecraft.util.BlockPos
+import net.minecraft.util.EnumFacing
 
 class RenderPlayerEvent(entity: AbstractClientPlayer, renderManager: RenderManager, x: Double, y: Double, z: Double, partialTicks: Float)
 
@@ -23,3 +29,10 @@ class KeyEvent(val key: Int)
  *                      This field is frozen if the display is paused to eliminate jitter.
  */
 class Render2DEvent(val sr: ScaledResolution, val partialTicks: Float)
+
+/**
+ * Called when the world changes
+ *
+ * @param worldClient change to this world
+ */
+class WorldEvent(val worldClient: WorldClient?)
