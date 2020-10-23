@@ -27,6 +27,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.ScaledResolution
+import java.awt.Color
 import java.util.function.Consumer
 import java.util.function.Predicate
 
@@ -99,6 +100,9 @@ class GuiCustomHud : WidgetScreen() {
                     (it as IHudPreview).drawPreview(mouseX, mouseY, partialTicks)
                 else
                     it.drawElement(mouseX, mouseY, partialTicks)
+
+                val position = it.position
+                RenderUtils.drawRect(position.getAbsoluteX().toFloat(), position.getAbsoluteY().toFloat(), it.getElementWidth().toFloat(), it.getElementHeight().toFloat(), Color(255, 255, 255, 40))
             }
         })
     }
