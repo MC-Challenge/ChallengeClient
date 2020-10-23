@@ -81,8 +81,6 @@ public class MixinMinecraft {
 
         if (key == Keyboard.KEY_RSHIFT)
             Minecraft.getMinecraft().displayGuiScreen(new GuiCustomHud());
-        else if (key == Keyboard.KEY_T)
-            Minecraft.getMinecraft().displayGuiScreen(new SettingScreen());
     }
 
     @Inject(method = "shutdown", at = @At("HEAD"))

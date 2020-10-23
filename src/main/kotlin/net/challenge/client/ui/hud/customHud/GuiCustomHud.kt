@@ -17,8 +17,13 @@ package net.challenge.client.ui.hud.customHud
 import net.challenge.client.core.ClientCore
 import net.challenge.client.ui.hud.customHud.element.IHudElement
 import net.challenge.client.ui.hud.customHud.element.IHudPreview
+import net.challenge.client.ui.position.ScaledPosition
+import net.challenge.client.ui.screen.SettingScreen
+import net.challenge.client.ui.screen.WidgetScreen
+import net.challenge.client.ui.widget.elements.Button
 import net.challenge.client.ui.widget.utils.RenderUtils
 import net.challenge.client.utils.BlurUtil
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.ScaledResolution
@@ -30,7 +35,7 @@ import java.util.function.Predicate
  *
  * TODO Doc
  */
-class GuiCustomHud : GuiScreen() {
+class GuiCustomHud : WidgetScreen() {
 
     /**
      * x-dist of the element
@@ -52,6 +57,23 @@ class GuiCustomHud : GuiScreen() {
      */
     private var enabledElements: Collection<IHudElement> = ClientCore.hudRenderer.enabledElements
 
+    init {
+        val btnWidth = 50
+        val btnHeight = 18
+
+        val mc = Minecraft.getMinecraft()
+        val sr = ScaledResolution(mc)
+
+        val width = sr.scaledWidth
+        val height = sr.scaledHeight
+
+        addWidgets(
+                Button("Settings")
+                        .setPosition(ScaledPosition(width / 2 - btnWidth/2, height / 2 + - btnHeight / 2))
+                        .setSize(btnWidth, btnHeight)
+                        .onClick { mc.displayGuiScreen(SettingScreen()) }
+        )
+    }
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
         //BlurUtil.blur()
