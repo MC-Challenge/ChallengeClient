@@ -14,7 +14,7 @@ import net.challenge.configu.value.impl.VNumber
 class SettingScreen : WidgetScreen() {
 
     init {
-        val width = 80
+        val width = 150
         val height = 15
 
         val modulesList = WidgetList()
@@ -22,7 +22,7 @@ class SettingScreen : WidgetScreen() {
                 .setSize(width, height * 10)
 
         val settingsList = WidgetList()
-                .setPosition(ScaledPosition(10 + width + 3, 10))
+                .setPosition(ScaledPosition(10 + width + width/10, 10))
                 .setSize(width, height * 10)
 
         ClientCore.moduleRegistry.modules.forEach { module ->
@@ -76,6 +76,7 @@ class SettingScreen : WidgetScreen() {
             val slider = Slider(setting.name)
                     .setValue(setting.value)
                     .onSelect { setting.setObject(it.value) }
+                    .setDecimalPlaces(setting.decimalPlaces)
 
             setting.maximum?.let { slider.setMaximum(it) }
             setting.minimum?.let { slider.setMinimum(it) }

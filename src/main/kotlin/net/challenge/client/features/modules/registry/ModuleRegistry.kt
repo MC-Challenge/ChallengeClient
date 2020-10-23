@@ -20,6 +20,7 @@ package net.challenge.client.features.modules.registry
 import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.IModule
 import net.challenge.client.features.modules.Module
+import net.challenge.client.features.modules.impl.challenge.ReachChallenge
 import net.challenge.client.features.modules.impl.hud.HudDirection
 import net.challenge.client.features.modules.impl.hud.HudKeystrokes
 import net.challenge.client.features.modules.impl.hud.HudXYZ
@@ -36,7 +37,8 @@ class ModuleRegistry : IModuleRegistry {
         registerModules(
                 HudDirection,
                 HudKeystrokes,
-                HudXYZ
+                HudXYZ,
+                ReachChallenge
         )
 
         modules.forEach {

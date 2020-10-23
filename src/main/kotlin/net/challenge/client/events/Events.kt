@@ -6,6 +6,8 @@ import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.multiplayer.WorldClient
 import net.minecraft.client.renderer.entity.RenderManager
+import net.minecraft.entity.Entity
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
@@ -36,3 +38,11 @@ class Render2DEvent(val sr: ScaledResolution, val partialTicks: Float)
  * @param worldClient change to this world
  */
 class WorldEvent(val worldClient: WorldClient?)
+
+/**
+ * Called when a player attack a entity.
+ *
+ * @param entityPlayer The player who attacks.
+ * @param targetEntity The entity that is attacked.
+ */
+class AttackEntityEvent(val entityPlayer: EntityPlayer, targetEntity: Entity) : Cancellable()
