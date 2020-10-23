@@ -53,7 +53,7 @@ repositories {
     }
 }
 
-version = "v0.1"
+version = "1.0.0"
 group="net.challenge"
 archivesBaseName = "ChallengeClient"
 
