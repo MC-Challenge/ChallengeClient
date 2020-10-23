@@ -29,8 +29,10 @@ abstract class SimpleHudModule : HudModule() {
     /**
      * Color Red
      */
+    /*
     @VTag(name = "Color", description = "Color")
     protected val color = VColor(Color.BLUE)
+    */
 
 
     /**
@@ -55,8 +57,8 @@ abstract class SimpleHudModule : HudModule() {
         if (!hasPrefix.value)
             text = getValue()
 
-        if (hasShadow.value) font.drawStringWithShadow(text, position.getAbsoluteX().toFloat(), position.getAbsoluteY().toFloat(), color.value.rgb)
-        else font.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), color.value.rgb)
+        if (hasShadow.value) font.drawStringWithShadow(text, position.getAbsoluteX().toFloat(), position.getAbsoluteY().toFloat(), Color.WHITE.rgb)
+        else font.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), Color.WHITE.rgb)
     }
 
     override fun getElementWidth(): Int {

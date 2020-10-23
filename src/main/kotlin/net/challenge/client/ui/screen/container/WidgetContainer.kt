@@ -133,4 +133,11 @@ open class WidgetContainer : IGuiGuiEvents {
     fun addWidgets(vararg widget: IGuiWidget<*>) {
         widgets = widgets + widget
     }
+
+    /**
+     * Deletes all [IGuiWidget] from the [widgets].
+     */
+    fun clear() {
+        widgets = listOf()
+    }
 }

@@ -20,6 +20,8 @@ package net.challenge.client.features.modules
 import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.annotations.ModuleInfo
 import net.challenge.configu.container.ValueContainer
+import net.challenge.configu.events.ValueChangeEvent
+import net.challenge.configu.events.ValueChangeListener
 import net.challenge.configu.scanner.ValueScanner
 import net.challenge.configu.value.VTag
 import net.challenge.configu.value.impl.VBool
@@ -33,8 +35,16 @@ open class Module : ValueContainer(ValueScanner), IModule {
 
     final override var description: String = "No-Description"
 
-    @VTag(name = "Enabled", description = "Is the module enabled")
-    private val enabled = VBool(false)
+    @VTag("Enabled", "Is the module enabled")
+    private val enabled = VBool(false).setChangeListener(object : ValueChangeListener<Boolean> {
+
+        override fun onChange(event: ValueChangeEvent<Boolean>) {
+            if (event.after)
+                onEnable()
+            else
+                onDisable()
+        }
+    })
 
 
     init {
