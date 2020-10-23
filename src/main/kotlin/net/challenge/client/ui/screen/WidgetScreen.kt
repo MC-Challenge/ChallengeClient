@@ -19,12 +19,22 @@ package net.challenge.client.ui.screen
 
 import net.challenge.client.ui.screen.container.WidgetContainer
 import net.challenge.client.ui.widget.IGuiWidget
+import net.challenge.client.ui.widget.utils.RenderUtils
+import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.GuiScreen
+import java.awt.Color
 
 /**
  * A bridge between [GuiScreen] and the [WidgetContainer]
  */
-open class WidgetScreen : GuiScreen() {
+open class WidgetScreen(
+
+        /**
+         * The screen that was open before this screen.
+         */
+        private val lastScreen: GuiScreen? = null
+
+) : GuiScreen() {
 
     private val widgetContainer = WidgetContainer()
 
@@ -34,6 +44,9 @@ open class WidgetScreen : GuiScreen() {
     }
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
+        if (this.lastScreen != null)
+            this.lastScreen.drawScreen(mouseX, mouseY, partialTicks)
+
         widgetContainer.render(mouseX, mouseY)
 
         super.drawScreen(mouseX, mouseY, partialTicks)
@@ -78,7 +91,14 @@ open class WidgetScreen : GuiScreen() {
      *
      * @param widget This widget will be added to the [WidgetContainer]
      */
-    fun addWidgets(vararg widget: IGuiWidget) {
+    fun addWidgets(vararg widget: IGuiWidget<*>) {
         widgetContainer.addWidgets(*widget)
+    }
+
+    /**
+     * Open the [lastScreen].
+     */
+    fun goBack() {
+        mc.displayGuiScreen(lastScreen)
     }
 }

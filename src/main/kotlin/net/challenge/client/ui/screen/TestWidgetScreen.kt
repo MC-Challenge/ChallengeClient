@@ -22,13 +22,14 @@ import net.challenge.client.ui.widget.elements.Button
 import net.challenge.client.ui.widget.elements.Checkbox
 import net.challenge.client.ui.widget.elements.Slider
 import net.minecraft.client.gui.Gui
+import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.GuiSelectWorld
 import java.awt.Color
 
 /**
  * Screen to test the widgets
  */
-class TestWidgetScreen : WidgetScreen() {
+class TestWidgetScreen(lastScreen: GuiScreen? = null) : WidgetScreen(lastScreen) {
 
     init {
         val width = 80
@@ -36,13 +37,13 @@ class TestWidgetScreen : WidgetScreen() {
 
         addWidgets(
                 Button("SelectWorld")
-                        .setPosition(ScaledPosition(5, 5))
+                        .setPosition(ScaledPosition(30, 5))
                         .setSize(width, height)
                         .onClick {
                             mc.displayGuiScreen(GuiSelectWorld(this))
                         },
                 Slider("Value")
-                        .setPosition(ScaledPosition(5, 10 + height))
+                        .setPosition(ScaledPosition(30, 10 + height))
                         .setMaximum(1000.0)
                         .setValue(1000.0)
                         .setSize(width, height)
@@ -50,11 +51,17 @@ class TestWidgetScreen : WidgetScreen() {
                             println("Set value to ${it.value}")
                         },
                 Checkbox("CheckBox")
-                        .setPosition(ScaledPosition(5, 15 + height * 2))
+                        .setPosition(ScaledPosition(30, 15 + height * 2))
                         .setSize(width, height)
                         .setValue(true)
                         .onSelect {
                             println("Set box to " + it.value)
+                        },
+                Button("Back ->")
+                        .setPosition(ScaledPosition(30, 20 + height * 3))
+                        .setSize(width, height)
+                        .onClick {
+                            goBack()
                         }
         )
     }

@@ -17,7 +17,9 @@
 
 package net.challenge.client.ui.widget.utils
 
+import net.challenge.client.utils.IScaledResolutionHelper
 import net.minecraft.client.gui.Gui
+import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
@@ -26,10 +28,11 @@ import java.awt.Color
 import kotlin.math.cos
 import kotlin.math.sin
 
+
 /**
  * Helpful collection of functions that can be used for 2D rendering
  */
-object RenderUtils {
+object RenderUtils : IScaledResolutionHelper {
 
     /**
      * TODO Doc
@@ -43,6 +46,24 @@ object RenderUtils {
         drawArc(x + width - cornerRadius, y + cornerRadius, cornerRadius, 270, 360, color)
         drawArc(x + width - cornerRadius, y + height - cornerRadius, cornerRadius, 180, 270, color)
         drawArc(x + cornerRadius, y + height - cornerRadius, cornerRadius, 90, 180, color)
+    }
+
+    fun scissor(x: Double, y: Double, width: Double, height: Double) {
+        var x2 = x
+        var y2 = y
+        var width2 = width
+        var height2 = height
+
+        val sr = getScaledResolution()
+        val scale = sr.scaleFactor.toDouble()
+
+        y2 = sr.scaledHeight - y2
+        x2 *= scale
+        y2 *= scale
+        width2 *= scale
+        height2 *= scale
+
+        GL11.glScissor(x2.toInt(), (y2 - height2).toInt(), width2.toInt(), height2.toInt())
     }
 
     /**

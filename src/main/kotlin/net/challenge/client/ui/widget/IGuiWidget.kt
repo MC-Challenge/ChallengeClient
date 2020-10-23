@@ -24,7 +24,7 @@ import net.challenge.client.ui.position.IPosition
  * This is the basic structure element of a GUI-Screen.
  * A widget can interact with the user if the desired Gui-Adapters (find in [net.challenge.client.ui.adapter]) are implemented.
  */
-interface IGuiWidget : IGuiRender {
+interface IGuiWidget<W : IGuiWidget<W>> : IGuiRender {
 
     /**
      * Position of the widget
@@ -47,6 +47,11 @@ interface IGuiWidget : IGuiRender {
     var visible: Boolean
 
     /**
+     * If the widget is disable no implemented input methods are executed.
+     */
+    var disable: Boolean
+
+    /**
     * If the mouse is over the widget.
     *
     * @param mouseX Mouse X position in pixel.
@@ -59,5 +64,85 @@ interface IGuiWidget : IGuiRender {
         val y = position.getAbsoluteY()
 
         return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height
+    }
+
+    /**
+     * Set the position of the widget
+     *
+     * @param position Position to set
+     * @return this
+     */
+    fun setPosition(position: IPosition) : W {
+        this.position = position
+
+        @Suppress("UNCHECKED_CAST")
+        return this as W
+    }
+
+    /**
+     * Set the visibility of the widget
+     *
+     * @param visible Visibility to set
+     * @return this
+     */
+    fun setVisible(visible: Boolean) : W {
+        this.visible = visible
+
+        @Suppress("UNCHECKED_CAST")
+        return this as W
+    }
+
+    /**
+    * Set the disable state of the widget
+    *
+    * @param disable Disable to set
+    * @return this
+    */
+    fun setDisable(disable: Boolean) : W {
+        this.disable = disable
+
+        @Suppress("UNCHECKED_CAST")
+        return this as W
+    }
+
+    /**
+     * Set the width of the widget
+     *
+     * @param width Width to set
+     * @return this
+     */
+    fun setWidth(width: Int) : W {
+        this.width = width
+
+        @Suppress("UNCHECKED_CAST")
+        return this as W
+    }
+
+    /**
+     * Set the height of the widget
+     *
+     * @param height Height to set
+     * @return this
+     */
+    fun setHeight(height: Int) : W {
+        this.height = height
+
+        @Suppress("UNCHECKED_CAST")
+        return this as W
+    }
+
+    /**
+     * Set the width and height of the widget
+     *
+     * @param width Width to set
+     * @param height Height to set
+     * @return this
+     */
+    fun setSize(width: Int, height: Int) : W {
+        this.width = width
+        this.height = height
+
+        @Suppress("UNCHECKED_CAST")
+        return this as W
     }
 }

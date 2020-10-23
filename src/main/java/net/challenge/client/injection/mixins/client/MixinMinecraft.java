@@ -19,6 +19,7 @@ import net.challenge.client.core.info.IClientInfo;
 import net.challenge.client.events.WorldEvent;
 import net.challenge.client.ui.animation.AnimationUtil;
 import net.challenge.client.ui.hud.customHud.GuiCustomHud;
+import net.challenge.client.ui.screen.SettingScreen;
 import net.challenge.client.ui.screen.TestWidgetScreen;
 import net.challenge.client.utils.BlurUtil;
 import net.minecraft.client.Minecraft;
@@ -63,7 +64,7 @@ public class MixinMinecraft {
 
     @Inject(method = "startGame", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;displayGuiScreen(Lnet/minecraft/client/gui/GuiScreen;)V", shift = At.Shift.AFTER))
     private void afterMainScreen(CallbackInfo callbackInfo) {
-        Minecraft.getMinecraft().displayGuiScreen(new TestWidgetScreen());
+        Minecraft.getMinecraft().displayGuiScreen(new SettingScreen());
     }
 
     @Inject(method = "runGameLoop", at = @At(value = "HEAD"))

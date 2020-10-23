@@ -23,7 +23,7 @@ import net.challenge.client.ui.widget.IGuiWidget
 /**
  * This gives an IWidget the feature to be clicked.
  */
-interface IClickable<W : IGuiWidget> : IGuiMouseClick {
+interface IClickable<W : IGuiWidget<*>> : IGuiMouseClick {
 
     /**
      * Registered click listeners.

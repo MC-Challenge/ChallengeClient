@@ -19,7 +19,6 @@ package net.challenge.client.ui.screen.container
 
 import net.challenge.client.ui.adapter.IGuiClose
 import net.challenge.client.ui.adapter.IGuiGuiEvents
-import net.challenge.client.ui.adapter.IGuiRender
 import net.challenge.client.ui.adapter.IGuiUpdate
 import net.challenge.client.ui.adapter.input.IGuiKeyType
 import net.challenge.client.ui.adapter.input.mouse.IGuiHandleMouseInput
@@ -33,46 +32,58 @@ import java.util.function.Consumer
  * Container for widgets
  * TODO Detailed explanation
  */
-class WidgetContainer : IGuiGuiEvents {
+open class WidgetContainer : IGuiGuiEvents {
 
     /**
      * All registered widgets in this container
      */
-    private var widgets: List<IGuiWidget> = listOf()
+    protected var widgets: List<IGuiWidget<*>> = listOf()
+
+    /**
+     * A cache for all widgets that are currently visible and not disable.
+     */
+    protected var interactionWidgets: List<IGuiWidget<*>> = listOf()
 
     /**
      * A cache for all widgets that are currently visible.
      */
-    private var visibleWidgets: List<IGuiWidget> = listOf()
+    protected var visibleWidgets: List<IGuiWidget<*>> = listOf()
 
 
     override fun render(mouseX: Int, mouseY: Int) {
-        // Cache is updated and reversed the list
-        visibleWidgets = widgets.filter(IGuiWidget::visible).toList().reversed()
+        updateWidgetsCache()
 
-        visibleWidgets.forEach(Consumer { widget: IGuiWidget ->
-            (widget as IGuiRender).render(mouseX, mouseY)
+        visibleWidgets.forEach(Consumer { widget: IGuiWidget<*> ->
+            widget.render(mouseX, mouseY)
         })
     }
 
+    /**
+     * Cache is updated and reversed the list
+     */
+    protected fun updateWidgetsCache() {
+        visibleWidgets = widgets.filter(IGuiWidget<*>::visible).toList().reversed()
+        interactionWidgets = visibleWidgets.filter { !it.disable }.toList()
+    }
+
     override fun onGuiClose() {
-        visibleWidgets.forEach(Consumer { widget: IGuiWidget ->
+        interactionWidgets.forEach(Consumer { widget: IGuiWidget<*> ->
             (widget as IGuiClose).onGuiClose()
         })
     }
 
     override fun keyType(typedChar: Char, keyCode: Int) {
-        visibleWidgets.filter {
+        interactionWidgets.filter {
             (it is IGuiKeyType)
-        }.forEach(Consumer { widget: IGuiWidget ->
+        }.forEach(Consumer { widget: IGuiWidget<*> ->
             (widget as IGuiKeyType).keyType(typedChar, keyCode)
         })
     }
 
     override fun handleMouseInput() {
-        visibleWidgets.filter {
+        interactionWidgets.filter {
             (it is IGuiHandleMouseInput)
-        }.forEach(Consumer { widget: IGuiWidget ->
+        }.forEach(Consumer { widget: IGuiWidget<*> ->
             (widget as IGuiHandleMouseInput).handleMouseInput()
         })
     }
@@ -80,9 +91,9 @@ class WidgetContainer : IGuiGuiEvents {
     override fun mouseClick(mouseX: Int, mouseY: Int, mouseButton: Int): Boolean {
         var result = false
 
-        visibleWidgets.filter {
+        interactionWidgets.filter {
             (it is IGuiMouseClick)
-        }.forEach(Consumer { widget: IGuiWidget ->
+        }.forEach(Consumer { widget: IGuiWidget<*> ->
             if ((widget as IGuiMouseClick).mouseClick(mouseX, mouseY, mouseButton))
                 result = true
         })
@@ -91,25 +102,25 @@ class WidgetContainer : IGuiGuiEvents {
     }
 
     override fun mouseClickAndMove(mouseX: Int, mouseY: Int, clickedMouseButton: Int, timeSinceLastClick: Long) {
-        visibleWidgets.filter {
+        interactionWidgets.filter {
             (it is IGuiMouseClickAndMove)
-        }.forEach(Consumer { widget: IGuiWidget ->
+        }.forEach(Consumer { widget: IGuiWidget<*> ->
             (widget as IGuiMouseClickAndMove).mouseClickAndMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)
         })
     }
 
     override fun mouseRelease(mouseX: Int, mouseY: Int, mouseButton: Int) {
-        visibleWidgets.filter {
+        interactionWidgets.filter {
             (it is IGuiMouseRelease)
-        }.forEach(Consumer { widget: IGuiWidget ->
+        }.forEach(Consumer { widget: IGuiWidget<*> ->
             (widget as IGuiMouseRelease).mouseRelease(mouseX, mouseY, mouseButton)
         })
     }
 
     override fun updateScreen() {
-        visibleWidgets.filter {
+        interactionWidgets.filter {
             (it is IGuiUpdate)
-        }.forEach(Consumer { widget: IGuiWidget ->
+        }.forEach(Consumer { widget: IGuiWidget<*> ->
             (widget as IGuiUpdate).updateScreen()
         })
     }
@@ -119,7 +130,7 @@ class WidgetContainer : IGuiGuiEvents {
      *
      * @param widget This widget will be added to the [widgets] list
      */
-    fun addWidgets(vararg widget: IGuiWidget) {
+    fun addWidgets(vararg widget: IGuiWidget<*>) {
         widgets = widgets + widget
     }
 }
