@@ -54,7 +54,7 @@ class GuiCustomHud : GuiScreen() {
 
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
-        BlurUtil.blur()
+        //BlurUtil.blur()
         moveDraggingElement(mouseX, mouseY)
         renderPreview(mouseX, mouseY, partialTicks)
 
