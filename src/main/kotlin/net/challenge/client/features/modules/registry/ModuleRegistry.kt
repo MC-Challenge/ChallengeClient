@@ -21,10 +21,7 @@ import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.IModule
 import net.challenge.client.features.modules.Module
 import net.challenge.client.features.modules.impl.challenge.ReachChallenge
-import net.challenge.client.features.modules.impl.hud.HudDirection
-import net.challenge.client.features.modules.impl.hud.HudKeystrokes
-import net.challenge.client.features.modules.impl.hud.HudReach
-import net.challenge.client.features.modules.impl.hud.HudXYZ
+import net.challenge.client.features.modules.impl.hud.*
 
 
 /**
@@ -40,7 +37,8 @@ class ModuleRegistry : IModuleRegistry {
                 HudKeystrokes,
                 HudXYZ,
                 ReachChallenge,
-                HudReach
+                HudReach,
+                HudTime
         )
 
         modules.forEach {

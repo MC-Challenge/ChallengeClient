@@ -19,29 +19,20 @@ package net.challenge.client.features.modules.impl.hud
 
 import net.challenge.client.features.modules.SimpleHudModule
 import net.challenge.client.features.modules.annotations.ModuleInfo
-import net.challenge.configu.value.VTag
-import net.challenge.configu.value.impl.VBool
-import net.minecraft.client.Minecraft
-import net.minecraft.entity.Entity
+import java.text.SimpleDateFormat
+import java.util.*
 
-@ModuleInfo(name = "Direction")
-object HudDirection : SimpleHudModule() {
-
-    /**
-     * Option, if the text only has one character
-     */
-    @VTag(name = "One Character", description = "Should the text only have one character")
-    val oneCharacter = VBool(false)
+@ModuleInfo(name = "Time")
+object HudTime : SimpleHudModule() {
 
     override fun getValue(): String {
-        val entity: Entity = Minecraft.getMinecraft().renderViewEntity
-        val s: String = entity.horizontalFacing.toString()
-        oneCharacter.value = false
+        val date = Date()
+        val formatter = SimpleDateFormat("HH:mm:ss");
+        return formatter.format(date)
 
-        return if (oneCharacter.value) s[0].toString().toUpperCase() else s[0].toUpperCase().toString() + s.substring(1).toLowerCase()
     }
 
     override fun getDisplayName(): String {
-        return "Direction"
+        return "Time";
     }
 }
