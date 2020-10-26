@@ -1,5 +1,6 @@
 package net.challenge.client.features.modules.impl.hud
 
+import net.challenge.client.features.modules.ModuleCategory
 import net.challenge.client.features.modules.SimpleHudModule
 import net.challenge.client.features.modules.annotations.ModuleInfo
 import net.challenge.configu.value.VTag
@@ -7,7 +8,7 @@ import net.challenge.configu.value.impl.VBool
 import net.minecraft.client.Minecraft
 import net.minecraft.entity.Entity
 
-@ModuleInfo(name = "Direction")
+@ModuleInfo(name = "Direction", category = ModuleCategory.HUD)
 object HudDirection : SimpleHudModule() {
 
     /**
@@ -19,7 +20,6 @@ object HudDirection : SimpleHudModule() {
     override fun getValue(): String {
         val entity: Entity = Minecraft.getMinecraft().renderViewEntity
         val s: String = entity.horizontalFacing.toString()
-        oneCharacter.value = false
 
         return if (oneCharacter.value) s[0].toString().toUpperCase() else s[0].toUpperCase().toString() + s.substring(1).toLowerCase()
     }

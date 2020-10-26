@@ -70,6 +70,6 @@ abstract class SimpleHudModule : HudModule() {
     }
 
     override fun getElementHeight(): Int {
-        return FontHandler.mcFontRenderer.getFontHeight()
+        return FontHandler.mcFontRenderer.getFontHeight(getDisplayName() + ":" + getValue())
     }
 }

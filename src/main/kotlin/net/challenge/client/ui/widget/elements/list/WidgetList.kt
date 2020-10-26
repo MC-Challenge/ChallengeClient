@@ -1,13 +1,12 @@
 package net.challenge.client.ui.widget.elements.list
 
+import net.challenge.client.ui.font.FontHandler
+import net.challenge.client.ui.font.fancy.GLFont
 import net.challenge.client.ui.position.IPosition
 import net.challenge.client.ui.position.ScaledPosition
 import net.challenge.client.ui.screen.container.WidgetContainer
 import net.challenge.client.ui.widget.IGuiWidget
-import net.challenge.client.ui.widget.utils.RenderUtils
 import net.challenge.client.ui.widget.utils.Spacing
-import net.minecraft.client.renderer.GlStateManager
-import org.lwjgl.opengl.GL11
 
 class WidgetList : WidgetContainer(), IItemList<WidgetList> {
 
@@ -23,11 +22,22 @@ class WidgetList : WidgetContainer(), IItemList<WidgetList> {
 
     override var disable: Boolean = false
 
+    override var backgroundColor: Int = java.awt.Color(0, 0, 0).rgb
+
+    // TODO: get this piece of garbage in an separate manager/handler
+    private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
+
     override fun render(mouseX: Int, mouseY: Int) {
         disable = !this.isHover(mouseX, mouseY)
         updateWidgetsCache()
 
         super<IItemList>.render(mouseX, mouseY)
+
+        if (widgets.isEmpty()) {
+            val text = "No Items."
+            val textWidth = standardFont.getWidth(text)
+            standardFont.drawStringWithShadow(text, position.getAbsoluteX().toDouble() + (width / 2 - textWidth/2), position.getAbsoluteY().toDouble() + (height / 2 - standardFont.height / 2), -1)
+        }
     }
 
     override fun renderItem(index: Int, x: Float, y: Float, width: Float, mouseX: Int, mouseY: Int): Float {
@@ -51,9 +61,10 @@ class WidgetList : WidgetContainer(), IItemList<WidgetList> {
      *
      * @return this
      */
-    fun widgets(vararg widget: IGuiWidget<*>) : WidgetList {
+    fun widgets(vararg widget: IGuiWidget<*>): WidgetList {
         super.addWidgets(*widget)
 
         return this
     }
+
 }

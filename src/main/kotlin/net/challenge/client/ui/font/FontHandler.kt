@@ -17,12 +17,17 @@
 
 package net.challenge.client.ui.font
 
+import net.challenge.client.ui.font.fancy.GLFont
+import net.challenge.client.ui.font.fancy.Glyph
 import net.challenge.client.utils.IMC
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.resources.IReloadableResourceManager
 import net.minecraft.util.ResourceLocation
+import java.awt.Font
 
 
+//TODO: FIX
 /**
  * Handle font rendering
  */
@@ -33,14 +38,9 @@ object FontHandler : IMC {
      */
     lateinit var mcFontRenderer: IFontRenderer
 
-    /**
-     * Renderer to render font with a fancy look
-     */
-    lateinit var fancyFontRenderer: IFontRenderer
 
     fun load() {
         mcFontRenderer = MCFontRenderer(registerFontRenderer(ResourceLocation("textures/font/ascii.png")))
-        fancyFontRenderer = MCFontRenderer(registerFontRenderer(ResourceLocation("challenge/font/ascii.png")))
     }
 
     /**
@@ -62,4 +62,34 @@ object FontHandler : IMC {
 
         return fontRenderer
     }
+
+    /**
+     * Gets the font file, and creates a new font
+     * @param resourceLocation is the file location
+     * @param size is the font size, from the font that's being created
+     * @return the created font
+     */
+    private fun getFont(resourceLocation: ResourceLocation, size: Int): GLFont {
+        var font: Font
+        val stream = Minecraft.getMinecraft().resourceManager.getResource(resourceLocation).inputStream
+        font = Font.createFont(0, stream)
+        font = font.deriveFont(Font.PLAIN, size.toFloat())
+        val chars = CharArray(256)
+        for (i in chars.indices) {
+            chars[i] = i.toChar()
+        }
+        val regularPage = Glyph(font, true, false)
+        regularPage.generate(chars)
+        regularPage.setupTexture()
+        return GLFont(regularPage, null, null, null)
+    }
+
+    /**
+     * more simple way, to get a font
+     * @see getFont
+     */
+    fun getFancyFontRenderer(fileName: String, size: Int): GLFont {
+        return getFont(ResourceLocation("challenge/fonts/" + fileName + if (fileName.endsWith(".ttf")) "" else ".ttf"), size)
+    }
+
 }

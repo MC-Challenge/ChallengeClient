@@ -6,13 +6,14 @@ import me.zero.alpine.listener.EventHook
 import me.zero.alpine.listener.Listener
 import net.challenge.client.events.AttackEntityEvent
 import net.challenge.client.features.modules.Module
+import net.challenge.client.features.modules.ModuleCategory
 import net.challenge.client.features.modules.annotations.ModuleInfo
 import net.challenge.configu.value.VTag
 import net.challenge.configu.value.impl.VNumber
 import net.minecraft.util.Vec3
 
 
-@ModuleInfo("Reach Challenge")
+@ModuleInfo("Reach Challenge", "", ModuleCategory.CHALLENGE)
 object ReachChallenge : Module() {
 
     @VTag("Reach", "Maximum reach for you")

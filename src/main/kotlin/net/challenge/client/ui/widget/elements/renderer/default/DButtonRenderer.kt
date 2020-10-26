@@ -17,6 +17,8 @@
 
 package net.challenge.client.ui.widget.elements.renderer.default
 
+import net.challenge.client.ui.font.FontHandler
+import net.challenge.client.ui.font.fancy.GLFont
 import net.challenge.client.ui.widget.elements.Button
 import net.challenge.client.ui.widget.renderer.IWidgetRenderer
 import net.challenge.client.ui.widget.utils.RenderUtils
@@ -29,23 +31,28 @@ import java.awt.Color
  */
 class DButtonRenderer : IWidgetRenderer<Button> {
 
+    // TODO: get this piece of garbage in an separate manager/handler
+    private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
+
     override fun render(widget: Button, mouseX: Int, mouseY: Int) {
         val x = widget.position.getAbsoluteX()
         val y = widget.position.getAbsoluteY()
 
         val hover = widget.isHover(mouseX, mouseY)
 
-        var bgColor = Color(50, 50, 50)
+        var bgColor = widget.color
         var textColor = Color(200, 200, 200).rgb
 
         if (hover) {
-            bgColor = Color(60, 60, 60)
+            bgColor = Color(35, 34, 35)
             textColor = Color.WHITE.rgb
         }
 
-        val font = Minecraft.getMinecraft().fontRendererObj
+
+        var textX = x + widget.width / 2 - standardFont.getWidth(widget.name) / 2
+        if(!widget.centered) textX = x + 2
 
         RenderUtils.drawRect(x.toFloat(), y.toFloat(), widget.width.toFloat(), widget.height.toFloat(), bgColor)
-        font.drawString(widget.name, x + widget.width / 2 - font.getStringWidth(widget.name) / 2, y + widget.height / 2 - font.FONT_HEIGHT / 3, textColor)
+        standardFont.drawStringWithShadow(widget.name, textX.toDouble(), y + widget.height / 2 - standardFont.height.toDouble() / 2, textColor)
     }
 }

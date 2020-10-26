@@ -35,6 +35,8 @@ open class Module : ValueContainer(ValueScanner), IModule {
 
     final override var description: String = "No-Description"
 
+    final override var category: ModuleCategory = ModuleCategory.HUD
+
     @VTag("Enabled", "Is the module enabled")
     private val enabled = VBool(false).setChangeListener(object : ValueChangeListener<Boolean> {
 
@@ -52,6 +54,7 @@ open class Module : ValueContainer(ValueScanner), IModule {
 
         name = info.name
         description = info.description
+        category = info.category
 
         setEnabled(enabled.value)
     }
@@ -65,7 +68,7 @@ open class Module : ValueContainer(ValueScanner), IModule {
         ClientCore.eventBus.unsubscribe(this)
     }
 
-    override fun setEnabled(enabled: Boolean) {
+    final override fun setEnabled(enabled: Boolean) {
         this.enabled.value = enabled
 
         if (enabled)

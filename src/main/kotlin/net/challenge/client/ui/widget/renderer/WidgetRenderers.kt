@@ -24,6 +24,10 @@ import net.challenge.client.ui.widget.elements.Slider
 import net.challenge.client.ui.widget.elements.renderer.default.DButtonRenderer
 import net.challenge.client.ui.widget.elements.renderer.default.DCheckboxRenderer
 import net.challenge.client.ui.widget.elements.renderer.default.DSliderRenderer
+import net.challenge.client.ui.widget.elements.renderer.settings.CategoryButtonRenderer
+import net.challenge.client.ui.widget.elements.renderer.settings.ModuleButtonRenderer
+import net.challenge.client.ui.widget.elements.settings.CategoryButton
+import net.challenge.client.ui.widget.elements.settings.ModuleButton
 
 /**
  * TODO Doc
@@ -37,10 +41,14 @@ object WidgetRenderers {
 
 
     init {
-        // Set Default Renderers
+        // Set's the Default Renderers
         setRenderer(Button::class.java, DButtonRenderer())
         setRenderer(Slider::class.java, DSliderRenderer())
         setRenderer(Checkbox::class.java, DCheckboxRenderer())
+
+        // Set's the Setting Renderers
+        setRenderer(ModuleButton::class.java, ModuleButtonRenderer())
+        setRenderer(CategoryButton::class.java, CategoryButtonRenderer())
     }
 
 
