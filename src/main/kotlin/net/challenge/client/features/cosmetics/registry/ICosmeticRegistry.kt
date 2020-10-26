@@ -53,7 +53,7 @@ interface ICosmeticRegistry {
      *
      * @return The cosmetic that was found, or null
      */
-    fun getCosmetic(name: String): Cosmetic
+    fun getCosmetic(name: String): Cosmetic?
 
     /**
      * Getting an cosmetic by class
