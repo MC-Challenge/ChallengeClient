@@ -58,6 +58,12 @@ class GuiCustomHud : WidgetScreen() {
      */
     private var enabledElements: Collection<IHudElement> = ClientCore.hudRenderer.enabledElements
 
+    /**
+     * Is the setting screen
+     * (lateinit cause of the 'getScaledWidth' call in [SettingScreen])
+     */
+    var settingScreen: SettingScreen? = null
+
     init {
         val btnWidth = 50
         val btnHeight = 18
@@ -72,7 +78,12 @@ class GuiCustomHud : WidgetScreen() {
                 Button("Settings")
                         .setPosition(ScaledPosition(width / 2 - btnWidth/2, height / 2 + - btnHeight / 2))
                         .setSize(btnWidth, btnHeight)
-                        .onClick { mc.displayGuiScreen(SettingScreen()) }
+                        .onClick { _: Button, _: Int ->
+                            run {
+                                if (settingScreen == null) settingScreen = SettingScreen()
+                                mc.displayGuiScreen(settingScreen)
+                            }
+                        }
         )
     }
 

@@ -20,6 +20,7 @@ package net.challenge.client.ui.widget
 import net.challenge.client.ui.position.IPosition
 import net.challenge.client.ui.position.ScaledPosition
 import net.challenge.client.ui.widget.renderer.WidgetRenderers
+import java.awt.Color
 
 /**
  * Default implementation of [IGuiWidget]

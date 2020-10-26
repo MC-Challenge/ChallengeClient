@@ -15,6 +15,7 @@
 package net.challenge.client.features.modules.impl.hud
 
 import net.challenge.client.features.modules.HudModule
+import net.challenge.client.features.modules.ModuleCategory
 import net.challenge.client.features.modules.annotations.ModuleInfo
 import net.challenge.client.ui.font.FontHandler
 import net.challenge.client.ui.font.IFontRenderer
@@ -24,7 +25,7 @@ import org.lwjgl.input.Keyboard
 import java.awt.Color
 import java.lang.reflect.Field
 
-@ModuleInfo(name = "Keystrokes")
+@ModuleInfo(name = "Keystrokes", category = ModuleCategory.HUD)
 object HudKeystrokes : HudModule() {
     override fun getElementWidth(): Int {
         return 85

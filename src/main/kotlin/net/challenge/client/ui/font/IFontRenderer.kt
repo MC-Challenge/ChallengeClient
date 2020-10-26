@@ -59,5 +59,7 @@ interface IFontRenderer {
      *
      * @return font-height
      */
+    fun getFontHeight(s: String): Int
+
     fun getFontHeight(): Int
 }

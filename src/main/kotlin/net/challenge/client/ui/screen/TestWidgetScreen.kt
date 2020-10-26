@@ -38,10 +38,7 @@ class TestWidgetScreen(lastScreen: GuiScreen? = null) : WidgetScreen(lastScreen)
         addWidgets(
                 Button("SelectWorld")
                         .setPosition(ScaledPosition(30, 5))
-                        .setSize(width, height)
-                        .onClick {
-                            mc.displayGuiScreen(GuiSelectWorld(this))
-                        },
+                        .setSize(width, height),
                 Slider("Value")
                         .setPosition(ScaledPosition(30, 10 + height))
                         .setMaximum(1000.0)
@@ -60,9 +57,6 @@ class TestWidgetScreen(lastScreen: GuiScreen? = null) : WidgetScreen(lastScreen)
                 Button("Back ->")
                         .setPosition(ScaledPosition(30, 20 + height * 3))
                         .setSize(width, height)
-                        .onClick {
-                            goBack()
-                        }
         )
     }
 

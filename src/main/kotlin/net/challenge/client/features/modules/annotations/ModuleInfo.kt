@@ -17,8 +17,10 @@
 
 package net.challenge.client.features.modules.annotations
 
+import net.challenge.client.features.modules.ModuleCategory
+
 /**
  * This annotation is implemented over each module to give it its metadata
  */
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-annotation class ModuleInfo(val name: String, val description: String = "No-Description")
+annotation class ModuleInfo(val name: String, val description: String = "No-Description", val category: ModuleCategory = ModuleCategory.HUD)

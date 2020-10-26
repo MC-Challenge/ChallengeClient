@@ -48,7 +48,6 @@ open class WidgetScreen(
             this.lastScreen.drawScreen(mouseX, mouseY, partialTicks)
 
         widgetContainer.render(mouseX, mouseY)
-
         super.drawScreen(mouseX, mouseY, partialTicks)
     }
 

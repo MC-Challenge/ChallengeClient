@@ -17,6 +17,8 @@
 
 package net.challenge.client.ui.widget.elements.renderer.default
 
+import net.challenge.client.ui.font.FontHandler
+import net.challenge.client.ui.font.fancy.GLFont
 import net.challenge.client.ui.widget.elements.Slider
 import net.challenge.client.ui.widget.renderer.IWidgetRenderer
 import net.challenge.client.ui.widget.utils.RenderUtils
@@ -30,6 +32,9 @@ import kotlin.math.min
  */
 class DSliderRenderer : IWidgetRenderer<Slider> {
 
+    // TODO: get this piece of garbage in an separate manager/handler
+    private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
+
     override fun render(widget: Slider, mouseX: Int, mouseY: Int) {
         val x = widget.position.getAbsoluteX().toFloat()
         val y = widget.position.getAbsoluteY().toFloat()
@@ -37,20 +42,18 @@ class DSliderRenderer : IWidgetRenderer<Slider> {
         val width = widget.width.toFloat()
         val height = widget.height.toFloat()
 
-        RenderUtils.drawRect(x, y, width, height, Color(50, 50, 50))
+        RenderUtils.drawRect(x, y, width, height, Color(35, 34, 35))
         val y2 = y + height - 3.0F
         RenderUtils.drawRect(x, y2, (widget.getAsPercent().toFloat() * width).coerceAtMost(width), 2.0F, Color.WHITE)
-        RenderUtils.drawCircle(x + (widget.getAsPercent().toFloat() * width).coerceAtMost(width), y2 + 1, 2F, Color.WHITE.rgb)
+        RenderUtils.drawCircle(x + (widget.getAsPercent() * width).coerceAtMost(width.toDouble()), y2 + 1.0, 2F, Color.WHITE.rgb)
 
-
-        val font = Minecraft.getMinecraft().fontRendererObj
-        font.drawString(widget.name, x.toInt() + 2, y.toInt() + 2, Color.WHITE.rgb)
+        standardFont.drawString(widget.name, x.toDouble() + 2, y.toDouble() + 1, Color.WHITE.rgb)
 
         var value = widget.value.toString()
 
         if (widget.isPercent)
             value += "%"
 
-        font.drawString(value, x.toInt() + width.toInt() - 3 - font.getStringWidth(value), y.toInt() + 2, Color.WHITE.rgb)
+        standardFont.drawStringWithShadow(value, x + width - 3 - standardFont.getWidth(value).toDouble(), y.toDouble() + 2, Color.WHITE.rgb)
     }
 }
