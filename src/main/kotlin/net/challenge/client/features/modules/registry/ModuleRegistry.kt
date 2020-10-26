@@ -19,47 +19,31 @@ package net.challenge.client.features.modules.registry
 
 import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.IModule
-import net.challenge.client.features.modules.Module
-import net.challenge.client.features.modules.impl.challenge.ReachChallenge
-import net.challenge.client.features.modules.impl.hud.*
-
 
 /**
  * Default implementation of [IModuleRegistry]
  */
-class ModuleRegistry : IModuleRegistry {
+class ModuleRegistry(
 
-    override var modules: Collection<Module> = ArrayList()
+        vararg module: IModule
+
+) : IModuleRegistry {
+
+    override var modules: Collection<IModule> = listOf(*module)
 
     override fun load() {
-        registerModules(
-                HudDirection,
-                HudKeystrokes,
-                HudXYZ,
-                ReachChallenge,
-                HudReach,
-                HudTime
-        )
-
         modules.forEach {
             it.load()
             ClientCore.config.register(it)
         }
     }
 
-    override fun registerModules(vararg modules: Module) {
-        modules.forEach(this::registerModule)
-    }
-
-    override fun registerModule(module: Module) {
-        modules += module
-    }
-
     override fun getModule(name: String): IModule? {
-        return modules.stream().filter { mod: IModule -> name.equals(mod.name, ignoreCase = true) }.findFirst().orElse(null)
+        return modules.firstOrNull { name.equals(it.name, ignoreCase = true) }
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : IModule> getModule(clazz: Class<T>): T? {
-        return modules.stream().filter { mod: IModule -> mod.javaClass == clazz }.findFirst().orElse(null) as T
+        return modules.firstOrNull { it.javaClass == clazz } as T
     }
 }

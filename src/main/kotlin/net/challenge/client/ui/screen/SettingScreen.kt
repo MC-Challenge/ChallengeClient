@@ -1,13 +1,13 @@
 package net.challenge.client.ui.screen
 
 import net.challenge.client.core.ClientCore
+import net.challenge.client.features.modules.IModule
 import net.challenge.client.ui.position.ScaledPosition
 import net.challenge.client.ui.widget.IGuiWidget
 import net.challenge.client.ui.widget.elements.Button
 import net.challenge.client.ui.widget.elements.Checkbox
 import net.challenge.client.ui.widget.elements.Slider
 import net.challenge.client.ui.widget.elements.list.WidgetList
-import net.challenge.configu.container.ValueContainer
 import net.challenge.configu.value.Value
 import net.challenge.configu.value.impl.VNumber
 
@@ -50,7 +50,7 @@ class SettingScreen : WidgetScreen() {
         super.drawScreen(mouseX, mouseY, partialTicks)
     }
 
-    private fun getWSettingsFromModule(module: ValueContainer): Collection<IGuiWidget<*>> {
+    private fun getWSettingsFromModule(module: IModule): Collection<IGuiWidget<*>> {
         val result = mutableListOf<IGuiWidget<*>>()
 
         module.values.forEach { value ->
