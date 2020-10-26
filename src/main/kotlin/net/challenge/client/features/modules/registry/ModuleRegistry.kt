@@ -23,13 +23,13 @@ import net.challenge.client.features.modules.IModule
 /**
  * Default implementation of [IModuleRegistry]
  */
-class ModuleRegistry(
+class ModuleRegistry: IModuleRegistry {
 
-        vararg module: IModule
+    override var modules: Collection<IModule> = listOf()
 
-) : IModuleRegistry {
-
-    override var modules: Collection<IModule> = listOf(*module)
+    override fun registerModules(vararg module: IModule) {
+        modules += listOf(*module)
+    }
 
     override fun load() {
         modules.forEach {

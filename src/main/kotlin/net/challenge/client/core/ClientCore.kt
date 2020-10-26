@@ -53,16 +53,9 @@ object ClientCore : IClientCore {
 
     val cosmeticRegistry: ICosmeticRegistry = CosmeticRegistry()
 
-    val moduleRegistry: IModuleRegistry = ModuleRegistry(
-            HudDirection,
-            HudKeystrokes,
-            HudXYZ,
-            ReachChallenge,
-            HudReach,
-            HudTime
-    )
-
     val hudRenderer: IHudRenderer = HudRenderer
+
+    val moduleRegistry: IModuleRegistry = ModuleRegistry()
 
     lateinit var customHud: GuiCustomHud
 
@@ -83,10 +76,23 @@ object ClientCore : IClientCore {
 
         FontHandler.load()
         cosmeticRegistry.load()
-        moduleRegistry.load()
+        initModules()
         commandRegistry.init()
 
         config.load()
+    }
+
+    private fun initModules() {
+        moduleRegistry.registerModules(
+                HudDirection,
+                HudKeystrokes,
+                HudXYZ,
+                ReachChallenge,
+                HudReach,
+                HudTime
+        )
+
+        moduleRegistry.load()
     }
 
     override fun onShutdown() {

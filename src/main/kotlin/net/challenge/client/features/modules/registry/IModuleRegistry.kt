@@ -30,6 +30,13 @@ interface IModuleRegistry {
     var modules: Collection<IModule>
 
     /**
+     * Register modules.
+     *
+     * @param module Module to register.
+     */
+    fun registerModules(vararg module: IModule)
+
+    /**
      * Loading modules.
      */
     fun load()

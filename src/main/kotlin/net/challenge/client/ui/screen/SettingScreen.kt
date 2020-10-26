@@ -1,6 +1,7 @@
 package net.challenge.client.ui.screen
 
 import net.challenge.client.core.ClientCore
+import net.challenge.client.features.modules.IModule
 import net.challenge.client.features.modules.Module
 import net.challenge.client.features.modules.ModuleCategory
 import net.challenge.client.ui.font.FontHandler
@@ -14,7 +15,7 @@ import net.challenge.client.ui.widget.elements.settings.CategoryButton
 import net.challenge.client.ui.widget.elements.settings.ModuleButton
 import net.challenge.client.ui.widget.utils.RenderUtils
 import net.challenge.client.utils.IScaledResolutionHelper
-import net.challenge.configu.container.ValueContainer
+import net.challenge.configu.container.value.IValueContainer
 import net.challenge.configu.value.Value
 import net.challenge.configu.value.impl.VNumber
 import java.awt.Color
@@ -26,7 +27,7 @@ import java.awt.Color
 class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
 
     var currentCategory: ModuleCategory = ModuleCategory.CHALLENGE
-    private var currentModule: Module? = null
+    private var currentModule: IModule? = null
 
     // Gets the middle from
     // the screen (x, y)
@@ -127,7 +128,7 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
      */
     private fun loadModules(modulesList: WidgetList, settingsList: WidgetList) {
         modulesList.clear()
-        ClientCore.moduleRegistry.modules.stream().filter { t: Module? -> t!!.category == currentCategory }.forEach { module ->
+        ClientCore.moduleRegistry.modules.stream().filter {  it.category == currentCategory }.forEach { module ->
             val settingWidgets = getWSettingsFromModule(module)
             settingWidgets.forEach { it.setHeight(15) }
             modulesList.widgets(
@@ -193,7 +194,7 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
         super.drawScreen(mouseX, mouseY, partialTicks)
     }
 
-    private fun getWSettingsFromModule(module: ValueContainer): Collection<IGuiWidget<*>> {
+    private fun getWSettingsFromModule(module: IValueContainer): Collection<IGuiWidget<*>> {
         val result = mutableListOf<IGuiWidget<*>>()
 
         module.values.forEach { value ->
