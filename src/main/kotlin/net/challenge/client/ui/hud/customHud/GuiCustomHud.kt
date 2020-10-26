@@ -81,7 +81,7 @@ class GuiCustomHud : WidgetScreen() {
                         .onClick { _: Button, _: Int ->
                             run {
                                 if (settingScreen == null) settingScreen = SettingScreen()
-                                mc.displayGuiScreen(settingScreen)
+                                mc.displayGuiScreen(SettingScreen())
                             }
                         }
         )

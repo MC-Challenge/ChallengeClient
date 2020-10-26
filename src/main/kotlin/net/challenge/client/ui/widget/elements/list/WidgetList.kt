@@ -3,6 +3,7 @@ package net.challenge.client.ui.widget.elements.list
 import net.challenge.client.ui.font.FontHandler
 import net.challenge.client.ui.font.fancy.GLFont
 import net.challenge.client.ui.position.IPosition
+import net.challenge.client.ui.position.Position
 import net.challenge.client.ui.position.ScaledPosition
 import net.challenge.client.ui.screen.container.WidgetContainer
 import net.challenge.client.ui.widget.IGuiWidget
@@ -10,7 +11,7 @@ import net.challenge.client.ui.widget.utils.Spacing
 
 class WidgetList : WidgetContainer(), IItemList<WidgetList> {
 
-    override var position: IPosition = ScaledPosition(0, 0)
+    override var position: IPosition = Position(0.0, 0.0)
 
     override var width: Int = 0
 
