@@ -37,7 +37,7 @@ open class WidgetContainer : IGuiGuiEvents {
     /**
      * All registered widgets in this container
      */
-    protected var widgets: List<IGuiWidget<*>> = listOf()
+    var widgets: List<IGuiWidget<*>> = listOf()
 
     /**
      * A cache for all widgets that are currently visible and not disable.

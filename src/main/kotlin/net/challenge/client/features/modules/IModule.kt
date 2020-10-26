@@ -37,6 +37,11 @@ interface IModule : Listenable, IMC, ISaveContainer {
     val description: String
 
     /**
+     * Category of the module
+     */
+    val category: ModuleCategory
+
+    /**
      * Will be executed when the module is activated
      */
     fun onEnable()

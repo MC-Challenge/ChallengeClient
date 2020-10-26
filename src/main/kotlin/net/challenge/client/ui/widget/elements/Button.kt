@@ -18,8 +18,25 @@
 package net.challenge.client.ui.widget.elements
 
 import net.challenge.client.ui.widget.ClickableWidget
+import java.awt.Color
 
 /**
  * Default implementation of a [ClickableWidget]
  */
-class Button(val name: String) : ClickableWidget<Button>()
+class Button(val name: String) : ClickableWidget<Button>() {
+
+    var color: Color = Color(50, 50, 50)
+
+    var centered = true
+
+    fun setColor(color: Color) : Button {
+        this.color = color
+        return this
+    }
+
+    fun setCentered(centered: Boolean) : Button {
+        this.centered = centered
+        return this
+    }
+
+}

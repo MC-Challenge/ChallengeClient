@@ -6,6 +6,7 @@ import me.zero.alpine.listener.EventHook
 import me.zero.alpine.listener.Listener
 import net.challenge.client.events.AttackEntityEvent
 import net.challenge.client.features.modules.HudModule
+import net.challenge.client.features.modules.ModuleCategory
 import net.challenge.client.features.modules.annotations.ModuleInfo
 import net.challenge.client.features.modules.impl.challenge.ReachChallenge
 import net.challenge.client.ui.font.FontHandler
@@ -14,7 +15,7 @@ import net.minecraft.util.Vec3
 import java.awt.Color
 import java.text.DecimalFormat
 
-@ModuleInfo("Reach-Display")
+@ModuleInfo("Reach-Display", category = ModuleCategory.HUD)
 object HudReach : HudModule(), IHudPreview {
 
     private var lastAttack: Long = 0

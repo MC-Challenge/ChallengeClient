@@ -13,6 +13,11 @@ interface IItemList<W : IItemList<W>> : IGuiWidget<W> {
      */
     val padding: Spacing
 
+    /**
+     * Background color of the list
+     */
+    var backgroundColor: Int
+
     override fun render(mouseX: Int, mouseY: Int) {
         val x = position.getAbsoluteX().toFloat()
         val y = position.getAbsoluteY().toFloat()
@@ -20,7 +25,7 @@ interface IItemList<W : IItemList<W>> : IGuiWidget<W> {
         GL11.glEnable(GL11.GL_SCISSOR_TEST)
         RenderUtils.scissor(x.toDouble(), y.toDouble(), width.toDouble(), height.toDouble())
 
-        RenderUtils.drawRect(x, y, width.toFloat(), height.toFloat(), Color.WHITE.rgb)
+        RenderUtils.drawRect(x, y, width.toFloat(), height.toFloat(), backgroundColor)
 
         val xItem = x + padding.left
         var yItem = y + padding.top
@@ -71,4 +76,12 @@ interface IItemList<W : IItemList<W>> : IGuiWidget<W> {
         @Suppress("UNCHECKED_CAST")
         return this as W
     }
+
+    fun setBackGroundColor(color: Int): W {
+        this.backgroundColor = color
+
+        @Suppress("UNCHECKED_CAST")
+        return this as W
+    }
+
 }

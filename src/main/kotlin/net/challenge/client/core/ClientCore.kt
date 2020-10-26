@@ -22,15 +22,16 @@ import me.zero.alpine.bus.ExtendEventManager
 import net.challenge.client.core.info.ClientInfo
 import net.challenge.client.core.info.IClientInfo
 import net.challenge.client.features.commands.handler.CmdHandler
-import net.challenge.client.features.commands.impl.CmdToggle
 import net.challenge.client.features.commands.handler.ICommandHandler
 import net.challenge.client.features.commands.impl.CmdHelp
+import net.challenge.client.features.commands.impl.CmdToggle
 import net.challenge.client.features.commands.impl.CmdToggleCosmetic
 import net.challenge.client.features.cosmetics.registry.CosmeticRegistry
 import net.challenge.client.features.cosmetics.registry.ICosmeticRegistry
 import net.challenge.client.features.modules.registry.IModuleRegistry
 import net.challenge.client.features.modules.registry.ModuleRegistry
 import net.challenge.client.ui.font.FontHandler
+import net.challenge.client.ui.hud.customHud.GuiCustomHud
 import net.challenge.client.ui.hud.customHud.renderer.HudRenderer
 import net.challenge.client.ui.hud.customHud.renderer.IHudRenderer
 import net.challenge.configu.config.IConfig
@@ -40,6 +41,7 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.File
 
+//TODO: Fix [CustomHUD] instance!!! @NILS
 object ClientCore : IClientCore {
 
     override val info: IClientInfo = ClientInfo()
@@ -58,6 +60,8 @@ object ClientCore : IClientCore {
 
     val hudRenderer: IHudRenderer = HudRenderer
 
+    lateinit var customHud: GuiCustomHud
+
     lateinit var config: IConfig
 
 
@@ -70,6 +74,7 @@ object ClientCore : IClientCore {
         logger.debug("Post-Start")
         logger.info(info.toString())
 
+        customHud = GuiCustomHud()
         config = JsonConfig(File(mc.mcDataDir, "challengeClient/config"), true)
 
         FontHandler.load()
