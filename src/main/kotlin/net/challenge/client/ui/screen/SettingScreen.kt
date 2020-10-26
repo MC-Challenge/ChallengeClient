@@ -5,7 +5,7 @@ import net.challenge.client.features.modules.Module
 import net.challenge.client.features.modules.ModuleCategory
 import net.challenge.client.ui.font.FontHandler
 import net.challenge.client.ui.font.fancy.GLFont
-import net.challenge.client.ui.position.ScaledPosition
+import net.challenge.client.ui.position.Position
 import net.challenge.client.ui.widget.IGuiWidget
 import net.challenge.client.ui.widget.elements.Checkbox
 import net.challenge.client.ui.widget.elements.Slider
@@ -85,18 +85,18 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
 
     init {
         val categoryList = WidgetList()
-                .setPosition(ScaledPosition(startX.toInt(), startY.toInt() + 40))
+                .setPosition(Position(startX, startY + 40))
                 .setBackGroundColor(mainBackgroundColor.rgb)
                 .setSize(categoryBarLength.toInt(), heightLength.toInt() * 2 - 40)
 
         val modulesList = WidgetList()
                 .setBackGroundColor(moduleBackgroundColor.rgb)
-                .setPosition(ScaledPosition(moduleBarStartX.toInt(), moduleBarTopEndY.toInt()))
+                .setPosition(Position(moduleBarStartX, moduleBarTopEndY))
                 .setSize(moduleBarLength.toInt(), realHeightLength.toInt() - 15)
 
         val settingsList = WidgetList()
                 .setBackGroundColor(Color(35, 34, 35).rgb)
-                .setPosition(ScaledPosition(settingsBarStartX.toInt(), startY.toInt() + 25))
+                .setPosition(Position(settingsBarStartX, startY + 25))
                 .setSize(settingsBarLength.toInt(), realHeightLength.toInt() - 25)
 
         ModuleCategory.values().forEach { m ->
