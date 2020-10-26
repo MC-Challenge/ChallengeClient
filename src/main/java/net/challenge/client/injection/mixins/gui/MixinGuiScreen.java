@@ -34,7 +34,7 @@ public class MixinGuiScreen {
 
     @Inject(method = "sendChatMessage(Ljava/lang/String;Z)V", at = @At("HEAD"), cancellable = true)
     public void onChat(String msg, boolean addToChat, CallbackInfo callbackInfo) {
-        if (ClientCore.INSTANCE.getCommandRegistry().runCommand(msg)) {
+        if (ClientCore.INSTANCE.getCommandHandler().onInput(msg)) {
             mc.ingameGUI.getChatGUI().addToSentMessages(msg);
             callbackInfo.cancel();
         }

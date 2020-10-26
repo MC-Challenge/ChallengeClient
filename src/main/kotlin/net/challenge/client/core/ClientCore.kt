@@ -21,7 +21,11 @@ import me.zero.alpine.bus.EventBus
 import me.zero.alpine.bus.ExtendEventManager
 import net.challenge.client.core.info.ClientInfo
 import net.challenge.client.core.info.IClientInfo
-import net.challenge.client.features.commands.CommandRegistry
+import net.challenge.client.features.commands.handler.CmdHandler
+import net.challenge.client.features.commands.handler.ICommandHandler
+import net.challenge.client.features.commands.impl.CmdHelp
+import net.challenge.client.features.commands.impl.CmdToggle
+import net.challenge.client.features.commands.impl.CmdToggleCosmetic
 import net.challenge.client.features.cosmetics.registry.CosmeticRegistry
 import net.challenge.client.features.cosmetics.registry.ICosmeticRegistry
 import net.challenge.client.features.modules.registry.IModuleRegistry
@@ -30,10 +34,9 @@ import net.challenge.client.ui.font.FontHandler
 import net.challenge.client.ui.hud.customHud.GuiCustomHud
 import net.challenge.client.ui.hud.customHud.renderer.HudRenderer
 import net.challenge.client.ui.hud.customHud.renderer.IHudRenderer
-import net.challenge.client.ui.screen.WidgetScreen
 import net.challenge.configu.config.IConfig
 import net.challenge.configu.config.JsonConfig
-import net.minecraft.client.gui.GuiScreen
+import net.minecraft.util.ChatComponentText
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.File
@@ -47,7 +50,9 @@ object ClientCore : IClientCore {
 
     override val eventBus: EventBus = ExtendEventManager()
 
-    val commandRegistry: CommandRegistry = CommandRegistry()
+    val commandHandler: ICommandHandler = CmdHandler(
+            CmdHelp, CmdToggle, CmdToggleCosmetic
+    )
 
     val cosmeticRegistry: ICosmeticRegistry = CosmeticRegistry()
 
@@ -75,7 +80,6 @@ object ClientCore : IClientCore {
         FontHandler.load()
         cosmeticRegistry.load()
         moduleRegistry.load()
-        commandRegistry.init()
 
         config.load()
     }
@@ -84,5 +88,14 @@ object ClientCore : IClientCore {
         logger.info("Shutdown ...")
 
         config.save()
+    }
+
+    /**
+     * Send a message in the chat.
+     *
+     * @param message Message to send.
+     */
+    fun sendChatMessage(message: String) {
+        mc.thePlayer.addChatMessage(ChatComponentText("§a" + info.name + " §8> §7 $message"))
     }
 }
