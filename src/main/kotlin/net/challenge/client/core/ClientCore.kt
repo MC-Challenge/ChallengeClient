@@ -29,14 +29,18 @@ import net.challenge.client.features.modules.impl.hud.*
 import net.challenge.client.features.modules.registry.IModuleRegistry
 import net.challenge.client.features.modules.registry.ModuleRegistry
 import net.challenge.client.ui.font.FontHandler
+import net.challenge.client.ui.hud.customHud.GuiCustomHud
 import net.challenge.client.ui.hud.customHud.renderer.HudRenderer
 import net.challenge.client.ui.hud.customHud.renderer.IHudRenderer
+import net.challenge.client.ui.screen.WidgetScreen
 import net.challenge.configu.config.IConfig
 import net.challenge.configu.config.JsonConfig
+import net.minecraft.client.gui.GuiScreen
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.File
 
+//TODO: Fix [CustomHUD] instance!!! @NILS
 object ClientCore : IClientCore {
 
     override val info: IClientInfo = ClientInfo()
@@ -60,6 +64,8 @@ object ClientCore : IClientCore {
 
     val hudRenderer: IHudRenderer = HudRenderer
 
+    lateinit var customHud: GuiCustomHud
+
     lateinit var config: IConfig
 
 
@@ -72,6 +78,7 @@ object ClientCore : IClientCore {
         logger.debug("Post-Start")
         logger.info(info.toString())
 
+        customHud = GuiCustomHud()
         config = JsonConfig(File(mc.mcDataDir, "challengeClient/config"), true)
 
         FontHandler.load()

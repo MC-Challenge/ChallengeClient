@@ -80,7 +80,7 @@ public class MixinMinecraft {
         final int key = Keyboard.getEventKey();
 
         if (key == Keyboard.KEY_RSHIFT)
-            Minecraft.getMinecraft().displayGuiScreen(new GuiCustomHud());
+            Minecraft.getMinecraft().displayGuiScreen(ClientCore.INSTANCE.getCustomHud());
     }
 
     @Inject(method = "shutdown", at = @At("HEAD"))

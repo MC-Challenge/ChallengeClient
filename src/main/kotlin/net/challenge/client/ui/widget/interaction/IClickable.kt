@@ -29,14 +29,14 @@ interface IClickable<W : IGuiWidget<*>> : IGuiMouseClick {
      * Registered click listeners.
      * This listener will be executed after every click on the widget
      */
-    val clickListeners: MutableCollection<(W) -> Unit>
+    val clickListeners: MutableCollection<(W, Int) -> Unit>
 
     /**
      * Register a listener to respond to a click
      *
      * @param listener This listener will be executed after registration with every click on the widget
      */
-    fun registerClickListener(listener: (W) -> Unit) {
+    fun registerClickListener(listener: (W, Int) -> Unit) {
         clickListeners.add(listener)
     }
 
@@ -46,7 +46,7 @@ interface IClickable<W : IGuiWidget<*>> : IGuiMouseClick {
      * @param listener This listener will be executed after registration with every click on the widget
      * @return this
      */
-    fun onClick(listener: (W) -> Unit) : W {
+    fun onClick(listener: (W, Int) -> Unit) : W {
         registerClickListener(listener)
 
         @Suppress("UNCHECKED_CAST")

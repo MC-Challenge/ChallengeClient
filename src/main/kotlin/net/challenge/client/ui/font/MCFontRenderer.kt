@@ -36,6 +36,10 @@ class MCFontRenderer(private val fontRenderer: FontRenderer) : IFontRenderer {
         return fontRenderer.getStringWidth(text)
     }
 
+    override fun getFontHeight(s: String): Int {
+        return fontRenderer.FONT_HEIGHT
+    }
+
     override fun getFontHeight(): Int {
         return fontRenderer.FONT_HEIGHT
     }

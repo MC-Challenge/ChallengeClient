@@ -19,7 +19,6 @@ package net.challenge.client.ui.widget.utils
 
 import net.challenge.client.utils.IScaledResolutionHelper
 import net.minecraft.client.gui.Gui
-import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
@@ -101,21 +100,22 @@ object RenderUtils : IScaledResolutionHelper {
         Gui.drawRect(x.toInt(), y.toInt(), (x + width).toInt(), (y + height).toInt(), color)
     }
 
-    fun drawRect(x: Double, y: Double, x1: Double, y1: Double, color: Int) {
-
-        var left = x
-        var top = y
-        var right = x1
-        var bottom = y1
+    fun drawRect(left: Double, top: Double, right: Double, bottom: Double, color: Int) {
+        var left = left
+        var right = right
+        var top = top
+        var bottom = bottom
 
         if (left < right) {
+            val i = left.toInt()
             left = right
-            right = left
+            right = i.toDouble()
         }
 
         if (top < bottom) {
+            val j = top.toInt()
             top = bottom
-            bottom = top
+            bottom = j.toDouble()
         }
 
         val f3 = (color shr 24 and 255).toFloat() / 255.0f
@@ -145,7 +145,7 @@ object RenderUtils : IScaledResolutionHelper {
         drawRect(x, y, width, height, color.rgb)
     }
 
-    fun drawCircle(x: Float, y: Float, radius: Float, color: Int) {
+    fun drawCircle(x: Double, y: Double, radius: Float, color: Int) {
         val alpha = (color shr 24 and 0xFF) / 255.0f
         val red = (color shr 16 and 0xFF) / 255.0f
         val green = (color shr 8 and 0xFF) / 255.0f
@@ -171,4 +171,22 @@ object RenderUtils : IScaledResolutionHelper {
         GL11.glDisable(2848)
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f)
     }
+
+    fun drawVerticalLine(x: Double, y: Double, x1: Double, y1: Double, width: Float, color: Int) {
+        val red = (color shr 24 and 0xFF) / 255.0f
+        val green = (color shr 16 and 0xFF) / 255.0f
+        val blue = (color shr 8 and 0xFF) / 255.0f
+        val alpha = (color and 0xFF) / 255.0f
+        GlStateManager.enableBlend()
+        GlStateManager.disableTexture2D()
+        GlStateManager.color(red, green, blue, alpha)
+        GL11.glLineWidth(width)
+        GL11.glBegin(3)
+        GL11.glVertex3d(x, y, 0.0)
+        GL11.glVertex3d(x1, y1, 0.0)
+        GL11.glEnd()
+        GlStateManager.enableTexture2D()
+        GlStateManager.disableBlend()
+    }
+
 }
