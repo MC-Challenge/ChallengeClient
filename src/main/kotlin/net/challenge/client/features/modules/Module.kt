@@ -19,7 +19,7 @@ package net.challenge.client.features.modules
 
 import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.annotations.ModuleInfo
-import net.challenge.configu.container.ValueContainer
+import net.challenge.configu.container.value.ValueContainer
 import net.challenge.configu.events.ValueChangeEvent
 import net.challenge.configu.events.ValueChangeListener
 import net.challenge.configu.scanner.ValueScanner
