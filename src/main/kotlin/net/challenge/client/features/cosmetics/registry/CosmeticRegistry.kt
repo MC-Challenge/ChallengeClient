@@ -53,7 +53,7 @@ class CosmeticRegistry : ICosmeticRegistry {
         cosmetics += cosmetic
     }
 
-    override fun getCosmetic(name: String): Cosmetic {
+    override fun getCosmetic(name: String): Cosmetic? {
         return cosmetics.stream().filter { cosmetic: Cosmetic -> name.equals(cosmetic.name, ignoreCase = true) }.findFirst().orElse(null)
     }
 
