@@ -18,8 +18,6 @@
 package net.challenge.client.features.modules.registry
 
 import net.challenge.client.features.modules.IModule
-import net.challenge.client.features.modules.Module
-
 
 /**
  * In a ModuleRegistry the modules of the client are loaded and saved
@@ -27,41 +25,33 @@ import net.challenge.client.features.modules.Module
 interface IModuleRegistry {
 
     /**
-     * Collection of all registered client modules
+     * Collection of all registered client modules.
      */
-    var modules: Collection<Module>
+    var modules: Collection<IModule>
 
     /**
-     * Loading modules
+     * Register modules.
+     *
+     * @param module Module to register.
+     */
+    fun registerModules(vararg module: IModule)
+
+    /**
+     * Loading modules.
      */
     fun load()
 
     /**
-     * This method registers modules
-     *
-     * @param modules are the modules, that will be registered
-     */
-    fun registerModules(vararg modules: Module)
-
-    /**
-     * This method, registers one module
-     *
-     * @param module is the module, that will be registered
-     */
-    fun registerModule(module: Module)
-
-
-    /**
-     * Getting an module by name
+     * Getting an module by name.
      *
      * @return The module that was found, or null
      */
     fun getModule(name: String): IModule?
 
     /**
-     * Getting an module by class
+     * Getting an module by class.
      *
-     * @return The module that was found, or null
+     * @return The module that was found, or null.
      */
     fun <T : IModule> getModule(clazz: Class<T>): T?
 }

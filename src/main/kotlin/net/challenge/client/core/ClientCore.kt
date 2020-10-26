@@ -28,12 +28,15 @@ import net.challenge.client.features.commands.impl.CmdToggle
 import net.challenge.client.features.commands.impl.CmdToggleCosmetic
 import net.challenge.client.features.cosmetics.registry.CosmeticRegistry
 import net.challenge.client.features.cosmetics.registry.ICosmeticRegistry
+import net.challenge.client.features.modules.impl.challenge.ReachChallenge
+import net.challenge.client.features.modules.impl.hud.*
 import net.challenge.client.features.modules.registry.IModuleRegistry
 import net.challenge.client.features.modules.registry.ModuleRegistry
 import net.challenge.client.ui.font.FontHandler
 import net.challenge.client.ui.hud.customHud.GuiCustomHud
 import net.challenge.client.ui.hud.customHud.renderer.HudRenderer
 import net.challenge.client.ui.hud.customHud.renderer.IHudRenderer
+import net.challenge.client.ui.screen.WidgetScreen
 import net.challenge.configu.config.IConfig
 import net.challenge.configu.config.JsonConfig
 import net.minecraft.util.ChatComponentText
@@ -56,9 +59,9 @@ object ClientCore : IClientCore {
 
     val cosmeticRegistry: ICosmeticRegistry = CosmeticRegistry()
 
-    val moduleRegistry: IModuleRegistry = ModuleRegistry()
-
     val hudRenderer: IHudRenderer = HudRenderer
+
+    val moduleRegistry: IModuleRegistry = ModuleRegistry()
 
     lateinit var customHud: GuiCustomHud
 
@@ -79,9 +82,24 @@ object ClientCore : IClientCore {
 
         FontHandler.load()
         cosmeticRegistry.load()
+        initModules()
+        commandRegistry.init()
         moduleRegistry.load()
 
         config.load()
+    }
+
+    private fun initModules() {
+        moduleRegistry.registerModules(
+                HudDirection,
+                HudKeystrokes,
+                HudXYZ,
+                ReachChallenge,
+                HudReach,
+                HudTime
+        )
+
+        moduleRegistry.load()
     }
 
     override fun onShutdown() {
