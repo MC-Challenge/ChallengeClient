@@ -24,6 +24,7 @@ import net.challenge.client.core.info.IClientInfo
 import net.challenge.client.features.commands.handler.CmdHandler
 import net.challenge.client.features.commands.handler.ICommandHandler
 import net.challenge.client.features.commands.impl.CmdHelp
+import net.challenge.client.features.commands.impl.CmdTeammate
 import net.challenge.client.features.commands.impl.CmdToggle
 import net.challenge.client.features.commands.impl.CmdToggleCosmetic
 import net.challenge.client.features.cosmetics.registry.CosmeticRegistry
@@ -32,6 +33,7 @@ import net.challenge.client.features.modules.impl.challenge.ReachChallenge
 import net.challenge.client.features.modules.impl.hud.*
 import net.challenge.client.features.modules.registry.IModuleRegistry
 import net.challenge.client.features.modules.registry.ModuleRegistry
+import net.challenge.client.features.teammate.TeammateHandler
 import net.challenge.client.ui.font.FontHandler
 import net.challenge.client.ui.hud.customHud.GuiCustomHud
 import net.challenge.client.ui.hud.customHud.renderer.HudRenderer
@@ -54,7 +56,7 @@ object ClientCore : IClientCore {
     override val eventBus: EventBus = ExtendEventManager()
 
     val commandHandler: ICommandHandler = CmdHandler(
-            CmdHelp, CmdToggle, CmdToggleCosmetic
+            CmdHelp, CmdToggle, CmdToggleCosmetic, CmdTeammate(TeammateHandler)
     )
 
     val cosmeticRegistry: ICosmeticRegistry = CosmeticRegistry()
@@ -83,7 +85,7 @@ object ClientCore : IClientCore {
         FontHandler.load()
         cosmeticRegistry.load()
         initModules()
-        commandRegistry.init()
+        //commandRegistry.init()
         moduleRegistry.load()
 
         config.load()
