@@ -15,36 +15,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.features.commands
+package net.challenge.client.features.teammate
 
 /**
- * A command that can be executed.
+ * This handler manages the team members. The handler is used,
+ * for example, to determine which other players participate in
+ * the challenge. Modules can thus refer to these players.
  */
-interface ICommand {
+interface ITeammateHandler {
 
     /**
-     * Running the command.
+     * Delete all teammates.
+     */
+    fun clear()
+
+    /**
+     * Add a teammate by playerName.
      *
-     * @param arguments Typed arguments.
+     * @param playerName Name of the player to add.
      */
-    fun run(arguments: Array<String>)
+    fun add(playerName: String)
 
     /**
-     * Check valid name.
+     * Remove a teammate by playerName.
      *
-     * @param name Name to check.
+     * @param playerName Name of the player to remove.
      */
-    fun isValidName(name: String): Boolean
+    fun remove(playerName: String)
 
     /**
-     * Send the syntax of the command
-     */
-    fun sendSyntax()
-
-    /**
-     * Send message to the player.
+     * Get all teammate-names.
      *
-     * @param message Message to send.
+     * @return Collection of all names.
      */
-    fun sendMessage(message: String)
+    fun getPlayers(): Collection<String>
 }

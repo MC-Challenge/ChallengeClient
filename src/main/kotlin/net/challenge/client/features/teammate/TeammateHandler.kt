@@ -15,21 +15,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.challenge.client.features.modules.impl.hud
 
-import net.challenge.client.features.modules.ModuleCategory
-import net.challenge.client.features.modules.SimpleHudModule
-import net.challenge.client.features.modules.annotations.ModuleInfo
+package net.challenge.client.features.teammate
 
-@ModuleInfo(name = "Position", category = ModuleCategory.HUD)
-object HudXYZ : SimpleHudModule() {
+/**
+ * Basic implementation of [ITeammateHandler].
+ */
+object TeammateHandler : ITeammateHandler {
 
-    override fun getValue(): String {
-        val player = mc.thePlayer
-        return "${player.posX.toInt()} ${player.posY.toInt()} ${player.posZ.toInt()}"
+    private var players: Collection<String> = mutableListOf()
+
+    override fun clear() {
+        players = listOf()
     }
 
-    override fun getDisplayName(): String {
-        return "XYZ"
+    override fun add(playerName: String) {
+        players += playerName.toLowerCase()
+    }
+
+    override fun remove(playerName: String) {
+        players -= playerName.toLowerCase()
+    }
+
+    override fun getPlayers(): Collection<String> {
+        return players
     }
 }
