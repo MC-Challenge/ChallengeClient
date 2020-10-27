@@ -32,7 +32,7 @@ interface ICommandHandler {
      *
      * @param message Input text.
      *
-     * @return TODO Doc
+     * @return Was the input valid.
      */
     fun onInput(message: String): Boolean
 }
