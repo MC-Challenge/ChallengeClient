@@ -6,6 +6,7 @@ import me.zero.alpine.listener.EventHook
 import me.zero.alpine.listener.Listener
 import net.challenge.client.events.Render2DEvent
 import net.challenge.client.features.modules.Module
+import net.challenge.client.features.modules.ModuleCategory
 import net.challenge.client.features.modules.annotations.ModuleInfo
 import net.challenge.client.features.teammate.ITeammateHandler
 import net.challenge.client.ui.hud.customHud.GuiCustomHud
@@ -19,7 +20,7 @@ import java.util.function.Predicate
  * All team members must be at the same height,
  * otherwise there is a black screen for everyone.
  */
-@ModuleInfo("Same-Height", "All team members must be at the same height, otherwise there is a black screen for everyone.")
+@ModuleInfo("Same-Height", "All team members must be at the same height, otherwise there is a black screen for everyone.", ModuleCategory.CHALLENGE)
 class SameHeightChallenge(
 
         /**
