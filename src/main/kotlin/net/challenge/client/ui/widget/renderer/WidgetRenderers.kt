@@ -20,10 +20,12 @@ package net.challenge.client.ui.widget.renderer
 import net.challenge.client.ui.widget.IGuiWidget
 import net.challenge.client.ui.widget.elements.Button
 import net.challenge.client.ui.widget.elements.Checkbox
+import net.challenge.client.ui.widget.elements.Rect
 import net.challenge.client.ui.widget.elements.Slider
 import net.challenge.client.ui.widget.elements.renderer.default.DButtonRenderer
 import net.challenge.client.ui.widget.elements.renderer.default.DCheckboxRenderer
 import net.challenge.client.ui.widget.elements.renderer.default.DSliderRenderer
+import net.challenge.client.ui.widget.elements.renderer.polygons.RectRenderer
 import net.challenge.client.ui.widget.elements.renderer.settings.CategoryButtonRenderer
 import net.challenge.client.ui.widget.elements.renderer.settings.ModuleButtonRenderer
 import net.challenge.client.ui.widget.elements.settings.CategoryButton
@@ -45,6 +47,9 @@ object WidgetRenderers {
         setRenderer(Button::class.java, DButtonRenderer())
         setRenderer(Slider::class.java, DSliderRenderer())
         setRenderer(Checkbox::class.java, DCheckboxRenderer())
+
+        // Set's the Polygon Renderers
+        setRenderer(Rect::class.java, RectRenderer())
 
         // Set's the Setting Renderers
         setRenderer(ModuleButton::class.java, ModuleButtonRenderer())
