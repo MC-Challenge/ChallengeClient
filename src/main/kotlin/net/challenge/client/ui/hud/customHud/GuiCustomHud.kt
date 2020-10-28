@@ -27,6 +27,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.ScaledResolution
+import org.lwjgl.input.Keyboard
 import java.awt.Color
 import java.util.function.Consumer
 import java.util.function.Predicate
@@ -36,7 +37,7 @@ import java.util.function.Predicate
  *
  * TODO Doc
  */
-class GuiCustomHud : WidgetScreen() {
+class GuiCustomHud : GuiScreen() {
 
     /**
      * x-dist of the element
@@ -56,7 +57,7 @@ class GuiCustomHud : WidgetScreen() {
     /**
      * Collection of all enabled custom-hud-elements
      */
-    private var enabledElements: Collection<IHudElement> = ClientCore.hudRenderer.enabledElements
+    private var enabledElements: Set<IHudElement> = ClientCore.hudRenderer.enabledElements
 
     /**
      * Is the setting screen
@@ -64,35 +65,31 @@ class GuiCustomHud : WidgetScreen() {
      */
     var settingScreen: SettingScreen? = null
 
-    init {
-        val btnWidth = 50
-        val btnHeight = 18
+    override fun initGui() {
+        enabledElements = ClientCore.hudRenderer.enabledElements
 
-        val mc = Minecraft.getMinecraft()
-        val sr = ScaledResolution(mc)
-
-        val width = sr.scaledWidth
-        val height = sr.scaledHeight
-
-        addWidgets(
-                Button("Settings")
-                        .setPosition(ScaledPosition(width / 2 - btnWidth/2, height / 2 + - btnHeight / 2))
-                        .setSize(btnWidth, btnHeight)
-                        .onClick { _: Button, _: Int ->
-                            run {
-                                if (settingScreen == null) settingScreen = SettingScreen()
-                                mc.displayGuiScreen(SettingScreen())
-                            }
-                        }
-        )
+        super.initGui()
     }
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
+        val sr = ScaledResolution(mc)
+        val text = "Press [S] for settings"
+        fontRendererObj.drawString(text, sr.scaledWidth / 2 - fontRendererObj.getStringWidth(text) / 2, sr.scaledHeight/2 - fontRendererObj.FONT_HEIGHT / 2, -1)
+
         //BlurUtil.blur()
         moveDraggingElement(mouseX, mouseY)
         renderPreview(mouseX, mouseY, partialTicks)
 
         super.drawScreen(mouseX, mouseY, partialTicks)
+    }
+
+    override fun keyTyped(key: Char, keyCode: Int) {
+        if (keyCode == Keyboard.KEY_S) {
+            settingScreen = SettingScreen()
+            mc.displayGuiScreen(settingScreen)
+        }
+
+        super.keyTyped(key, keyCode)
     }
 
     /**

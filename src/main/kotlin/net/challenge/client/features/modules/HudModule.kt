@@ -28,13 +28,13 @@ abstract class  HudModule : Module(), IHudElement {
 
     override fun onEnable() {
         ClientCore.hudRenderer.enabledElements += this
-
+        val s = ClientCore.hudRenderer.enabledElements
         super.onEnable()
     }
 
     override fun onDisable() {
         ClientCore.hudRenderer.enabledElements -= this
-
+        val s = ClientCore.hudRenderer.enabledElements
         super.onDisable()
     }
 }

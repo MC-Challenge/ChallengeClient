@@ -41,6 +41,8 @@ open class Module : ValueContainer(ValueScanner), IModule {
     private val enabled = VBool(false).setChangeListener(object : ValueChangeListener<Boolean> {
 
         override fun onChange(event: ValueChangeEvent<Boolean>) {
+            if (event.after == event.before) return
+
             if (event.after)
                 onEnable()
             else
@@ -70,11 +72,6 @@ open class Module : ValueContainer(ValueScanner), IModule {
 
     final override fun setEnabled(enabled: Boolean) {
         this.enabled.value = enabled
-
-        if (enabled)
-            onEnable()
-        else
-            onDisable()
     }
 
     override fun isEnabled(): Boolean {

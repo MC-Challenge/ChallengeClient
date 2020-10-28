@@ -33,7 +33,7 @@ import java.util.function.Predicate
 
 object HudRenderer : IHudRenderer, Listenable, IMC {
 
-    override var enabledElements: Collection<IHudElement> = ArrayList()
+    override var enabledElements: Set<IHudElement> = linkedSetOf()
 
     @EventHandler
     private val render2DListener: Listener<Render2DEvent> = Listener(EventHook {
