@@ -17,11 +17,17 @@
 
 package net.challenge.client.ui.screen
 
+import net.challenge.client.ui.adapter.IGuiRender
 import net.challenge.client.ui.screen.container.WidgetContainer
 import net.challenge.client.ui.widget.IGuiWidget
 import net.challenge.client.ui.widget.utils.RenderUtils
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.GuiScreen
+import net.minecraft.client.gui.ScaledResolution
+import net.minecraft.client.renderer.GlStateManager
+import org.lwjgl.input.Mouse
+import org.lwjgl.opengl.Display
 import java.awt.Color
 
 /**
@@ -34,7 +40,7 @@ open class WidgetScreen(
          */
         private val lastScreen: GuiScreen? = null
 
-) : GuiScreen() {
+) : GuiScreen(), IGuiRender {
 
     private val widgetContainer = WidgetContainer()
 
@@ -44,11 +50,37 @@ open class WidgetScreen(
     }
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
-        if (this.lastScreen != null)
-            this.lastScreen.drawScreen(mouseX, mouseY, partialTicks)
+        GlStateManager.pushMatrix()
 
+        val sr = ScaledResolution(Minecraft.getMinecraft())
+
+        when (sr.scaleFactor) {
+            2 -> {
+                GlStateManager.scale(0.5, 0.5, 0.5)
+            }
+            3 -> {
+                GlStateManager.scale(0.3325, 0.3325, 0.3325)
+            }
+            4 -> {
+                GlStateManager.scale(0.25, 0.25, 0.25)
+            }
+        }
+
+        render(getMouseX(), getMouseY())
+
+        GlStateManager.popMatrix()
+    }
+
+    override fun render(mouseX: Int, mouseY: Int) {
         widgetContainer.render(mouseX, mouseY)
-        super.drawScreen(mouseX, mouseY, partialTicks)
+    }
+
+    fun getMouseX(): Int {
+        return Mouse.getX()
+    }
+
+    fun getMouseY(): Int {
+        return -Mouse.getY() + Display.getHeight()
     }
 
     override fun handleMouseInput() {
@@ -58,13 +90,13 @@ open class WidgetScreen(
     }
 
     override fun mouseClicked(mouseX: Int, mouseY: Int, mouseButton: Int) {
-        if (widgetContainer.mouseClick(mouseX, mouseY, mouseButton)) return
+        if (widgetContainer.mouseClick(getMouseX(), getMouseY(), mouseButton)) return
 
         super.mouseClicked(mouseX, mouseY, mouseButton)
     }
 
     override fun mouseReleased(mouseX: Int, mouseY: Int, state: Int) {
-        widgetContainer.mouseRelease(mouseX, mouseY, state)
+        widgetContainer.mouseRelease(getMouseX(), getMouseY(), state)
 
         super.mouseReleased(mouseX, mouseY, state)
     }
@@ -76,7 +108,7 @@ open class WidgetScreen(
     }
 
     override fun mouseClickMove(mouseX: Int, mouseY: Int, clickedMouseButton: Int, timeSinceLastClick: Long) {
-        widgetContainer.mouseClickAndMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)
+        widgetContainer.mouseClickAndMove(getMouseX(), getMouseY(), clickedMouseButton, timeSinceLastClick)
     }
 
     override fun updateScreen() {

@@ -2,7 +2,6 @@ package net.challenge.client.ui.screen
 
 import net.challenge.client.core.ClientCore
 import net.challenge.client.features.modules.IModule
-import net.challenge.client.features.modules.Module
 import net.challenge.client.features.modules.ModuleCategory
 import net.challenge.client.ui.font.FontHandler
 import net.challenge.client.ui.font.fancy.GLFont
@@ -18,6 +17,7 @@ import net.challenge.client.utils.IScaledResolutionHelper
 import net.challenge.configu.container.value.IValueContainer
 import net.challenge.configu.value.Value
 import net.challenge.configu.value.impl.VNumber
+import org.lwjgl.opengl.Display
 import java.awt.Color
 
 
@@ -31,20 +31,20 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
 
     // Gets the middle from
     // the screen (x, y)
-    private val middleX = getScaledWidth() / 2.0
-    private val middleY = getScaledHeight() / 2.0
+    private val middleX = Display.getWidth() / 2.0
+    private val middleY = Display.getHeight() / 2.0
 
     // Defines a value for
     // the both length's
-    private val widthLength = 190.0
-    private val heightLength = 150.0
+    private val widthLength = Display.getWidth() / 5
+    private val heightLength = Display.getHeight() / 3.3
 
     // Defines a value,
     // for the real length
     // cause of the [widthLength]
     // or [heightLength] is not
     // the real value
-    private val realWidthLength = widthLength * 2;
+    private val realWidthLength = widthLength * 2
     private val realHeightLength = heightLength * 2
 
     // Gets the start from
@@ -59,15 +59,15 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
 
     // Defining variables
     // for each bar
-    private val categoryBarLength = 110.0
-    private val moduleBarLength = 105.0
+    private val categoryBarLength = realWidthLength / 3.1
+    private val moduleBarLength = realWidthLength / 3.5
     private val settingsBarLength = endX - (startX + categoryBarLength + moduleBarLength)
 
     // From the entry
     // 'module-bar'
     private val moduleBarStartX = startX + categoryBarLength
-    private val moduleBarEndX = startX + (categoryBarLength + moduleBarLength)
-    private val moduleBarTopEndY = startY + 15
+    private val moduleBarEndX = startX + (categoryBarLength + moduleBarLength) - 1
+    private val moduleBarTopEndY = startY + realHeightLength / 20
 
     // From the entry
     // 'settings-bar'
@@ -149,7 +149,25 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
         }
     }
 
-    override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
+    override fun render(mouseX: Int, mouseY: Int) {
+            // Using 'RenderUtil'
+            // cause of the methods
+            // with the float and
+            // the double para-
+            // meter
+
+            // ## Category-Bar ## //
+
+            // ## Category-Bar ## //
+
+            // ## Module-Bar ## //
+
+            // ## Module-Bar ## //
+
+            // ## Settings-Bar ## //
+
+            // ## Settings-Bar ## //
+
 
         // Using 'RenderUtil'
         // cause of the methods
@@ -191,7 +209,7 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
 
         // ## Settings-Bar ## //
 
-        super.drawScreen(mouseX, mouseY, partialTicks)
+        super.render(mouseX, mouseY)
     }
 
     private fun getWSettingsFromModule(module: IValueContainer): Collection<IGuiWidget<*>> {
