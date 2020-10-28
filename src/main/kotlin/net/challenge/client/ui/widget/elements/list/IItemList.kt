@@ -19,8 +19,8 @@ interface IItemList<W : IItemList<W>> : IGuiWidget<W> {
     var backgroundColor: Int
 
     override fun render(mouseX: Int, mouseY: Int) {
-        val x = position.getAbsoluteX().toFloat()
-        val y = position.getAbsoluteY().toFloat()
+        val x = position.getX().toFloat()
+        val y = position.getY().toFloat()
 
         GL11.glEnable(GL11.GL_SCISSOR_TEST)
         GL11.glScissor(x.toInt(), y.toInt(), width, height)

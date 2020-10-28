@@ -18,47 +18,46 @@
 package net.challenge.client.ui.position
 
 /**
- * The position can be specified relative to the screen size.
- * Relative means in this case that you can specify the position in percent.
- * Screen-Width: 500px
- * Relative-X: 0.5
- * Absolute X = 250px
+ * A 2D-Position with X and Y-Position.
  */
 interface IPosition {
 
     /**
-     * Get the absolute X-Position in pixels
-     */
-    fun getAbsoluteX(): Int
-
-    /**
-     * Get the absolute Y-Position in pixels
-     */
-    fun getAbsoluteY(): Int
-
-    /**
-     * Get the relative X-Position to the screen width
-     */
-    fun getRelativeX(): Double
-
-    /**
-     * Get the relative Y-Position to the screen height
-     */
-    fun getRelativeY(): Double
-
-    /**
-     * Set the position absolute to the screen
+     * Get the X-Position.
      *
-     * @param x Absolute X-Position in pixels
-     * @param y Absolute Y-Position in pixels
+     * @return Y-Position.
      */
-    fun setAbsolute(x: Int, y: Int)
+    fun getX(): Double
 
     /**
-     * Set the position relative to the screen
+     * Get the Y-Position.
      *
-     * @param x Relative X-Position
-     * @param y Relative Y-Position
+     * @return Y-Position.
      */
-    fun setRelative(x: Double, y: Double)
+    fun getY(): Double
+
+    /**
+     * Set the X-Position.
+     *
+     * @param x Set this as X-Position
+     */
+    fun setX(x: Number)
+
+    /**
+     * Set the Y-Position.
+     *
+     * @param y Set this as Y-Position
+     */
+    fun setY(y: Number)
+
+    /**
+     * Set the X and Y-Position.
+     *
+     * @param x Set this as X-Position
+     * @param y Set this as Y-Position
+     */
+    fun set(x: Number, y: Number) {
+        setX(x)
+        setY(x)
+    }
 }

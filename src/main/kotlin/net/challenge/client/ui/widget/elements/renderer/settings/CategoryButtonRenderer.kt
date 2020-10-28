@@ -15,8 +15,8 @@ class CategoryButtonRenderer : IWidgetRenderer<CategoryButton> {
     private var iconFont: GLFont = FontHandler.getFancyFontRenderer("ClickGUI", 40)
 
     override fun render(widget: CategoryButton, mouseX: Int, mouseY: Int) {
-        val x = widget.position.getAbsoluteX()
-        val y = widget.position.getAbsoluteY()
+        val x = widget.position.getX()
+        val y = widget.position.getY()
 
         val hover = widget.isHover(mouseX, mouseY)
 

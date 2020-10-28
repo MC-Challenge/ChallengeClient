@@ -60,8 +60,8 @@ interface IGuiWidget<W : IGuiWidget<W>> : IGuiRender {
     * @return Is mouse over
     */
     fun isHover(mouseX: Int, mouseY: Int): Boolean {
-        val x =  position.getAbsoluteX()
-        val y = position.getAbsoluteY()
+        val x =  position.getX()
+        val y = position.getY()
 
         return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height
     }

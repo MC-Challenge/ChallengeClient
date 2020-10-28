@@ -34,8 +34,8 @@ class DCheckboxRenderer : IWidgetRenderer<Checkbox> {
     private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
 
     override fun render(widget: Checkbox, mouseX: Int, mouseY: Int) {
-        val x = widget.position.getAbsoluteX().toFloat()
-        val y = widget.position.getAbsoluteY().toFloat()
+        val x = widget.position.getX().toFloat()
+        val y = widget.position.getY().toFloat()
 
         val width = widget.width.toFloat()
         val height = widget.height.toFloat()
