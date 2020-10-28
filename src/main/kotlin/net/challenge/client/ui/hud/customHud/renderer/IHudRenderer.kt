@@ -29,7 +29,7 @@ interface IHudRenderer {
     /**
      * Collection of all enabled custom-hud-elements
      */
-    var enabledElements: Collection<IHudElement>
+    var enabledElements: Set<IHudElement>
 
 
     /**
