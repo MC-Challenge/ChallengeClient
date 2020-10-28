@@ -23,7 +23,7 @@ interface IItemList<W : IItemList<W>> : IGuiWidget<W> {
         val y = position.getAbsoluteY().toFloat()
 
         GL11.glEnable(GL11.GL_SCISSOR_TEST)
-        RenderUtils.scissor(x.toDouble(), y.toDouble(), width.toDouble(), height.toDouble())
+        GL11.glScissor(x.toInt(), y.toInt(), width, height)
 
         RenderUtils.drawRect(x, y, width.toFloat(), height.toFloat(), backgroundColor)
 
@@ -33,7 +33,7 @@ interface IItemList<W : IItemList<W>> : IGuiWidget<W> {
         val length = getListLength() - 1
 
         for (i in 0..length) {
-            val itemHeight = renderItem(i, xItem, yItem, widthItem , mouseX, mouseY)
+            val itemHeight = renderItem(i, xItem, yItem, widthItem, mouseX, mouseY)
             yItem += itemHeight
         }
 
@@ -50,7 +50,7 @@ interface IItemList<W : IItemList<W>> : IGuiWidget<W> {
      * @param mouseX
      * @param mouseY
      */
-    fun renderItem(index: Int, x: Float, y: Float, width: Float, mouseX: Int, mouseY: Int) : Float
+    fun renderItem(index: Int, x: Float, y: Float, width: Float, mouseX: Int, mouseY: Int): Float
 
     /**
      * Get the length of the list of the rendering items.
