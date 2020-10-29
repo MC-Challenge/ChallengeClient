@@ -58,6 +58,6 @@ interface IPosition {
      */
     fun set(x: Number, y: Number) {
         setX(x)
-        setY(x)
+        setY(y)
     }
 }
