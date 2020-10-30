@@ -100,6 +100,7 @@ object ClientCore : IClientCore {
                 ReachChallenge,
                 HudReach,
                 HudTime,
+                HudMlgHelper,
                 SameHeightChallenge(TeammateHandler)
         )
 
