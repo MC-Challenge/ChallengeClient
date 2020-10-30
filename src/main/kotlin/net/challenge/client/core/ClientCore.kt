@@ -32,6 +32,7 @@ import net.challenge.client.features.cosmetics.registry.ICosmeticRegistry
 import net.challenge.client.features.modules.impl.challenge.ReachChallenge
 import net.challenge.client.features.modules.impl.challenge.SameHeightChallenge
 import net.challenge.client.features.modules.impl.hud.*
+import net.challenge.client.features.modules.impl.visual.BlockOverlay
 import net.challenge.client.features.modules.registry.IModuleRegistry
 import net.challenge.client.features.modules.registry.ModuleRegistry
 import net.challenge.client.features.teammate.TeammateHandler
@@ -101,6 +102,7 @@ object ClientCore : IClientCore {
                 HudReach,
                 HudTime,
                 HudMlgHelper,
+                BlockOverlay,
                 SameHeightChallenge(TeammateHandler)
         )
 
