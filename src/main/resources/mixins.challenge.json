@@ -9,6 +9,7 @@
     "renderer.MixinRenderPlayer",
     "renderer.MixinRenderGlobal",
     "client.MixinMinecraft",
-    "entity.MixinPlayerControllerMP"
+    "entity.MixinPlayerControllerMP",
+    "entity.MixinEntityPlayerSP"
   ]
 }
