@@ -19,6 +19,7 @@ import net.challenge.configu.container.value.IValueContainer
 import net.challenge.configu.value.Value
 import net.challenge.configu.value.impl.VNumber
 import org.lwjgl.opengl.Display
+import org.lwjgl.opengl.GL11
 import java.awt.Color
 
 
@@ -74,6 +75,12 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
     // 'settings-bar'
     private val settingsBarStartX = startX + categoryBarLength + moduleBarLength
 
+    private val categoryTopAddition = realHeightLength / 12
+    private val settingsTopAddition = realHeightLength / 19
+
+    private val categoryItemHeight = realHeightLength / 13
+    private val moduleItemHeight = realHeightLength / 15
+
     // Defines a variable
     // for all colors
     var mainColor = Color(14, 113, 214)
@@ -81,31 +88,42 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
     var mainBackgroundColor = Color(35, 34, 35)
 
     // TODO: get this piece of garbage in an separate manager/handler
-    private var smallFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 10)
-    private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
-    private var bigFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 30)
+    var smallFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", realHeightLength.toInt() / 20)
+    var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", realHeightLength.toInt() / 17)
+    var bigFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", realHeightLength.toInt() / 10)
+    var iconFont: GLFont = FontHandler.getFancyFontRenderer("ClickGUI", 40)
 
     init {
         val categoryList = WidgetList()
-                .setPosition(Position(startX, startY + 40))
+                .setPosition(Position(startX, startY + categoryTopAddition.toInt()))
                 .setBackGroundColor(mainBackgroundColor.rgb)
-                .setSize(categoryBarLength.toInt(), heightLength.toInt() * 2 - 40)
+                .setSize(categoryBarLength.toInt(), realHeightLength.toInt() - categoryTopAddition.toInt())
 
         val modulesList = WidgetList()
                 .setBackGroundColor(moduleBackgroundColor.rgb)
                 .setPosition(Position(moduleBarStartX, moduleBarTopEndY))
-                .setSize(moduleBarLength.toInt(), realHeightLength.toInt() - 15)
+                .setSize(moduleBarLength.toInt(), (realHeightLength.toInt() + realHeightLength / 20).toInt())
 
         val settingsList = WidgetList()
                 .setBackGroundColor(Color(35, 34, 35).rgb)
-                .setPosition(Position(settingsBarStartX, startY + 25))
-                .setSize(settingsBarLength.toInt(), realHeightLength.toInt() - 25)
+                .setPosition(Position(settingsBarStartX, startY + settingsTopAddition))
+                .setSize(settingsBarLength.toInt(), realHeightLength.toInt() - settingsTopAddition.toInt())
 
+        val mainRect = Rect(mainBackgroundColor)
+                .setPosition(Position(startX, startY))
+                .setSize(realWidthLength, realHeightLength.toInt())
+
+        val blueRect = Rect(mainColor)
+                .setPosition(Position(moduleBarStartX, startY))
+                .setSize(moduleBarLength.toInt(), realHeightLength.toInt() / 20)
+
+        val font = FontHandler.getFancyFontRenderer("raleway/raleway-medium", (categoryItemHeight.toInt()/1.6).toInt())
         ModuleCategory.values().forEach { m ->
             categoryList.widgets(
                     CategoryButton(m)
+                            .setFont(font)
                             .setColor(mainBackgroundColor)
-                            .setHeight(30)
+                            .setHeight(categoryItemHeight.toInt())
                             .onClick { _, _ ->
                                 this.currentCategory = m
                                 loadModules(modulesList, settingsList)
@@ -116,9 +134,11 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
         loadModules(modulesList, settingsList)
 
         addWidgets(
+                blueRect,
                 categoryList,
                 modulesList,
-                settingsList
+                settingsList,
+                mainRect
         )
     }
 
@@ -129,13 +149,15 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
      */
     private fun loadModules(modulesList: WidgetList, settingsList: WidgetList) {
         modulesList.clear()
-        ClientCore.moduleRegistry.modules.stream().filter {  it.category == currentCategory }.forEach { module ->
+        val font = FontHandler.getFancyFontRenderer("raleway/raleway-medium", (moduleItemHeight.toInt()/1.2).toInt())
+        ClientCore.moduleRegistry.modules.stream().filter { it.category == currentCategory }.forEach { module ->
             val settingWidgets = getWSettingsFromModule(module)
             settingWidgets.forEach { it.setHeight(15) }
             modulesList.widgets(
                     ModuleButton(module)
                             .setColor(moduleBackgroundColor)
-                            .setHeight(20)
+                            .setFont(font)
+                            .setHeight(moduleItemHeight.toInt())
                             .setCentered(false)
                             .onClick { _, i ->
                                 if (i == 0) {
@@ -151,31 +173,31 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
     }
 
     override fun render(mouseX: Int, mouseY: Int) {
-            // Using 'RenderUtil'
-            // cause of the methods
-            // with the float and
-            // the double para-
-            // meter
+        super.render(mouseX, mouseY)
 
-            // ## Category-Bar ## //
+        // ## Settings-Bar ## //
 
-            // ## Category-Bar ## //
+        if (currentModule != null) {
+            GL11.glPushMatrix()
+            GL11.glEnable(GL11.GL_BLEND)
+            smallFont.drawStringWithShadow(currentModule!!.category.publicName + "/" + currentModule!!.name, settingsBarStartX + 3, moduleBarTopEndY - 7, Color(133, 134, 137).rgb)
+            GL11.glDisable(GL11.GL_BLEND)
+            GL11.glPopMatrix()
+        }
 
-            // ## Module-Bar ## //
+        // ## Settings-Bar ## //
 
-            // ## Module-Bar ## //
+        // ## Module-Bar ## //
 
-            // ## Settings-Bar ## //
+        val textLength = standardFont.getWidth(currentCategory.publicName)
 
-            // ## Settings-Bar ## //
+        GL11.glPushMatrix()
+        GL11.glEnable(GL11.GL_BLEND)
+        standardFont.drawStringWithShadow(currentCategory.publicName, moduleBarStartX + (moduleBarLength / 2 - textLength / 2), startY + ((realHeightLength / 20) / 2 - standardFont.height / 2), -1)
+        GL11.glDisable(GL11.GL_BLEND)
+        GL11.glPopMatrix()
 
-
-        // Using 'RenderUtil'
-        // cause of the methods
-        // with the float and
-        // the double para-
-        // meter
-        RenderUtils.drawRect(startX, startY, endX, endY, mainBackgroundColor.rgb)
+        // ## Module-Bar ## //
 
         // ## Category-Bar ## //
 
@@ -189,28 +211,16 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
         val fontX = startX + (categoryBarLength / 2 - nameLength / 2)
         val fontY = startY + 14.0
 
+        GL11.glPushMatrix()
+        GL11.glEnable(GL11.GL_BLEND)
+
         bigFont.drawStringWithShadow(name, fontX, fontY, -1)
         standardFont.drawStringWithShadow(version, fontX + bigFontWidth + 1, fontY + bigFont.height / 2, mainColor.rgb)
 
+        GL11.glDisable(GL11.GL_BLEND)
+        GL11.glPopMatrix()
+
         // ## Category-Bar ## //
-
-        // ## Module-Bar ## //
-
-        RenderUtils.drawRect(moduleBarStartX, startY, moduleBarEndX, endY, moduleBackgroundColor.rgb)
-        RenderUtils.drawRect(moduleBarStartX, startY, moduleBarEndX, moduleBarTopEndY, mainColor.rgb)
-
-        val textLength = standardFont.getWidth(currentCategory.publicName)
-        standardFont.drawStringWithShadow(currentCategory.publicName, moduleBarStartX + (moduleBarLength / 2 - textLength / 2), startY + (15 / 2 - standardFont.height / 2), -1)
-
-        // ## Module-Bar ## //
-
-        // ## Settings-Bar ## //
-
-        if (currentModule != null) smallFont.drawStringWithShadow(currentModule!!.category.publicName + "/" + currentModule!!.name, settingsBarStartX + 3, moduleBarTopEndY - 7, Color(133, 134, 137).rgb)
-
-        // ## Settings-Bar ## //
-
-        super.render(mouseX, mouseY)
     }
 
     private fun getWSettingsFromModule(module: IValueContainer): Collection<IGuiWidget<*>> {

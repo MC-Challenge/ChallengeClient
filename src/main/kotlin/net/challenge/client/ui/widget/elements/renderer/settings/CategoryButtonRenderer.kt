@@ -6,13 +6,10 @@ import net.challenge.client.ui.font.fancy.GLFont
 import net.challenge.client.ui.widget.elements.settings.CategoryButton
 import net.challenge.client.ui.widget.renderer.IWidgetRenderer
 import net.challenge.client.ui.widget.utils.RenderUtils
+import org.lwjgl.opengl.GL11
 import java.awt.Color
 
 class CategoryButtonRenderer : IWidgetRenderer<CategoryButton> {
-
-    // TODO: get this piece of garbage in an separate manager/handler
-    private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
-    private var iconFont: GLFont = FontHandler.getFancyFontRenderer("ClickGUI", 40)
 
     override fun render(widget: CategoryButton, mouseX: Int, mouseY: Int) {
         val x = widget.position.getAbsoluteX()
@@ -39,9 +36,21 @@ class CategoryButtonRenderer : IWidgetRenderer<CategoryButton> {
         }
 
         val char = widget.category.character
+        var iconFont = widget.font
+
+        ClientCore.customHud.settingScreen?.let {
+            iconFont = it.iconFont
+        }
 
         val textX = x + 10 + iconFont.getWidth(char)
+
+        GL11.glPushMatrix()
+        GL11.glEnable(GL11.GL_BLEND)
+
         iconFont.drawString(char, x.toDouble() + 4, y + widget.height / 2 - iconFont.height.toDouble() / 2, textColor)
-        standardFont.drawStringWithShadow(widget.category.publicName, textX.toDouble(), y + widget.height / 2 - standardFont.height.toDouble() / 2, textColor)
+        widget.font.drawStringWithShadow(widget.category.publicName, textX.toDouble(), y + widget.height / 2 - widget.font.height.toDouble() / 2, textColor)
+
+        GL11.glDisable(GL11.GL_BLEND)
+        GL11.glPopMatrix()
     }
 }

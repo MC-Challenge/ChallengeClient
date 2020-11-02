@@ -17,6 +17,7 @@
 
 package net.challenge.client.ui.widget.elements.renderer.default
 
+import net.challenge.client.core.ClientCore
 import net.challenge.client.ui.font.FontHandler
 import net.challenge.client.ui.font.fancy.GLFont
 import net.challenge.client.ui.widget.elements.Checkbox
@@ -30,12 +31,11 @@ import java.awt.Color
  */
 class DCheckboxRenderer : IWidgetRenderer<Checkbox> {
 
-    // TODO: get this piece of garbage in an separate manager/handler
-    private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
 
     override fun render(widget: Checkbox, mouseX: Int, mouseY: Int) {
         val x = widget.position.getAbsoluteX().toFloat()
         val y = widget.position.getAbsoluteY().toFloat()
+        val standardFont = ClientCore.customHud.settingScreen!!.standardFont
 
         val width = widget.width.toFloat()
         val height = widget.height.toFloat()

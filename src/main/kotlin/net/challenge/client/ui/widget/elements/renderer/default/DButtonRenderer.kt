@@ -17,6 +17,7 @@
 
 package net.challenge.client.ui.widget.elements.renderer.default
 
+import net.challenge.client.core.ClientCore
 import net.challenge.client.ui.font.FontHandler
 import net.challenge.client.ui.font.fancy.GLFont
 import net.challenge.client.ui.widget.elements.Button
@@ -31,12 +32,10 @@ import java.awt.Color
  */
 class DButtonRenderer : IWidgetRenderer<Button> {
 
-    // TODO: get this piece of garbage in an separate manager/handler
-    private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
-
     override fun render(widget: Button, mouseX: Int, mouseY: Int) {
         val x = widget.position.getAbsoluteX()
         val y = widget.position.getAbsoluteY()
+        val standardFont = ClientCore.customHud.settingScreen!!.standardFont
 
         val hover = widget.isHover(mouseX, mouseY)
 
