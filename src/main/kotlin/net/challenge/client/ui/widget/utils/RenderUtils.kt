@@ -33,6 +33,18 @@ import kotlin.math.sin
  */
 object RenderUtils : IScaledResolutionHelper {
 
+    fun color(r: Int, g: Int, b: Int, a: Int) {
+        GL11.glColor4d(r.toDouble(), g.toDouble(), b.toDouble(), a.toDouble())
+    }
+
+    fun color(r: Int, g: Int, b: Int) {
+        GL11.glColor3d(r.toDouble(), g.toDouble(), b.toDouble())
+    }
+
+    fun color(c: Color) {
+        GL11.glColor4d(c.red.toDouble() / 255.0, c.green.toDouble() / 255.0, c.blue.toDouble() / 255.0, c.alpha.toDouble() / 255.0)
+    }
+
     /**
      * TODO Doc
      */
@@ -76,7 +88,7 @@ object RenderUtils : IScaledResolutionHelper {
         GL11.glColor4f(color.red.toFloat() / 255, color.green.toFloat() / 255, color.blue.toFloat() / 255, color.alpha.toFloat() / 255)
 
         val tessellator = Tessellator.getInstance()
-        val worldRenderer = tessellator.getWorldRenderer()
+        val worldRenderer = tessellator.worldRenderer
 
         worldRenderer.begin(6, DefaultVertexFormats.POSITION)
         worldRenderer.pos(x.toDouble(), y.toDouble(), 0.0).endVertex()

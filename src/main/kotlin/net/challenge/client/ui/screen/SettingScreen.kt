@@ -8,6 +8,7 @@ import net.challenge.client.ui.font.fancy.GLFont
 import net.challenge.client.ui.position.Position
 import net.challenge.client.ui.widget.IGuiWidget
 import net.challenge.client.ui.widget.elements.Checkbox
+import net.challenge.client.ui.widget.elements.Rect
 import net.challenge.client.ui.widget.elements.Slider
 import net.challenge.client.ui.widget.elements.list.WidgetList
 import net.challenge.client.ui.widget.elements.settings.CategoryButton
