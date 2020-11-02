@@ -77,7 +77,7 @@ object ToggleSprint : HudModule() {
             status = "[Sprinting (Toggled)]"
         }
 
-        mc.fontRendererObj.drawString(status, position.getAbsoluteX(), position.getAbsoluteY(), -1)
+        mc.fontRendererObj.drawString(status, position.getX().toInt(), position.getY().toInt(), -1)
     }
 
     override fun getElementWidth(): Int {
