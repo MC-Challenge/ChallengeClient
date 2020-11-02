@@ -17,36 +17,43 @@
 
 package net.challenge.client.features.modules.impl.player
 
+import me.zero.alpine.event.EventPriority
 import me.zero.alpine.listener.EventHandler
 import me.zero.alpine.listener.EventHook
 import me.zero.alpine.listener.Listener
 import net.challenge.client.events.KeyEvent
 import net.challenge.client.events.LivingUpdateEvent
-import net.challenge.client.features.modules.Module
+import net.challenge.client.features.modules.HudModule
 import net.challenge.client.features.modules.annotations.ModuleInfo
 import net.challenge.configu.value.VTag
 import net.challenge.configu.value.impl.VBool
+import java.util.function.Predicate
 
 @ModuleInfo("ToggleSprint")
-object ToggleSprint : Module() {
+object ToggleSprint : HudModule() {
 
     @VTag("Always", "Always sprinting")
     private val always = VBool(false)
+
+    @VTag("Text", "Show status text")
+    private val text = VBool(true)
 
     private var snapped = false
 
     @EventHandler
     private val livingUpdateListener: Listener<LivingUpdateEvent> = Listener(
             EventHook {
-                val player = mc.thePlayer
-                val settings = mc.gameSettings
-
-                if (player.foodStats.foodLevel < 7) return@EventHook
-                if (!settings.keyBindForward.isKeyDown) return@EventHook
-                if (settings.keyBindSneak.isKeyDown) return@EventHook
-                if (!always.value && !snapped) return@EventHook
-
                 mc.thePlayer.isSprinting = true
+            },
+
+            EventPriority.DEFAULT,
+
+            // Filter
+            Predicate {
+                mc.thePlayer.foodStats.foodLevel > 6
+                mc.gameSettings.keyBindForward.isKeyDown
+                !mc.gameSettings.keyBindSneak.isKeyDown
+                always.value || snapped
             }
     )
 
@@ -58,4 +65,26 @@ object ToggleSprint : Module() {
                 snapped = !snapped
             }
     )
+
+    override fun drawElement(mouseX: Int, mouseY: Int, partialTicks: Float) {
+        if (!text.value) return
+
+        var status = ""
+
+        if (mc.gameSettings.keyBindSneak.isKeyDown()) {
+            status = "[Sneaking (Key Held)]"
+        } else if (always.value || snapped) {
+            status = "[Sprinting (Toggled)]"
+        }
+
+        mc.fontRendererObj.drawString(status, position.getAbsoluteX(), position.getAbsoluteY(), -1)
+    }
+
+    override fun getElementWidth(): Int {
+        return mc.fontRendererObj.getStringWidth("[Sprinting (Toggled)]")
+    }
+
+    override fun getElementHeight(): Int {
+        return mc.fontRendererObj.FONT_HEIGHT
+    }
 }
