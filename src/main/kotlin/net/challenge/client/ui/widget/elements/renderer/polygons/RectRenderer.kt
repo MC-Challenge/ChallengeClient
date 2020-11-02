@@ -19,8 +19,8 @@ class RectRenderer : IWidgetRenderer<Rect> {
 
         // Defines a variable
         // for each value
-        var x = widget.position.getAbsoluteX()
-        var y = widget.position.getAbsoluteY()
+        var x = widget.position.getX()
+        var y = widget.position.getY()
         val width = widget.width
         val height = widget.height
         var secondPosX = x + width
