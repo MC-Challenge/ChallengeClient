@@ -13,8 +13,8 @@ class ModuleButtonRenderer : IWidgetRenderer<ModuleButton> {
     private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
 
     override fun render(widget: ModuleButton, mouseX: Int, mouseY: Int) {
-        val x = widget.position.getAbsoluteX()
-        val y = widget.position.getAbsoluteY()
+        val x = widget.position.getX()
+        val y = widget.position.getY()
 
         val hover = widget.isHover(mouseX, mouseY)
 

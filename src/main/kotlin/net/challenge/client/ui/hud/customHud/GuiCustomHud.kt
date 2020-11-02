@@ -17,14 +17,8 @@ package net.challenge.client.ui.hud.customHud
 import net.challenge.client.core.ClientCore
 import net.challenge.client.ui.hud.customHud.element.IHudElement
 import net.challenge.client.ui.hud.customHud.element.IHudPreview
-import net.challenge.client.ui.position.ScaledPosition
 import net.challenge.client.ui.screen.SettingScreen
-import net.challenge.client.ui.screen.WidgetScreen
-import net.challenge.client.ui.widget.elements.Button
 import net.challenge.client.ui.widget.utils.RenderUtils
-import net.challenge.client.utils.BlurUtil
-import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.ScaledResolution
 import org.lwjgl.input.Keyboard
@@ -110,7 +104,7 @@ class GuiCustomHud : GuiScreen() {
                     it.drawElement(mouseX, mouseY, partialTicks)
 
                 val position = it.position
-                RenderUtils.drawRect(position.getAbsoluteX().toFloat(), position.getAbsoluteY().toFloat(), it.getElementWidth().toFloat(), it.getElementHeight().toFloat(), Color(255, 255, 255, 40))
+                RenderUtils.drawRect(position.getX().toFloat(), position.getX().toFloat(), it.getElementWidth().toFloat(), it.getElementHeight().toFloat(), Color(255, 255, 255, 40))
             }
         })
     }
@@ -131,10 +125,10 @@ class GuiCustomHud : GuiScreen() {
     private fun updateHeldRenderer(mouseX: Int, mouseY: Int) {
         draggingElement = enabledElements.stream().filter(MouseOverElement(mouseX, mouseY)).findFirst().orElse(null)
 
-        if (draggingElement == null) return
-
-        xDist = draggingElement!!.position.getAbsoluteX() - mouseX
-        yDist = draggingElement!!.position.getAbsoluteY() - mouseY
+        draggingElement?.let {
+            xDist = it.position.getX().toInt() - mouseX
+            yDist = it.position.getY().toInt() - mouseY
+        }
     }
 
     override fun mouseReleased(mouseX: Int, mouseY: Int, state: Int) {
@@ -151,13 +145,13 @@ class GuiCustomHud : GuiScreen() {
      * @param mouseY Mouse Y position in pixels
      */
     private fun moveDraggingElement(mouseX: Int, mouseY: Int) {
-        if (draggingElement == null) return
+        draggingElement?.let {
+            val sr = ScaledResolution(mc)
+            val newX = 0.coerceAtLeast((mouseX + xDist).coerceAtMost((sr.scaledWidth - it.getElementWidth()).coerceAtLeast(0)))
+            val newY = 0.coerceAtLeast((mouseY + yDist).coerceAtMost((sr.scaledHeight - it.getElementHeight()).coerceAtLeast(0)))
 
-        val sr = ScaledResolution(mc)
-        val newX = 0.coerceAtLeast((mouseX + xDist).coerceAtMost((sr.scaledWidth - draggingElement!!.getElementWidth()).coerceAtLeast(0)))
-        val newY = 0.coerceAtLeast((mouseY + yDist).coerceAtMost((sr.scaledHeight - draggingElement!!.getElementHeight()).coerceAtLeast(0)))
-
-        draggingElement!!.position.setAbsolute(newX, newY)
+            it.position.set(newX, newY)
+        }
     }
 
     /**
@@ -169,8 +163,8 @@ class GuiCustomHud : GuiScreen() {
     private class MouseOverElement(private val mouseX: Int, private val mouseY: Int) : Predicate<IHudElement> {
 
         override fun test(element: IHudElement): Boolean {
-            val x: Int = element.position.getAbsoluteX()
-            val y: Int = element.position.getAbsoluteY()
+            val x = element.position.getX()
+            val y = element.position.getY()
 
             return mouseX >= x && mouseX <= x + element.getElementWidth() && mouseY >= y && mouseY <= y + element.getElementHeight()
         }
