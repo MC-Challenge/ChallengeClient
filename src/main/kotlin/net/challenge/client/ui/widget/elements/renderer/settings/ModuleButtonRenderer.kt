@@ -5,12 +5,10 @@ import net.challenge.client.ui.font.fancy.GLFont
 import net.challenge.client.ui.widget.elements.settings.ModuleButton
 import net.challenge.client.ui.widget.renderer.IWidgetRenderer
 import net.challenge.client.ui.widget.utils.RenderUtils
+import org.lwjgl.opengl.GL11
 import java.awt.Color
 
 class ModuleButtonRenderer : IWidgetRenderer<ModuleButton> {
-
-    // TODO: get this piece of garbage in an separate manager/handler
-    private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
 
     override fun render(widget: ModuleButton, mouseX: Int, mouseY: Int) {
         val x = widget.position.getAbsoluteX()
@@ -29,11 +27,14 @@ class ModuleButtonRenderer : IWidgetRenderer<ModuleButton> {
              textColor = -1
 
 
-        var textX = x + widget.width / 2 - standardFont.getWidth(widget.module.name) / 2
+        var textX = x + widget.width / 2 - widget.font.getWidth(widget.module.name) / 2
         if (!widget.centered) textX = x + 2
 
         RenderUtils.drawRect(x.toFloat(), y.toFloat(), widget.width.toFloat(), widget.height.toFloat(), bgColor)
-        standardFont.drawStringWithShadow(widget.module.name, textX.toDouble(), y + widget.height / 2 - standardFont.height.toDouble() / 2, textColor)
+
+        GL11.glEnable(GL11.GL_BLEND)
+        widget.font.drawStringWithShadow(widget.module.name, textX.toDouble(), y + widget.height / 2 - widget.font.height.toDouble() / 2, textColor)
+        GL11.glDisable(GL11.GL_BLEND)
 
         for (i in 0..2) {
             RenderUtils.drawCircle(x.toDouble() + (widget.width - 6 - i*3), y.toDouble() + widget.height/2.0, 0.5F, textColor)

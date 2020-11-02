@@ -17,6 +17,7 @@
 
 package net.challenge.client.ui.widget.elements.renderer.default
 
+import net.challenge.client.core.ClientCore
 import net.challenge.client.ui.font.FontHandler
 import net.challenge.client.ui.font.fancy.GLFont
 import net.challenge.client.ui.widget.elements.Slider
@@ -32,9 +33,6 @@ import kotlin.math.min
  */
 class DSliderRenderer : IWidgetRenderer<Slider> {
 
-    // TODO: get this piece of garbage in an separate manager/handler
-    private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
-
     override fun render(widget: Slider, mouseX: Int, mouseY: Int) {
         val x = widget.position.getAbsoluteX().toFloat()
         val y = widget.position.getAbsoluteY().toFloat()
@@ -46,6 +44,8 @@ class DSliderRenderer : IWidgetRenderer<Slider> {
         val y2 = y + height - 3.0F
         RenderUtils.drawRect(x, y2, (widget.getAsPercent().toFloat() * width).coerceAtMost(width), 2.0F, Color.WHITE)
         RenderUtils.drawCircle(x + (widget.getAsPercent() * width).coerceAtMost(width.toDouble()), y2 + 1.0, 2F, Color.WHITE.rgb)
+
+        val standardFont = ClientCore.customHud.settingScreen!!.standardFont
 
         standardFont.drawString(widget.name, x.toDouble() + 2, y.toDouble() + 1, Color.WHITE.rgb)
 

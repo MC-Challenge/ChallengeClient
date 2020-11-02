@@ -1,5 +1,6 @@
 package net.challenge.client.ui.widget.elements.list
 
+import net.challenge.client.core.ClientCore
 import net.challenge.client.ui.font.FontHandler
 import net.challenge.client.ui.font.fancy.GLFont
 import net.challenge.client.ui.position.IPosition
@@ -25,14 +26,12 @@ class WidgetList : WidgetContainer(), IItemList<WidgetList> {
 
     override var backgroundColor: Int = java.awt.Color(0, 0, 0).rgb
 
-    // TODO: get this piece of garbage in an separate manager/handler
-    private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
-
     override fun render(mouseX: Int, mouseY: Int) {
         disable = !this.isHover(mouseX, mouseY)
         updateWidgetsCache()
 
         super<IItemList>.render(mouseX, mouseY)
+        val standardFont = ClientCore.customHud.settingScreen!!.standardFont
 
         if (widgets.isEmpty()) {
             val text = "No Items."
