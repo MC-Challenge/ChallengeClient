@@ -25,12 +25,13 @@ import net.challenge.client.events.KeyEvent
 import net.challenge.client.events.LivingUpdateEvent
 import net.challenge.client.features.modules.HudModule
 import net.challenge.client.features.modules.annotations.ModuleInfo
+import net.challenge.client.ui.hud.customHud.element.IHudPreview
 import net.challenge.configu.value.VTag
 import net.challenge.configu.value.impl.VBool
 import java.util.function.Predicate
 
 @ModuleInfo("ToggleSprint")
-object ToggleSprint : HudModule() {
+object ToggleSprint : HudModule(), IHudPreview {
 
     @VTag("Always", "Always sprinting")
     private val always = VBool(false)
@@ -78,6 +79,10 @@ object ToggleSprint : HudModule() {
         }
 
         mc.fontRendererObj.drawString(status, position.getX().toInt(), position.getY().toInt(), -1)
+    }
+
+    override fun drawPreview(mouseX: Int, mouseY: Int, partialTicks: Float) {
+        mc.fontRendererObj.drawString("[Sneaking (Key Held)]", position.getX().toInt(), position.getY().toInt(), -1)
     }
 
     override fun getElementWidth(): Int {
