@@ -152,7 +152,7 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
         val font = FontHandler.getFancyFontRenderer("raleway/raleway-medium", (moduleItemHeight.toInt()/1.2).toInt())
         ClientCore.moduleRegistry.modules.stream().filter { it.category == currentCategory }.forEach { module ->
             val settingWidgets = getWSettingsFromModule(module)
-            settingWidgets.forEach { it.setHeight(15) }
+            settingWidgets.forEach { it.setHeight(moduleItemHeight.toInt()) }
             modulesList.widgets(
                     ModuleButton(module)
                             .setColor(moduleBackgroundColor)
@@ -180,7 +180,7 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
         if (currentModule != null) {
             GL11.glPushMatrix()
             GL11.glEnable(GL11.GL_BLEND)
-            smallFont.drawStringWithShadow(currentModule!!.category.publicName + "/" + currentModule!!.name, settingsBarStartX + 3, moduleBarTopEndY - 7, Color(133, 134, 137).rgb)
+            smallFont.drawStringWithShadow(currentModule!!.category.publicName + "/" + currentModule!!.name, settingsBarStartX + 3, startY + ((realHeightLength / 20) / 2 - standardFont.height / 2), Color(133, 134, 137).rgb)
             GL11.glDisable(GL11.GL_BLEND)
             GL11.glPopMatrix()
         }
