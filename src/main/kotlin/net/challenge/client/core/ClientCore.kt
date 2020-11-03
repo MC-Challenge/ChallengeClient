@@ -88,9 +88,6 @@ object ClientCore : IClientCore {
         FontHandler.load()
         cosmeticRegistry.load()
         initModules()
-        //commandRegistry.init()
-        moduleRegistry.load()
-
         config.load()
     }
 
