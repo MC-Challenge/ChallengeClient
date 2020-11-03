@@ -104,7 +104,7 @@ class GuiCustomHud : GuiScreen() {
                     it.drawElement(mouseX, mouseY, partialTicks)
 
                 val position = it.position
-                RenderUtils.drawRect(position.getX().toFloat(), position.getX().toFloat(), it.getElementWidth().toFloat(), it.getElementHeight().toFloat(), Color(255, 255, 255, 40))
+                RenderUtils.drawRect(position.getX().toFloat(), position.getY().toFloat(), it.getElementWidth().toFloat(), it.getElementHeight().toFloat(), Color(255, 255, 255, 40))
             }
         })
     }

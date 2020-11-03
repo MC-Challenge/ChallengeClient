@@ -89,7 +89,6 @@ object FontHandler : IMC {
      * @see getFont
      */
     fun getFancyFontRenderer(fileName: String, size: Int): GLFont {
-        return getFont(ResourceLocation("challenge/fonts/" + fileName + if (fileName.endsWith(".ttf")) "" else ".ttf"), size)
+        return getFont(ResourceLocation("fonts/" + fileName + if (fileName.endsWith(".ttf")) "" else ".ttf"), size)
     }
-
 }

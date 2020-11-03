@@ -21,6 +21,7 @@ import net.challenge.configu.value.impl.VNumber
 import org.lwjgl.opengl.Display
 import org.lwjgl.opengl.GL11
 import java.awt.Color
+import kotlin.math.roundToInt
 
 
 //TODO: create variables for the colors and replace
@@ -75,7 +76,7 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
     // 'settings-bar'
     private val settingsBarStartX = startX + categoryBarLength + moduleBarLength
 
-    private val categoryTopAddition = realHeightLength / 12
+    private val categoryTopAddition = realHeightLength / 30 + realHeightLength / 15
     private val settingsTopAddition = realHeightLength / 19
 
     private val categoryItemHeight = realHeightLength / 13
@@ -88,9 +89,9 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
     var mainBackgroundColor = Color(35, 34, 35)
 
     // TODO: get this piece of garbage in an separate manager/handler
-    var smallFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", realHeightLength.toInt() / 20)
-    var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", realHeightLength.toInt() / 17)
-    var bigFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", realHeightLength.toInt() / 10)
+    var smallFont: GLFont = FontHandler.getFancyFontRenderer("Raleway-Medium", realHeightLength.toInt() / 20)
+    var standardFont: GLFont = FontHandler.getFancyFontRenderer("Raleway-Medium", realHeightLength.toInt() / 17)
+    var bigFont: GLFont = FontHandler.getFancyFontRenderer("Raleway-Medium", realHeightLength.toInt() / 10)
     var iconFont: GLFont = FontHandler.getFancyFontRenderer("ClickGUI", 40)
 
     init {
@@ -117,7 +118,7 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
                 .setPosition(Position(moduleBarStartX, startY))
                 .setSize(moduleBarLength.toInt(), realHeightLength.toInt() / 20)
 
-        val font = FontHandler.getFancyFontRenderer("raleway/raleway-medium", (categoryItemHeight.toInt()/1.6).toInt())
+        val font = FontHandler.getFancyFontRenderer("Raleway-Medium", (categoryItemHeight.toInt() / 1.6).toInt())
         ModuleCategory.values().forEach { m ->
             categoryList.widgets(
                     CategoryButton(m)
@@ -149,10 +150,9 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
      */
     private fun loadModules(modulesList: WidgetList, settingsList: WidgetList) {
         modulesList.clear()
-        val font = FontHandler.getFancyFontRenderer("raleway/raleway-medium", (moduleItemHeight.toInt()/1.2).toInt())
+        val font = FontHandler.getFancyFontRenderer("Raleway-Medium", (moduleItemHeight.toInt() / 1.2).toInt())
         ClientCore.moduleRegistry.modules.stream().filter { it.category == currentCategory }.forEach { module ->
             val settingWidgets = getWSettingsFromModule(module)
-            settingWidgets.forEach { it.setHeight(moduleItemHeight.toInt()) }
             modulesList.widgets(
                     ModuleButton(module)
                             .setColor(moduleBackgroundColor)
@@ -173,6 +173,7 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
     }
 
     override fun render(mouseX: Int, mouseY: Int) {
+
         super.render(mouseX, mouseY)
 
         // ## Settings-Bar ## //
@@ -180,7 +181,7 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
         if (currentModule != null) {
             GL11.glPushMatrix()
             GL11.glEnable(GL11.GL_BLEND)
-            smallFont.drawStringWithShadow(currentModule!!.category.publicName + "/" + currentModule!!.name, settingsBarStartX + 3, startY + ((realHeightLength / 20) / 2 - standardFont.height / 2), Color(133, 134, 137).rgb)
+            smallFont.drawStringWithShadow(currentModule!!.category.publicName + "/" + currentModule!!.name, settingsBarStartX + 3, moduleBarTopEndY - (smallFont.height + 2), Color(133, 134, 137).rgb)
             GL11.glDisable(GL11.GL_BLEND)
             GL11.glPopMatrix()
         }
@@ -209,7 +210,7 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
         val nameLength = bigFontWidth + standardFontWidth
 
         val fontX = startX + (categoryBarLength / 2 - nameLength / 2)
-        val fontY = startY + 14.0
+        val fontY = startY + realHeightLength / 30
 
         GL11.glPushMatrix()
         GL11.glEnable(GL11.GL_BLEND)
@@ -242,16 +243,16 @@ class SettingScreen : WidgetScreen(), IScaledResolutionHelper {
         if (value is Boolean)
             return Checkbox(setting.name)
                     .setValue(value)
+                    .setHeight((moduleItemHeight / 1.6).toInt())
                     .onSelect {
                         setting.setObject(it.value)
                     }
 
         if (setting is VNumber) {
 
-            //TODO: Fix that piece of bad shit (cannot change the slider width although the setWidth method)
             val slider = Slider(setting.name)
-                    .setWidth(40)
                     .setValue(setting.value)
+                    .setHeight((moduleItemHeight.toInt()/1.2).roundToInt())
                     .onSelect { setting.setObject(it.value) }
                     .setDecimalPlaces(setting.decimalPlaces)
 

@@ -44,7 +44,10 @@ import net.challenge.client.ui.hud.customHud.renderer.IHudRenderer
 import net.challenge.client.ui.screen.WidgetScreen
 import net.challenge.configu.config.IConfig
 import net.challenge.configu.config.JsonConfig
+import net.minecraft.client.Minecraft
+import net.minecraft.client.resources.IResource
 import net.minecraft.util.ChatComponentText
+import net.minecraft.util.ResourceLocation
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.File

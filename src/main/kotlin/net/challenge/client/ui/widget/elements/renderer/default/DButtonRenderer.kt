@@ -30,9 +30,6 @@ import java.awt.Color
  */
 class DButtonRenderer : IWidgetRenderer<Button> {
 
-    // TODO: get this piece of garbage in an separate manager/handler
-    private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
-
     override fun render(widget: Button, mouseX: Int, mouseY: Int) {
         val standardFont = ClientCore.customHud.settingScreen!!.standardFont
         val x = widget.position.getX()

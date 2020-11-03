@@ -9,7 +9,7 @@ import java.awt.Color
 
 class ModuleButton(val module: IModule) : ClickableWidget<ModuleButton>(), ITextWidget<ModuleButton> {
 
-    override var font: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
+    override var font: GLFont = FontHandler.getFancyFontRenderer("Raleway-Medium", 16)
 
     var color: Color = Color(50, 50, 50)
 

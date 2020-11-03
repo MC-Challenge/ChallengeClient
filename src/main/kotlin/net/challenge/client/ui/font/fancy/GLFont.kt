@@ -1,5 +1,6 @@
 package net.challenge.client.ui.font.fancy
 
+import net.challenge.client.ui.widget.utils.RenderUtils
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
@@ -188,16 +189,21 @@ class GLFont(val regularGlyph: Glyph, private val boldGlyph: Glyph?, private val
             var character = text[i]
             if (character == '\u00a7') on = true else if (on && character >= '0' && character <= 'r') {
                 val colorIndex = "0123456789abcdefklmnor".indexOf(character)
-                if (colorIndex < 16) {
-                    boldStyle = false
-                    italicStyle = false
-                } else if (colorIndex == 17) {
-                    boldStyle = true
-                } else if (colorIndex == 20) {
-                    italicStyle = true
-                } else if (colorIndex == 21) {
-                    boldStyle = false
-                    italicStyle = false
+                when {
+                    colorIndex < 16 -> {
+                        boldStyle = false
+                        italicStyle = false
+                    }
+                    colorIndex == 17 -> {
+                        boldStyle = true
+                    }
+                    colorIndex == 20 -> {
+                        italicStyle = true
+                    }
+                    colorIndex == 21 -> {
+                        boldStyle = false
+                        italicStyle = false
+                    }
                 }
                 i++
                 on = false

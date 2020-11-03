@@ -18,8 +18,6 @@
 package net.challenge.client.ui.widget.elements.renderer.default
 
 import net.challenge.client.core.ClientCore
-import net.challenge.client.ui.font.FontHandler
-import net.challenge.client.ui.font.fancy.GLFont
 import net.challenge.client.ui.widget.elements.Checkbox
 import net.challenge.client.ui.widget.renderer.IWidgetRenderer
 import net.challenge.client.ui.widget.utils.RenderUtils
@@ -30,9 +28,6 @@ import java.awt.Color
  * Default renderer for a checkbox
  */
 class DCheckboxRenderer : IWidgetRenderer<Checkbox> {
-
-    // TODO: get this piece of garbage in an separate manager/handler
-    private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
 
     override fun render(widget: Checkbox, mouseX: Int, mouseY: Int) {
         val x = widget.position.getX().toFloat()
@@ -45,26 +40,29 @@ class DCheckboxRenderer : IWidgetRenderer<Checkbox> {
         RenderUtils.drawRect(x, y, width, height, Color(35, 34, 35))
 
         val padding = 5
-        val first = height - 2
+        val length = 20
 
         //draws the box
-        Gui.drawRect((x + width - first).toInt(), (y + 1).toInt(), (x + width - padding).toInt(), (y + height - 1).toInt(), Color(15, 109, 212).rgb)
+        Gui.drawRect((x + width - padding).toInt(), y.toInt(), (x + width - padding - length).toInt(), (y + height - 2).toInt(), Color(15, 109, 212).rgb)
 
-        if(widget.value) {
+        if (widget.value) {
 
             //is the width-add-factor
-            val widthAddition = 12.4
+            val widthAddition = length / 3.0
+            val widthAdditionFirst = widthAddition + 2
+            val heightAdditionFirst = height / 6.0
+            val heightAdditionSecond = height / 4.0
 
             //draws the first Hook
-            RenderUtils.drawVerticalLine(x + width -4- widthAddition, y + 4.0, x + width - 10 - widthAddition, y + height - 5.0, 2.0F, Color(250, 255, 255).rgb)
+            RenderUtils.drawVerticalLine(x + width - widthAdditionFirst, y + heightAdditionFirst, x + width - 10 - widthAddition, y + height - 5.0, 2.0F, Color(250, 255, 255).rgb)
 
             //draws the second Hook
-            RenderUtils.drawVerticalLine(x + width - 10 - widthAddition, y + height - 5.0, x + width - 13 - widthAddition, y + height - 20.0, 2.0F, Color(250, 255, 255).rgb)
+            RenderUtils.drawVerticalLine(x + width - 14 - widthAddition, y + heightAdditionSecond, x + width - 10 - widthAddition, y + height - 5.0, 2.0F, Color(250, 255, 255).rgb)
 
         }
 
         val fontColor = Color.WHITE
 
-        standardFont.drawStringWithShadow(widget.name, x + 2.0, y.toDouble() + height / 2 - standardFont.height/2, fontColor.rgb)
+        standardFont.drawStringWithShadow(widget.name, x + 2.0, y.toDouble() + height / 2 - standardFont.height / 2, fontColor.rgb)
     }
 }
