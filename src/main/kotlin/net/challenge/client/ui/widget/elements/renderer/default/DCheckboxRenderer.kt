@@ -44,27 +44,27 @@ class DCheckboxRenderer : IWidgetRenderer<Checkbox> {
 
         RenderUtils.drawRect(x, y, width, height, Color(35, 34, 35))
 
-        val padding = 13
-        val first = 16
+        val padding = 5
+        val first = height - 2
 
         //draws the box
-        Gui.drawRect((x + width - first).toInt(), (y + 1).toInt(), (x + width - (first + padding)).toInt(), (y + height - 1).toInt(), Color(15, 109, 212).rgb)
+        Gui.drawRect((x + width - first).toInt(), (y + 1).toInt(), (x + width - padding).toInt(), (y + height - 1).toInt(), Color(15, 109, 212).rgb)
 
         if(widget.value) {
 
             //is the width-add-factor
-            val widthAddition = 13.4
+            val widthAddition = 12.4
 
             //draws the first Hook
             RenderUtils.drawVerticalLine(x + width -4- widthAddition, y + 4.0, x + width - 10 - widthAddition, y + height - 5.0, 2.0F, Color(250, 255, 255).rgb)
 
             //draws the second Hook
-            RenderUtils.drawVerticalLine(x + width - 10 - widthAddition, y + height - 5.0, x + width - 13 - widthAddition, y + height - 8.0, 2.0F, Color(250, 255, 255).rgb)
+            RenderUtils.drawVerticalLine(x + width - 10 - widthAddition, y + height - 5.0, x + width - 13 - widthAddition, y + height - 20.0, 2.0F, Color(250, 255, 255).rgb)
 
         }
 
         val fontColor = Color.WHITE
 
-        standardFont.drawStringWithShadow(widget.name, x + 10.0, y.toDouble(), fontColor.rgb)
+        standardFont.drawStringWithShadow(widget.name, x + 2.0, y.toDouble() + height / 2 - standardFont.height/2, fontColor.rgb)
     }
 }
