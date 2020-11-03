@@ -27,7 +27,7 @@ class ClientInfo : IClientInfo {
 
     override val name: String = "ChallengeClient"
 
-    override val version: IVersion = Version(1, 0, 0)
+    override val version: IVersion = Version(1, 1, 0)
 
     override val creators: Array<String> = arrayOf("Madakai", "6AM")
 
