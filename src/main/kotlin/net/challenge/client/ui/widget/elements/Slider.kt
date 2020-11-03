@@ -76,7 +76,7 @@ class Slider(val name: String) : SelectableWidget<Slider>(), IGuiMouseRelease, I
     override fun render(mouseX: Int, mouseY: Int) {
         if (dragging) {
             val diff = maximum - minimum
-            value = max(min((mouseX.toDouble() - position.getAbsoluteX().toDouble()) / width.toDouble() * diff + minimum, maximum), minimum)
+            value = max(min((mouseX.toDouble() - position.getX().toDouble()) / width.toDouble() * diff + minimum, maximum), minimum)
         }
 
         super.render(mouseX, mouseY)

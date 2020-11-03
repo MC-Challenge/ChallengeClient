@@ -74,8 +74,8 @@ abstract class SimpleHudModule : HudModule() {
         if (!hasPrefix.value)
             text = getValue()
 
-        if (hasShadow.value) font.drawStringWithShadow(text, position.getAbsoluteX().toFloat(), position.getAbsoluteY().toFloat(), Color.WHITE.rgb)
-        else font.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), Color.WHITE.rgb)
+        if (hasShadow.value) font.drawStringWithShadow(text, position.getX().toFloat(), position.getY().toFloat(), Color.WHITE.rgb)
+        else font.drawString(text, position.getX().toInt(), position.getY().toInt(), Color.WHITE.rgb)
     }
 
     override fun getElementWidth(): Int {

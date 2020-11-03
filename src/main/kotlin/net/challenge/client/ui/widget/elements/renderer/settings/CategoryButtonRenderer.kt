@@ -12,8 +12,8 @@ import java.awt.Color
 class CategoryButtonRenderer : IWidgetRenderer<CategoryButton> {
 
     override fun render(widget: CategoryButton, mouseX: Int, mouseY: Int) {
-        val x = widget.position.getAbsoluteX()
-        val y = widget.position.getAbsoluteY()
+        val x = widget.position.getX()
+        val y = widget.position.getY()
 
         val hover = widget.isHover(mouseX, mouseY)
 

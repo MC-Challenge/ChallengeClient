@@ -87,7 +87,6 @@ class Glyph(var font: Font, val isAntiAliasingEnabled: Boolean, val isFractional
         val pageHeight = glyph1.height / imgSize.toFloat()
         val width = glyph1.width.toFloat()
         val height = glyph1.height.toFloat()
-        println(ch)
         GL11.glBegin(GL11.GL_TRIANGLES)
         GL11.glTexCoord2f(pageX + pageWidth, pageY)
         GL11.glVertex2f(x + width, y)

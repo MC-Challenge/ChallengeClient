@@ -64,11 +64,11 @@ object HudReach : HudModule(), IHudPreview {
 
         textToRender = if (reach == null) hasntAttacked else reach as String
 
-        FontHandler.mcFontRenderer.drawString(textToRender, position.getAbsoluteX(), position.getAbsoluteY(), Color.WHITE.rgb)
+        FontHandler.mcFontRenderer.drawString(textToRender, position.getX().toInt(), position.getY().toInt(), Color.WHITE.rgb)
     }
 
     override fun drawPreview(mouseX: Int, mouseY: Int, partialTicks: Float) {
-        FontHandler.mcFontRenderer.drawString(hasntAttacked, position.getAbsoluteX(), position.getAbsoluteY(), Color.WHITE.rgb)
+        FontHandler.mcFontRenderer.drawString(hasntAttacked, position.getX().toInt(), position.getY().toInt(), Color.WHITE.rgb)
     }
 
     override fun getElementWidth(): Int {

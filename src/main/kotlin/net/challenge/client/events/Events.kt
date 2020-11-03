@@ -63,3 +63,9 @@ class WorldEvent(val worldClient: WorldClient?)
  * @param targetEntity The entity that is attacked.
  */
 class AttackEntityEvent(val entityPlayer: EntityPlayer, targetEntity: Entity) : Cancellable()
+
+/**
+ * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
+ * use this to react to sunlight and start to burn.
+ */
+class LivingUpdateEvent

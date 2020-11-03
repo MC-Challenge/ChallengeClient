@@ -1,34 +1,33 @@
 package net.challenge.client.ui.position
 
-class Position(
+/**
+ * Simple position in pixels.
+ */
+class Position(x: Number = 0, y: Number = 0) : IPosition {
 
-        private var x: Double = 0.0,
+    /**
+     * X-Position in pixels.
+     */
+    private var x: Double = x.toDouble()
 
-        private var y: Double = 0.0
+    /**
+     * Y-Position in pixels.
+     */
+    private var y: Double = y.toDouble()
 
-) : IPosition {
-
-
-    override fun getAbsoluteX(): Int {
-        return x.toInt()
-    }
-
-    override fun getAbsoluteY(): Int {
-        return y.toInt()
-    }
-
-    override fun getRelativeX(): Double {
+    override fun getX(): Double {
         return x
     }
 
-    override fun getRelativeY(): Double {
+    override fun getY(): Double {
         return y
     }
 
-    override fun setAbsolute(x: Int, y: Int) {
-
+    override fun setX(x: Number) {
+        this.x = x.toDouble()
     }
 
-    override fun setRelative(x: Double, y: Double) {
+    override fun setY(y: Number) {
+        this.y = y.toDouble()
     }
 }

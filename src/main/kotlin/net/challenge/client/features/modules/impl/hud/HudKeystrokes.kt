@@ -46,8 +46,8 @@ object HudKeystrokes : HudModule() {
         val keyLeftColor: Int = if (Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindLeft.keyCode)) Color(246, 171, 108).rgb else Integer.MIN_VALUE
         val keyRightColor: Int = if (Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindRight.keyCode)) Color(246, 239, 166).rgb else Integer.MIN_VALUE
 
-        val forwardXPos = (position.getAbsoluteX() + (start + buttonWidth + 2))
-        val forwardYPos = (position.getAbsoluteY() + getElementHeight() / 2)
+        val forwardXPos = (position.getX() + (start + buttonWidth + 2)).toInt()
+        val forwardYPos = (position.getY() + getElementHeight() / 2).toInt()
 
         val font: IFontRenderer = FontHandler.mcFontRenderer
 
@@ -68,8 +68,8 @@ object HudKeystrokes : HudModule() {
                 else -> Keyboard.getKeyName(Minecraft.getMinecraft().gameSettings.keyBindRight.keyCode).toString()
             }
 
-            val keyStartX = (position.getAbsoluteX() + start)
-            val keyStartY = (position.getAbsoluteY() + getElementHeight() / 2)
+            val keyStartX = (position.getX() + start).toInt()
+            val keyStartY = (position.getY() + getElementHeight() / 2).toInt()
 
             Gui.drawRect(keyStartX, keyStartY + 2, keyStartX + buttonWidth, keyStartY + 2 + buttonHeight, keyColor)
             font.drawString(character, (keyStartX + 1 + buttonWidth / 2) - font.getStringWidth(character) / 2, keyStartY + 2 + buttonHeight / 2 - font.getFontHeight() / 2, -1);

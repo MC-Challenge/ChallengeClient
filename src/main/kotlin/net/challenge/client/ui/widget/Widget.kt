@@ -18,16 +18,15 @@
 package net.challenge.client.ui.widget
 
 import net.challenge.client.ui.position.IPosition
-import net.challenge.client.ui.position.ScaledPosition
+import net.challenge.client.ui.position.scaled.McScaledPosition
 import net.challenge.client.ui.widget.renderer.WidgetRenderers
-import java.awt.Color
 
 /**
  * Default implementation of [IGuiWidget]
  */
 open class Widget<W : Widget<W>>() : IGuiWidget<W> {
 
-    override var position: IPosition = ScaledPosition(0, 0)
+    override var position: IPosition = McScaledPosition(0, 0)
 
     override var width: Int = 0
 

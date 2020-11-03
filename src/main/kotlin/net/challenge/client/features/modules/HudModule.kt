@@ -20,11 +20,11 @@ package net.challenge.client.features.modules
 import net.challenge.client.core.ClientCore
 import net.challenge.client.ui.hud.customHud.element.IHudElement
 import net.challenge.client.ui.position.IPosition
-import net.challenge.client.ui.position.ScaledPosition
+import net.challenge.client.ui.position.scaled.McScaledPosition
 
 abstract class  HudModule : Module(), IHudElement {
 
-    override var position: IPosition = ScaledPosition(10, 10)
+    override var position: IPosition = McScaledPosition(10.0, 10.0)
 
     override fun onEnable() {
         ClientCore.hudRenderer.enabledElements += this

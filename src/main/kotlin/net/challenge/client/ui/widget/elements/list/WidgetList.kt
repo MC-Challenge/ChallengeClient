@@ -5,14 +5,14 @@ import net.challenge.client.ui.font.FontHandler
 import net.challenge.client.ui.font.fancy.GLFont
 import net.challenge.client.ui.position.IPosition
 import net.challenge.client.ui.position.Position
-import net.challenge.client.ui.position.ScaledPosition
 import net.challenge.client.ui.screen.container.WidgetContainer
 import net.challenge.client.ui.widget.IGuiWidget
+import net.challenge.client.ui.widget.utils.RenderUtils
 import net.challenge.client.ui.widget.utils.Spacing
 
 class WidgetList : WidgetContainer(), IItemList<WidgetList> {
 
-    override var position: IPosition = Position(0.0, 0.0)
+    override var position: IPosition = Position(0,0)
 
     override var width: Int = 0
 
@@ -36,14 +36,14 @@ class WidgetList : WidgetContainer(), IItemList<WidgetList> {
         if (widgets.isEmpty()) {
             val text = "No Items."
             val textWidth = standardFont.getWidth(text)
-            standardFont.drawStringWithShadow(text, position.getAbsoluteX().toDouble() + (width / 2 - textWidth/2), position.getAbsoluteY().toDouble() + (height / 2 - standardFont.height / 2), -1)
+            standardFont.drawStringWithShadow(text, position.getX() + (width / 2 - textWidth/2), position.getX() + (height / 2 - standardFont.height / 2), -1)
         }
     }
 
     override fun renderItem(index: Int, x: Float, y: Float, width: Float, mouseX: Int, mouseY: Int): Float {
         val widget = visibleWidgets[index]
 
-        widget.position.setAbsolute(x.toInt(), y.toInt())
+        widget.position.set(x.toInt(), y.toInt())
         widget.setWidth(width.toInt())
         widget.render(mouseX, mouseY)
 

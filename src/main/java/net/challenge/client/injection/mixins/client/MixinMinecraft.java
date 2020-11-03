@@ -16,6 +16,7 @@ package net.challenge.client.injection.mixins.client;
 
 import net.challenge.client.core.ClientCore;
 import net.challenge.client.core.info.IClientInfo;
+import net.challenge.client.events.KeyEvent;
 import net.challenge.client.events.WorldEvent;
 import net.challenge.client.ui.animation.AnimationUtil;
 import net.challenge.client.ui.hud.customHud.GuiCustomHud;
@@ -77,7 +78,14 @@ public class MixinMinecraft {
 
     @Inject(method = "runTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;dispatchKeypresses()V", shift = At.Shift.AFTER))
     private void runTick(CallbackInfo callbackInfo) {
-        final int key = Keyboard.getEventKey();
+        if (!Keyboard.getEventKeyState()) return;
+        if (currentScreen != null) return;
+
+        final int key = Keyboard.getEventKey() == 0
+                ? Keyboard.getEventCharacter() + 256
+                : Keyboard.getEventKey();
+
+        ClientCore.INSTANCE.getEventBus().post(new KeyEvent(key));
 
         if (key == Keyboard.KEY_RSHIFT)
             Minecraft.getMinecraft().displayGuiScreen(ClientCore.INSTANCE.getCustomHud());
