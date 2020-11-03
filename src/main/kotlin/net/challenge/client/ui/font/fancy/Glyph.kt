@@ -11,6 +11,8 @@ import java.awt.font.FontRenderContext
 import java.awt.geom.AffineTransform
 import java.awt.image.BufferedImage
 import java.util.*
+import kotlin.math.ceil
+import kotlin.math.sqrt
 
 class Glyph(var font: Font, val isAntiAliasingEnabled: Boolean, val isFractionalMetricsEnabled: Boolean) {
     private var imgSize = 0
@@ -28,13 +30,13 @@ class Glyph(var font: Font, val isAntiAliasingEnabled: Boolean, val isFractional
         val affineTransform = AffineTransform()
         val fontRenderContext = FontRenderContext(affineTransform, isAntiAliasingEnabled, isFractionalMetricsEnabled)
         for (ch in chars) {
-            val bounds = font.getStringBounds(Character.toString(ch), fontRenderContext)
+            val bounds = font.getStringBounds(ch.toString(), fontRenderContext)
             if (maxWidth < bounds.width) maxWidth = bounds.width
             if (maxHeight < bounds.height) maxHeight = bounds.height
         }
         maxWidth += 2.0
         maxHeight += 2.0
-        imgSize = Math.ceil(Math.max(Math.ceil(Math.sqrt(maxWidth * maxWidth * chars.size) / maxWidth), Math.ceil(Math.sqrt(maxHeight * maxHeight * chars.size) / maxHeight)) * Math.max(maxWidth, maxHeight)).toInt() + 1
+        imgSize = ceil(ceil(sqrt(maxWidth * maxWidth * chars.size) / maxWidth).coerceAtLeast(ceil(sqrt(maxHeight * maxHeight * chars.size) / maxHeight)) * maxWidth.coerceAtLeast(maxHeight)).toInt() + 1
         bufferedImage = BufferedImage(imgSize, imgSize, BufferedImage.TYPE_INT_ARGB)
         val g = bufferedImage!!.graphics as Graphics2D
         g.font = font
@@ -47,7 +49,7 @@ class Glyph(var font: Font, val isAntiAliasingEnabled: Boolean, val isFractional
         val fontMetrics = g.fontMetrics
         for (ch in chars) {
             val glyph1 = Glyph1()
-            val bounds = fontMetrics.getStringBounds(Character.toString(ch), g)
+            val bounds = fontMetrics.getStringBounds(ch.toString(), g)
             glyph1.width = bounds.bounds.width + 8
             glyph1.height = bounds.bounds.height
             if (posX + glyph1.width >= imgSize) {
@@ -59,7 +61,7 @@ class Glyph(var font: Font, val isAntiAliasingEnabled: Boolean, val isFractional
             glyph1.y = posY
             if (glyph1.height > maxFontHeight) maxFontHeight = glyph1.height
             if (glyph1.height > currentCharHeight) currentCharHeight = glyph1.height
-            g.drawString(Character.toString(ch), posX + 2, posY + fontMetrics.ascent)
+            g.drawString(ch.toString(), posX + 2, posY + fontMetrics.ascent)
             posX += glyph1.width
             glyphCharacterMap[ch] = glyph1
         }
@@ -85,6 +87,7 @@ class Glyph(var font: Font, val isAntiAliasingEnabled: Boolean, val isFractional
         val pageHeight = glyph1.height / imgSize.toFloat()
         val width = glyph1.width.toFloat()
         val height = glyph1.height.toFloat()
+        println(ch)
         GL11.glBegin(GL11.GL_TRIANGLES)
         GL11.glTexCoord2f(pageX + pageWidth, pageY)
         GL11.glVertex2f(x + width, y)
@@ -111,14 +114,5 @@ class Glyph(var font: Font, val isAntiAliasingEnabled: Boolean, val isFractional
         var y = 0
         var width = 0
         var height = 0
-
-        constructor(x: Int, y: Int, width: Int, height: Int) {
-            this.x = x
-            this.y = y
-            this.width = width
-            this.height = height
-        }
-
-        constructor() {}
     }
 }

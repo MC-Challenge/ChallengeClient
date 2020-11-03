@@ -79,37 +79,45 @@ class GLFont(val regularGlyph: Glyph, private val boldGlyph: Glyph?, private val
             val c0 = text[i]
             if (c0.toInt() == 167 && i + 1 < text.length) {
                 var i1 = "0123456789abcdefklmnor".indexOf(text.toLowerCase(Locale.ENGLISH)[i + 1])
-                if (i1 < 16) {
-                    randomStyle = false
-                    boldStyle = false
-                    strikethroughStyle = false
-                    underlineStyle = false
-                    italicStyle = false
-                    if (i1 < 0) {
-                        i1 = 15
+                when {
+                    i1 < 16 -> {
+                        randomStyle = false
+                        boldStyle = false
+                        strikethroughStyle = false
+                        underlineStyle = false
+                        italicStyle = false
+                        if (i1 < 0) {
+                            i1 = 15
+                        }
+                        if (shadow) {
+                            i1 += 16
+                        }
+                        val j1 = colorCode[i1]
+                        GlStateManager.color((j1 shr 16).toFloat() / 255.0f, (j1 shr 8 and 255).toFloat() / 255.0f, (j1 and 255).toFloat() / 255.0f, alpha)
                     }
-                    if (shadow) {
-                        i1 += 16
+                    i1 == 16 -> {
+                        randomStyle = true
                     }
-                    val j1 = colorCode[i1]
-                    GlStateManager.color((j1 shr 16).toFloat() / 255.0f, (j1 shr 8 and 255).toFloat() / 255.0f, (j1 and 255).toFloat() / 255.0f, alpha)
-                } else if (i1 == 16) {
-                    randomStyle = true
-                } else if (i1 == 17) {
-                    boldStyle = true
-                } else if (i1 == 18) {
-                    strikethroughStyle = true
-                } else if (i1 == 19) {
-                    underlineStyle = true
-                } else if (i1 == 20) {
-                    italicStyle = true
-                } else {
-                    randomStyle = false
-                    boldStyle = false
-                    strikethroughStyle = false
-                    underlineStyle = false
-                    italicStyle = false
-                    GlStateManager.color(red, blue, green, alpha)
+                    i1 == 17 -> {
+                        boldStyle = true
+                    }
+                    i1 == 18 -> {
+                        strikethroughStyle = true
+                    }
+                    i1 == 19 -> {
+                        underlineStyle = true
+                    }
+                    i1 == 20 -> {
+                        italicStyle = true
+                    }
+                    else -> {
+                        randomStyle = false
+                        boldStyle = false
+                        strikethroughStyle = false
+                        underlineStyle = false
+                        italicStyle = false
+                        GlStateManager.color(red, blue, green, alpha)
+                    }
                 }
                 ++i
             } else {

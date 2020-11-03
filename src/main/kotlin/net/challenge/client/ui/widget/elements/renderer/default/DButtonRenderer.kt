@@ -17,13 +17,12 @@
 
 package net.challenge.client.ui.widget.elements.renderer.default
 
+import net.challenge.client.core.ClientCore
 import net.challenge.client.ui.font.FontHandler
 import net.challenge.client.ui.font.fancy.GLFont
 import net.challenge.client.ui.widget.elements.Button
 import net.challenge.client.ui.widget.renderer.IWidgetRenderer
 import net.challenge.client.ui.widget.utils.RenderUtils
-import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.Gui
 import java.awt.Color
 
 /**
@@ -35,6 +34,7 @@ class DButtonRenderer : IWidgetRenderer<Button> {
     private var standardFont: GLFont = FontHandler.getFancyFontRenderer("raleway/raleway-medium", 16)
 
     override fun render(widget: Button, mouseX: Int, mouseY: Int) {
+        val standardFont = ClientCore.customHud.settingScreen!!.standardFont
         val x = widget.position.getX()
         val y = widget.position.getY()
 
