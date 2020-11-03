@@ -57,13 +57,13 @@ public class MixinRenderGlobal {
                             .expand(0.0010000000474974513D, 0.0010000000474974513D, 0.0010000000474974513D)
                             .offset(-d0, -d1, -d2);
 
-                    final Color filled = blockOverlay.getFilled().getValue();
+                    final Color filled = blockOverlay.getFilled();
                     if (filled.getAlpha() != 0) {
                         GL11.glColor4f(filled.getRed() / 255F, filled.getGreen() / 255F, filled.getBlue() / 255F, filled.getAlpha() / 255F);
                         drawFilledBoundingBox(box);
                     }
 
-                    final Color outline = blockOverlay.getOutline().getValue();
+                    final Color outline = blockOverlay.getOutline();
                     if (outline.getAlpha() != 0) {
                         GL11.glLineWidth(blockOverlay.getOutlineWidth().getValue().floatValue());
                         RenderGlobal.drawOutlinedBoundingBox(box, outline.getRed(), outline.getGreen(), outline.getBlue(), outline.getAlpha());

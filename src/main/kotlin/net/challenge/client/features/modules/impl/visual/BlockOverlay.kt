@@ -12,11 +12,13 @@ import java.awt.Color
 @ModuleInfo("BlockOverlay", "", ModuleCategory.COSMETICS)
 object BlockOverlay : Module() {
 
-    @VTag("Outline")
-    var outline = VColor(Color(0, 0, 255))
+    //@VTag("Outline")
+    //val outline = VColor(Color(0, 0, 255))
+    val outline = Color(0, 0, 255)
 
-    @VTag("Filled")
-    val filled = VColor(Color(0, 0, 255, 20))
+    //@VTag("Filled")
+    //val filled = VColor(Color(0, 0, 255, 20))
+    val filled = Color(0, 0, 255, 20)
 
     @VTag("Outline Width")
     val outlineWidth = VNumber(2.0F, 0.1, 5)
