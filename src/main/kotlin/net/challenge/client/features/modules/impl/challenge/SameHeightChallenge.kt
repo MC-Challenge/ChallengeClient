@@ -11,6 +11,7 @@ import net.challenge.client.features.modules.annotations.ModuleInfo
 import net.challenge.client.features.teammate.ITeammateHandler
 import net.challenge.client.ui.animation.AnimationUtil
 import net.challenge.client.ui.widget.utils.RenderUtils
+import net.challenge.client.utils.BlurUtil
 import net.challenge.client.utils.TimeHelper
 import net.challenge.configu.value.VTag
 import net.challenge.configu.value.impl.VBool
@@ -40,6 +41,9 @@ class SameHeightChallenge(
     @VTag("TimeToBlack", "Its the time, to wait, until gets black")
     private val timeToBlack = VNumber(0.3, 0.0, 3.0)
 
+    @VTag("Blur", "If its gonna blur, or gets black")
+    private val blur = VBool(true)
+
     private val timeHelper: TimeHelper = TimeHelper()
     private var fade: Double = 0.0
 
@@ -48,8 +52,11 @@ class SameHeightChallenge(
             EventHook {
                 val sr = ScaledResolution(mc)
                 if (timeHelper.hasReached(timeToBlack.value * 1000)) {
-                    fade = AnimationUtil.slide(fade, 0.0, 255.0, 0.05, true)
-                    RenderUtils.drawRect(0.0F, 0.0F, sr.scaledWidth.toFloat(), sr.scaledHeight.toFloat(), Color(0, 0, 0, fade.toInt()).rgb)
+                    fade = AnimationUtil.slide(fade, 0.0, if (!blur.value) 250.0 else 150.0, 0.05, true)
+                    if (blur.value)
+                        BlurUtil.blur(fade.roundToInt().toFloat(), it.partialTicks)
+                    else
+                        RenderUtils.drawRect(0.0F, 0.0F, sr.scaledWidth.toFloat(), sr.scaledHeight.toFloat(), Color(0, 0, 0, fade.toInt()).rgb)
                 }
             },
 
@@ -75,7 +82,6 @@ class SameHeightChallenge(
                 fade = 0.0
                 return@forEach
             }
-            fade = AnimationUtil.slide(fade, 0.0, 255.0, 0.002, true)
             return true
         }
 

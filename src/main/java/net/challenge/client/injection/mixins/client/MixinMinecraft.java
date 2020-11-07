@@ -44,16 +44,9 @@ public class MixinMinecraft {
     @Shadow
     public GuiScreen currentScreen;
 
-    @Shadow
-    public Timer timer;
-
-    @Shadow
-    public Framebuffer framebufferMc;
-
     @Inject(method = "startGame", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;checkGLError(Ljava/lang/String;)V", ordinal = 2, shift = At.Shift.AFTER))
     private void startGame(CallbackInfo callbackInfo) {
         ClientCore.INSTANCE.onPostStart();
-        BlurUtil.INSTANCE.setFramebuffer(framebufferMc);
     }
 
     @Inject(method = "createDisplay", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/Display;setTitle(Ljava/lang/String;)V", shift = At.Shift.AFTER))
@@ -72,8 +65,6 @@ public class MixinMinecraft {
 
         AnimationUtil.INSTANCE.setLastFrame((float) Minecraft.getSystemTime());
         AnimationUtil.INSTANCE.setDeltaTime((float) deltaTime);
-
-        BlurUtil.INSTANCE.setRenderPartialTicks(timer.renderPartialTicks);
     }
 
     @Inject(method = "runTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;dispatchKeypresses()V", shift = At.Shift.AFTER))
