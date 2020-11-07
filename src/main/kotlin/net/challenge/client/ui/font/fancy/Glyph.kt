@@ -1,5 +1,6 @@
 package net.challenge.client.ui.font.fancy
 
+import net.challenge.client.ui.widget.utils.RenderUtils
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.texture.DynamicTexture
 import org.lwjgl.opengl.GL11
@@ -12,6 +13,7 @@ import java.awt.geom.AffineTransform
 import java.awt.image.BufferedImage
 import java.util.*
 import kotlin.math.ceil
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 class Glyph(var font: Font, val isAntiAliasingEnabled: Boolean, val isFractionalMetricsEnabled: Boolean) {
@@ -80,6 +82,7 @@ class Glyph(var font: Font, val isAntiAliasingEnabled: Boolean, val isFractional
     }
 
     fun drawChar(ch: Char, x: Float, y: Float): Float {
+
         val glyph1 = glyphCharacterMap[ch] ?: throw IllegalArgumentException("'$ch' wasn't found")
         val pageX = glyph1.x / imgSize.toFloat()
         val pageY = glyph1.y / imgSize.toFloat()
@@ -87,6 +90,7 @@ class Glyph(var font: Font, val isAntiAliasingEnabled: Boolean, val isFractional
         val pageHeight = glyph1.height / imgSize.toFloat()
         val width = glyph1.width.toFloat()
         val height = glyph1.height.toFloat()
+
         GL11.glBegin(GL11.GL_TRIANGLES)
         GL11.glTexCoord2f(pageX + pageWidth, pageY)
         GL11.glVertex2f(x + width, y)
@@ -95,11 +99,11 @@ class Glyph(var font: Font, val isAntiAliasingEnabled: Boolean, val isFractional
         GL11.glTexCoord2f(pageX, pageY + pageHeight)
         GL11.glVertex2f(x, y + height)
         GL11.glTexCoord2f(pageX, pageY + pageHeight)
-        GL11.glVertex2f(x, y + height)
+        GL11.glVertex2f(x, y + height) // CREATES THE ERROR
         GL11.glTexCoord2f(pageX + pageWidth, pageY + pageHeight)
         GL11.glVertex2f(x + width, y + height)
         GL11.glTexCoord2f(pageX + pageWidth, pageY)
-        GL11.glVertex2f(x + width, y)
+        GL11.glVertex2f(x + width, y) // CREATES THE ERROR
         GL11.glEnd()
         return width - 8
     }
